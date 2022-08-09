@@ -1,7 +1,30 @@
-== The story behind this solution pattern
+== Edge Analytics
 
-A description of the story that was used to build the demo and architectures of this SP.
+Within Artificial Intelligence (AI), edge analytics focuses on inference (predicting), meaning applying a previously trained model to infer a result. Depending on how critical the data is, it will dictate if it needs to be processed in real-time or stored for later analysis. Storage becomes another critical variable depending on costs, availability, or compliance requirements.
 
-== The Solution
+For Inferencing data by a trained model, we usually deploy applications containing the model on the devices or edge servers close to the site floor. At the same time, other processes select, transform (for data privacy and protection compliance) and transfer the generated raw data to create the datasets that will train the models to the core data center or cloud, where more computing power and specialized processors are available.
 
-This is a summary of the solution
+== Enabling edge data processing with AI/ML
+
+You can use the Edge to Cloud Pipelines pattern to collect, organize, process, and monitor edge data on-site. You can process your data locally, send it to your data center, cloud, or data lake, or load it into on-premises applications. Because you can process and route your data locally, you can choose to send only aggregated data to the cloud, optimizing your bandwidth usage and cloud storage costs.
+
+The following is a list of commonly used protocols in edge devices to share data with a gateway or local server:
+
+- HTTP/HTTPS
+- MQTT
+- AMQP
+- RTSP
+- WebRTC
+
+== Business Drivers
+
+There are many potential business drivers for a company to use edge analytics. Some of the most common reasons include wanting to gain insights into customer behavior, improve operational efficiency, or better understand the performance of specific products or services. Additionally, companies may use edge analytics to detect and prevent fraud or to monitor and manage risk.
+
+- Reduce time to insights -Improve accuracy of insights
+- Enable real-time decision making 
+- Faster and more accessible data collection
+- Reduce costs associated with data collection and analysis
+
+== Alternatives
+
+There are a few current alternatives to edge analytics, but they are losing traction for a few reasons. An option is to use cloud-based analytics, which requires a constant internet connection and can be expensive. Another is using a data warehouse, which can be slow and difficult to set up on the edge.

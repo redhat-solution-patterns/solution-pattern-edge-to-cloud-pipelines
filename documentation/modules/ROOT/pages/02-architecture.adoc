@@ -9,23 +9,73 @@ Introduction for the architecture of this solution pattern.
 
 == Common Challenges 
 
+To better explain and detail the reasons for the existence of this solution pattern we’ll picture some common needs and challenges amongst organizations that already have production systems and seeks innovation and modernization.
+
+=== Data acquisition and preparation
+
+As organizations continue to grapple with massive amounts of data being generated from sources ranging from device edge to off-site facilities and public and private cloud environments, data managers are encountering a new challenge: how to properly ingest and process that data to receive actionable intelligence in a timely manner.
+
+With fresh, relevant data, businesses can learn effectively and adapt to changing customer behavior. However, managing vast amounts of ingested data  and preparing to make that data ready as soon as possible—preferably in real time—for analytics and artificial intelligence and machine learning (AI/ML), is extremely challenging for data engineers.
+
+Red Hat® OpenShift® Container Platform, Red Hat OpenShift Data Foundation, Red Hat Application Foundations, and other tools can help automate the workflow of data ingestion, preparation, and management building data pipelines for hybrid cloud deployments that automate data processing upon acquisition.
+
 [#tech_stack]
 == Technology Stack
 
+=== Red Hat Technology
+
 // Change links and text here as you see fit.
-* https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat OpenShift]
-* Red Hat Application Foundation
-** https://access.redhat.com/products/quarkus[Quarkus]
-** https://www.redhat.com/en/technologies/cloud-computing/openshift/openshift-streams-for-apache-kafka[Kafka Streams]
-* Other:
-** https://www.postgresql.org/[PostgreSQL database]
-** https://helm.sh/[Helm]
+* https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat OpenShift,window=_blank]
+* https://www.redhat.com/en/products/application-foundations[Red Hat Application Foundations,window=_blank]
+** https://access.redhat.com/products/quarkus[Quarkus,window=_blank]
+** *https://access.redhat.com/products/red-hat-amq#broker[AMQ Broker,window=_blank]:* Pure-Java multi-protocol message broker. It’s built on an efficient, asynchronous core with a fast native journal for message persistence and the option of shared-nothing state replication for high availability.
+** *https://access.redhat.com/products/red-hat-amq#streams[AMQ Streams,window=_blank]:* Based on the Apache Kafka project, AMQ Streams offers a distributed backbone that allows microservices and other applications to share data with extremely high throughput and extremely low latency.
+** *Camel Extensions for Quarkus:* Brings the integration capabilities of Apache Camel and its vast component library to the Quarkus runtime.
+* https://www.redhat.com/es/technologies/cloud-computing/openshift/openshift-data-science[Red Hat OpenShift Data Science]
+* https://www.redhat.com/es/technologies/cloud-computing/openshift-container-storage[Red Hat OpenShift Data Foundation]
+
+=== Additional Technology:
+
+** https://www.postgresql.org/[PostgreSQL database,window=_blank]
+** https://helm.sh/[Helm,window=_blank]
 
 
 [#in_depth]
 == An in-depth look at the solution's architecture
 
-Technical description including all or some of the following: architecture ir ed diagrams. In-depth details of the decisions made and solutions used. Description of each service and what it is used for. Description of any integration.
+Ingesting and preparing data can help organizations deploy automated data pipelines in an event-driven architecture. Continuous data, such as sensor metrics, temperature, and vibrations can be imported directly into an Apache Kafka topic in AMQ Streams.
+
+=== Data ingestion
+
+Ingesting data into a distributed architecture allows data engineers to create pipelines that can help automate workflows and business processes.
+
+- *Discrete data:* Images, video, and records are input as objects into an RADOS Gateway (RGW) object bucket. Red Hat Ceph Storage and Red Hat OpenShift Data Foundation support RGW. 
+- *Multiprotocol:* Data in file system protocols can use the Network File System (NFS) gateway native to RGW to import files to an object bucket. Databases can connect to Kafka through a Debezium connector.
+
+=== Preparation
+
+Data can be enhanced for an enriched data discovery experience, and it can be modified at various stages of the data pipeline life cycle as required by the use case.
+
+- *Enhancement:* Objects can be enhanced with multifaceted metadata to make data discovery easier for search, analytics, and AI/ML workloads.
+- *Modification:* Objects can be modified by AI tools. For example, an image may be anonymized to obscure sensitive data.
+
+=== Management
+
+One way to manage the flow of objects into the data pipeline is to create notifications that initiate a workflow. 
+
+- *Object bucket:* Object bucket notifications can be pushed to various endpoints, such as Kafka, HTML, or Advanced Message Queuing Protocol (AMQP).
+- *Notifications:* As objects enter, exit, or are modified in the bucket, a bucket notification is made to a Kafka broker in Red Hat AMQ.
+Change data capture: Red Hat Integration tools initiate processes like data replication and microservices integration through CDC.
+
+=== Data pipeline
+
+Data moves through the pipeline and can trigger events. As the data is analyzed, it may trigger additional events creating an automated event-driven workflow.
+
+- *Eventing:* Whether discrete data has been pushed to a Kafka topic or continuous data is sent directly to the Kafka broker, the Kafka producer will call a service that writes to a Kafka topic and initiates an event. 
+- *Elasticity:* Red Hat OpenShift Serverless can receive these event triggers and spawn multiple applications such as inferencing, alerts, messaging, anonymization, and preventative remediation. 
+- *Edge to core:* Kafka can also mirror data from edge locations to a core repository for further processing.
+Life cycle: Prioritized data can be moved back into a data repository for ML retraining, constituting a continuous improvement pipeline.
+
 
 [#more_tech]
 == About the Technology Stack

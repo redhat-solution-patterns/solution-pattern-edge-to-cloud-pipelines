@@ -1,20 +1,29 @@
-= Solution Patterns: Template Name
+= Solution Pattern: Edge to Cloud Data Pipelines for AI/ML
 :page-layout: home
 :sectnums:
 :sectlinks:
 :doctype: book
 
-A brief introduction of this solution pattern.
+== Background
+
+Data goes to work in challenging and unlikely places. Places like the International Space Station. Connected vehicles. Factory floors. Ships at sea. The neighborhood pharmacy. Data might have traditionally belonged in the data center or cloud, but many important decisions must happen here⁠–⁠on the edge.
+
+To reach the human level, the responses and decisions made by machines and applications need to operate in milliseconds or even microseconds. Waiting for more than 100 ms by sending data to the cloud could be the difference between a good or a poor customer experience.
+
+When analyzing user data at the edge, like the one coming from the Internet of Things (IoT) devices or industrial machinery, the challenge is facing overwhelming data. Every device can generate a massive amount of data every second that is only valuable if it can be stored or analyzed. This data becomes even more helpful when used locally and then transferred to the core data center of the open hybrid cloud.
+
 
 include::content-overview.adoc[]
 
 [#use-cases]
 == Use cases
 
-Common use cases that can be address with this architecture are:
+Some common use cases for edge to cloud data pipelines for artificial intelligence and machine learning include: 
 
-- xyz
-- xyz
+- Preprocessing and feature extraction of data at the edge for improved performance and lower latency
+- Training and inference of machine learning models on data collected at the edge
+- Processing and analyzing sensor data for predictive analytics
+- Streaming data analysis and real-time decision making
 
 include::01-pattern.adoc[]
 

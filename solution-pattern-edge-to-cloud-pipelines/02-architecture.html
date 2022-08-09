@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Solution Pattern: Name Template :: Solution Patterns for Cloud Native Architectures</title>
+    <link rel="canonical" href="https://redhat-solution-patterns.github.io/solution-patterns/solution-pattern-edge-to-cloud-pipelines/02-architecture.html">
+    <link rel="prev" href="index.html#_content_overview">
+    <link rel="next" href="03-demo.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://redhat-solution-patterns.github.io/" target="_blank"><img
+          src="../_/img/logo.png" height="40px" alt="Cloud Native Architecture Solution Patterns"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-solution-patterns.github.io/solution-patterns">Solution Patterns for Cloud Native Architectures</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solution Patterns</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://red.ht/enhance-with-cdc">Adopt Change Data Capture for <br/>stack modernization</a>
+            <a class="navbar-item" href="https://red.ht/enhance-with-eda">Enhancing Applications with Application Services</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Other</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-gitops-patterns.io/">GitOps Solution Patterns</a>
+            <a class="navbar-item" href="https://hybrid-cloud-patterns.io/">Hybrid Cloud Solution Patterns</a>
+          </div>
+        </div>
+
+        <a class="navbar-item" target="_blank" href="https://www.redhat.com/en/products/middleware">Red Hat Application Services</a>
+        <a class="navbar-item" target="_blank" href="https://developers.redhat.com/middleware">Learn more</a>
+
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="solution-pattern-edge-to-cloud-pipelines" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html" class=" query-params-link">Edge-to-Cloud Pipelines: Gather and prepare data for AI/ML</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">1. Home page</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#use-cases">1.1 Use cases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-pattern.html#_the_story_behind_this_solution_pattern">1.2 The story behind this solution pattern</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-pattern.html#_the_solution">1.3 The solution</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#_content_overview">1.4 Content Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#_content_overview">1.5 Explore more solution patterns</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-architecture.html">2. Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#tech_stack">2.1. Technology stack</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#in_depth">2.2. An in-depth look at the solution&#8217;s architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#tech_stack">2.3. More about the technology stack</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-demo.html">3. See the Solution in Action</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-demo.html#_demonstration">3.1. Demonstration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-demo.html#_run_the_demonstration">3.2. Run this demonstration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-demo.html#_before_getting_started">3.3. Pre-requisites</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-demo.html#_installing_the_demo">3.4. Installing the demo</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-demo.html#_walkthrough_guide">3.5. Walkthrough guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-workshop.html">4. Workshop</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-workshop.html#_installing_the_workshop_environment">4.1. Installing the workshop environment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">xref:04-workshop.adoc#_before_getting_started[4.2. Pre-requisites</span>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-workshop.html#install_wksp_details">4.3. Installing the environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-workshop.html#deliver_wksp">4.4. Delivering the workshop</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://redhat-solution-patterns.github.io/">5. Other Red Hat Solution Patterns</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Edge-to-Cloud Pipelines: Gather and prepare data for AI/ML</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Edge-to-Cloud Pipelines: Gather and prepare data for AI/ML</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Edge-to-Cloud Pipelines: Gather and prepare data for AI/ML</a></li>
+    <li><a href="02-architecture.html">2. Architecture</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/hguerrero/solution-pattern-edge-to-cloud-pipelines/edit/main/documentation/modules/ROOT/pages/02-architecture.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Solution Pattern: Name Template</h1>
+<h1 id="_architecture" class="sect0"><a class="anchor" href="#_architecture"></a><a class="link" href="#_architecture">Architecture</a></h1>
+<div class="openblock partintro">
+<div class="content">
+Introduction for the architecture of this solution pattern.
+</div>
+</div>
+<div class="sect1">
+<h2 id="_common_challenges"><a class="anchor" href="#_common_challenges"></a><a class="link" href="#_common_challenges">1. Common Challenges</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To better explain and detail the reasons for the existence of this solution pattern we’ll picture some common needs and challenges amongst organizations that already have production systems and seeks innovation and modernization.</p>
+</div>
+<div class="sect2">
+<h3 id="_data_acquisition_and_preparation"><a class="anchor" href="#_data_acquisition_and_preparation"></a><a class="link" href="#_data_acquisition_and_preparation">1.1. Data acquisition and preparation</a></h3>
+<div class="paragraph">
+<p>As organizations continue to grapple with massive amounts of data being generated from sources ranging from device edge to off-site facilities and public and private cloud environments, data managers are encountering a new challenge: how to properly ingest and process that data to receive actionable intelligence in a timely manner.</p>
+</div>
+<div class="paragraph">
+<p>With fresh, relevant data, businesses can learn effectively and adapt to changing customer behavior. However, managing vast amounts of ingested data  and preparing to make that data ready as soon as possible—preferably in real time—for analytics and artificial intelligence and machine learning (AI/ML), is extremely challenging for data engineers.</p>
+</div>
+<div class="paragraph">
+<p>Red Hat® OpenShift® Container Platform, Red Hat OpenShift Data Foundation, Red Hat Application Foundations, and other tools can help automate the workflow of data ingestion, preparation, and management building data pipelines for hybrid cloud deployments that automate data processing upon acquisition.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tech_stack"><a class="anchor" href="#tech_stack"></a><a class="link" href="#tech_stack">2. Technology Stack</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_red_hat_technology"><a class="anchor" href="#_red_hat_technology"></a><a class="link" href="#_red_hat_technology">2.1. Red Hat Technology</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.redhat.com/en/technologies/cloud-computing/openshift" target="_blank" rel="noopener">Red Hat OpenShift</a></p>
+</li>
+<li>
+<p><a href="https://www.redhat.com/en/products/application-foundations" target="_blank" rel="noopener">Red Hat Application Foundations</a></p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://access.redhat.com/products/quarkus" target="_blank" rel="noopener">Quarkus</a></p>
+</li>
+<li>
+<p><strong><a href="https://access.redhat.com/products/red-hat-amq#broker" target="_blank" rel="noopener">AMQ Broker</a>:</strong> Pure-Java multi-protocol message broker. It’s built on an efficient, asynchronous core with a fast native journal for message persistence and the option of shared-nothing state replication for high availability.</p>
+</li>
+<li>
+<p><strong><a href="https://access.redhat.com/products/red-hat-amq#streams" target="_blank" rel="noopener">AMQ Streams</a>:</strong> Based on the Apache Kafka project, AMQ Streams offers a distributed backbone that allows microservices and other applications to share data with extremely high throughput and extremely low latency.</p>
+</li>
+<li>
+<p><strong>Camel Extensions for Quarkus:</strong> Brings the integration capabilities of Apache Camel and its vast component library to the Quarkus runtime.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://www.redhat.com/es/technologies/cloud-computing/openshift/openshift-data-science">Red Hat OpenShift Data Science</a></p>
+</li>
+<li>
+<p><a href="https://www.redhat.com/es/technologies/cloud-computing/openshift-container-storage">Red Hat OpenShift Data Foundation</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_additional_technology"><a class="anchor" href="#_additional_technology"></a><a class="link" href="#_additional_technology">2.2. Additional Technology:</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.postgresql.org/" target="_blank" rel="noopener">PostgreSQL database</a></p>
+</li>
+<li>
+<p><a href="https://helm.sh/" target="_blank" rel="noopener">Helm</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="in_depth"><a class="anchor" href="#in_depth"></a><a class="link" href="#in_depth">3. An in-depth look at the solution&#8217;s architecture</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ingesting and preparing data can help organizations deploy automated data pipelines in an event-driven architecture. Continuous data, such as sensor metrics, temperature, and vibrations can be imported directly into an Apache Kafka topic in AMQ Streams.</p>
+</div>
+<div class="sect2">
+<h3 id="_data_ingestion"><a class="anchor" href="#_data_ingestion"></a><a class="link" href="#_data_ingestion">3.1. Data ingestion</a></h3>
+<div class="paragraph">
+<p>Ingesting data into a distributed architecture allows data engineers to create pipelines that can help automate workflows and business processes.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Discrete data:</strong> Images, video, and records are input as objects into an RADOS Gateway (RGW) object bucket. Red Hat Ceph Storage and Red Hat OpenShift Data Foundation support RGW.</p>
+</li>
+<li>
+<p><strong>Multiprotocol:</strong> Data in file system protocols can use the Network File System (NFS) gateway native to RGW to import files to an object bucket. Databases can connect to Kafka through a Debezium connector.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_preparation"><a class="anchor" href="#_preparation"></a><a class="link" href="#_preparation">3.2. Preparation</a></h3>
+<div class="paragraph">
+<p>Data can be enhanced for an enriched data discovery experience, and it can be modified at various stages of the data pipeline life cycle as required by the use case.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Enhancement:</strong> Objects can be enhanced with multifaceted metadata to make data discovery easier for search, analytics, and AI/ML workloads.</p>
+</li>
+<li>
+<p><strong>Modification:</strong> Objects can be modified by AI tools. For example, an image may be anonymized to obscure sensitive data.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_management"><a class="anchor" href="#_management"></a><a class="link" href="#_management">3.3. Management</a></h3>
+<div class="paragraph">
+<p>One way to manage the flow of objects into the data pipeline is to create notifications that initiate a workflow.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Object bucket:</strong> Object bucket notifications can be pushed to various endpoints, such as Kafka, HTML, or Advanced Message Queuing Protocol (AMQP).</p>
+</li>
+<li>
+<p><strong>Notifications:</strong> As objects enter, exit, or are modified in the bucket, a bucket notification is made to a Kafka broker in Red Hat AMQ.
+Change data capture: Red Hat Integration tools initiate processes like data replication and microservices integration through CDC.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_data_pipeline"><a class="anchor" href="#_data_pipeline"></a><a class="link" href="#_data_pipeline">3.4. Data pipeline</a></h3>
+<div class="paragraph">
+<p>Data moves through the pipeline and can trigger events. As the data is analyzed, it may trigger additional events creating an automated event-driven workflow.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Eventing:</strong> Whether discrete data has been pushed to a Kafka topic or continuous data is sent directly to the Kafka broker, the Kafka producer will call a service that writes to a Kafka topic and initiates an event.</p>
+</li>
+<li>
+<p><strong>Elasticity:</strong> Red Hat OpenShift Serverless can receive these event triggers and spawn multiple applications such as inferencing, alerts, messaging, anonymization, and preventative remediation.</p>
+</li>
+<li>
+<p><strong>Edge to core:</strong> Kafka can also mirror data from edge locations to a core repository for further processing.
+Life cycle: Prioritized data can be moved back into a data repository for ML retraining, constituting a continuous improvement pipeline.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="more_tech"><a class="anchor" href="#more_tech"></a><a class="link" href="#more_tech">4. About the Technology Stack</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you want to include more details about the tech stack you used, this is the place.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html#_content_overview" class="query-params-link">1.4 Content Overview</a></span>
+  <span class="next"><a href="03-demo.html" class="query-params-link">3. See the Solution in Action</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img
+          src="../_/img/app-services-logo.png" height="40px" alt="Cloud Native Architecture Solution Patterns"  href="https://redhat.com" ></a>
+</footer><script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

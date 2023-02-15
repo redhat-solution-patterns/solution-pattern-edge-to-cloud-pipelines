@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Untitled :: Solution Patterns for Cloud Native Architectures</title>
+    <link rel="canonical" href="https://redhat-solution-patterns.github.io/solution-patterns/solution-pattern-edge-to-core-pipelines/01-pattern.html">
+    <link rel="prev" href="index.html">
+    <link rel="next" href="index.html#_explore_more_solution_patterns">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://redhat.com" target="_blank"><img
+          src="../_/img/logo.png" height="40px" alt="Cloud Native Architecture Solution Patterns"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-solution-patterns.github.io/solution-patterns">Solution Patterns for Cloud Native Architectures</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+
+       
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solution Patterns</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Adopt Change Data Capture for <br/>stack modernization</a>
+            <a class="navbar-item" href="#">Edge-to-Cloud Pipelines</a>     <a class="navbar-item" href="#">Event driven architecture</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Other</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-gitops-patterns.io/">GitOps Solution Patterns</a>
+            <a class="navbar-item" href="https://hybrid-cloud-patterns.io/">Hybrid Cloud Solution Patterns</a>
+          </div>
+        </div>
+
+        <a class="navbar-item" target="_blank" href="https://www.redhat.com/en/products/middleware">Red Hat Application Services</a>
+
+        <a class="navbar-item" target="_blank" href="https://developers.redhat.com/middleware">Learn more</a>
+
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="solution-pattern-edge-to-core-pipelines" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html" class=" query-params-link">Edge-to-Core Pipelines: Gather and prepare data for AI/ML</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">1. Home page</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#use-cases">1.1 Use cases</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#_the_story_behind_this_solution_pattern">1.2 The story behind this solution pattern</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#_the_solution">1.3 The solution</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#_explore_more_solution_patterns">1.4 Explore more solution patterns</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-architecture.html">2. Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#tech_stack">2.1. Technology stack</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#in_depth">2.2. An in-depth look at the solution&#8217;s architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#tech_stack">2.3. More about the technology stack</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-demo.html">3. See the Solution in Action</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-demo.html#_demonstration">3.1. Demonstration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-demo.html#_run_the_demonstration">3.2. Run this demonstration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-demo.html#_before_getting_started">3.3. Pre-requisites</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-demo.html#_installing_the_demo">3.4. Installing the demo</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="03-demo.html#_walkthrough_guide">3.5. Walkthrough guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-workshop.html">4. Workshop</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-workshop.html#_installing_the_workshop_environment">4.1. Installing the workshop environment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <span class="nav-text">xref:04-workshop.adoc#_before_getting_started[4.2. Pre-requisites</span>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="04-workshop.html#install_wksp_details">4.3. Installing the environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-workshop.html#deliver_wksp">4.4. Delivering the workshop</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://redhat-solution-patterns.github.io/">5. Other Red Hat Solution Patterns</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Edge-to-Core Pipelines: Gather and prepare data for AI/ML</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Edge-to-Core Pipelines: Gather and prepare data for AI/ML</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Edge-to-Core Pipelines: Gather and prepare data for AI/ML</a></li>
+    <li><a href="index.html">1. Home page</a></li>
+    <li><a href="#_the_story_behind_this_solution_pattern">1.2 The story behind this solution pattern</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/redhat-solution-patterns/solution-pattern-edge-to-cloud-pipelines/edit/main/documentation/modules/ROOT/pages/01-pattern.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<div class="sect1">
+<h2 id="_the_story_behind_this_solution_pattern"><a class="anchor" href="#_the_story_behind_this_solution_pattern"></a>The story behind this solution pattern</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Within Artificial Intelligence (AI), edge analytics focuses on inference (predicting), meaning applying a previously trained model to infer a result. Depending on how critical the data is, it will dictate if it needs to be processed in real-time or stored for later analysis. Storage becomes another critical variable depending on costs, availability, or compliance requirements.</p>
+</div>
+<div class="paragraph">
+<p>For Inferencing data by a trained model, we usually deploy applications containing the model on the devices or edge servers close to the site floor. At the same time, other processes select, transform (for data privacy and protection compliance) and transfer the generated raw data to create the datasets that will train the models to the core data center or cloud, where more computing power and specialized processors are available.</p>
+</div>
+<div class="sect2">
+<h3 id="_enabling_edge_data_processing_with_aiml"><a class="anchor" href="#_enabling_edge_data_processing_with_aiml"></a>Enabling edge data processing with AI/ML</h3>
+<div class="paragraph">
+<p>The solution pattern is supported by the narrative of a retail store that began using various sorts of devices to collect images of their products at store locations in order to offer customers with the most up-to-date information, such as the pricing and promotions linked. They must collect photos, prepare them for transmission to the core for training an AI Vision model, and then deploy it as an application that may be deployed in the remote location server to respond inference queries from consumers and their own kiosks.</p>
+</div>
+<div class="paragraph">
+<p>You can use the Edge to Core Pipelines pattern to collect, organize, process, and monitor edge data on-site. You can process your data locally, send it to your data center, cloud, or data lake, or load it into on-premises applications. Because you can process and route your data locally, you can choose to send only aggregated data to the cloud, optimizing your bandwidth usage and cloud storage costs.</p>
+</div>
+<div class="paragraph">
+<p>The following is a list of commonly used protocols in edge devices to share data with a gateway or local server:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>HTTP/HTTPS</p>
+</li>
+<li>
+<p>MQTT</p>
+</li>
+<li>
+<p>AMQP</p>
+</li>
+<li>
+<p>RTSP</p>
+</li>
+<li>
+<p>WebRTC</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The solution pattern demonstration employs REST HTTP clients and MQTT over websockets. However, as previously stated, the implementation framework provides out-of-the-box access to a large number of protocols while also allowing teams to implement proprietary ones.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alternatives"><a class="anchor" href="#_alternatives"></a>Alternatives</h3>
+<div class="paragraph">
+<p>There are a few current alternatives to edge analytics, but they are losing traction for a few reasons. An option is to use cloud-based analytics, which requires a constant internet connection and can be expensive. Another is using a data warehouse, which can be slow and difficult to set up on the edge.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_solution"><a class="anchor" href="#_the_solution"></a>The Solution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This solution pattern is divided into four major stages that cover various aspects of the end-to-end AI/ML lifecycle:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Data Acquisition</p>
+</li>
+<li>
+<p>Data Preparation &amp; Modeling</p>
+</li>
+<li>
+<p>Application Development &amp; Delivery</p>
+</li>
+<li>
+<p>Edge ML Inference</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The first stage begins with the acquisition of images. The check out kiosks take a picture of every item that the cashier scans. Each image is then delivered over MQTT to a message broker, who passes it on to the processing application, which prepares the data for transmission.</p>
+</div>
+<div class="paragraph">
+<p>The image is cleaned up by the processing application to remove sensitive or private info and resized for management purposes. The resulting data is sent to an Apache Kafka topic, where streaming applications can perform additional parallel processing while benefiting from the platform&#8217;s streaming and repeatability.</p>
+</div>
+<div class="paragraph">
+<p>To send data from the edge to the core, we can use Mirror Maker 2&#8217;s technology or a Kafka connector that saves the data in a distributed file system. When connectivity is available, both modes allow for information replication to the core.</p>
+</div>
+<div class="paragraph">
+<p>With data available in the core data center or in the cloud, enterprise data analysts can utilize OpenShift Data Science to build a model that enables the application to detect objects.</p>
+</div>
+<div class="paragraph">
+<p>Once trained, a model can be saved as part of an application or service that provides an API for inferencing. This application must be built and delivered as part of the organization&#8217;s CI/CD process to ensure that security policies are followed.</p>
+</div>
+<div class="paragraph">
+<p>Finally, once the application is deployed at the edge, some of the event-driven architecture can be reused for customers. Consumer devices use a mobile application that enables users to shoot photos with their phones and subsequently upload those photos to the event broker. A processing service retrieves the image from the queue and transmits it to the inference service, which returns the information in the image. If, for whatever reason, the image cannot be detected. It will save the data locally in order to include it to the future set of data that will be transferred to the core for further model improvement.</p>
+</div>
+<div class="paragraph">
+<p>See below a simplified representation of the solution:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/01-solution-overview.png" alt="01 solution overview">
+</div>
+<div class="title">Figure 1. Simplified Solution Overview.</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Please see the <a href="02-architecture.html" class="xref page">Architecture</a> section for more extensive architecture diagrams.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html" class="query-params-link">1. Home page</a></span>
+  <span class="next"><a href="index.html#_explore_more_solution_patterns" class="query-params-link">1.4 Explore more solution patterns</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img
+          src="../_/img/app-services-logo.png" height="40px" alt="Cloud Native Architecture Solution Patterns"  href="https://redhat.com" ></a>
+</footer><script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

@@ -12,23 +12,19 @@ Include here content related to potential existing demos: blogs, articles, recor
 [#demo-video]
 === Watch a demonstration
 
-In this video you can see xpto:
 
-video::3yULVMdqJ98[youtube, width=800, height=480]
-
-Next, you can learn how to walkthrough this demo.
+Coming soon!
 
 == Run the demonstration
 
 === Before getting started
-To run this demo, you will need xpto. Adding to that, make sure to have:
 
-* ABC
-* XYZ
-* XPTO
+Coming soon! 
 
 === Installing the demo
-Installation guide and basic test of the demo installation if needed
+
+Coming Soon!
 
 === Walkthrough guide
-How to run through the demo
+
+Coming soon!

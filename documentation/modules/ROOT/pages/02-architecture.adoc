@@ -11,28 +11,40 @@ Introduction for the architecture of this solution pattern.
 
 To better explain and detail the reasons for the existence of this solution pattern we’ll picture some common needs and challenges amongst organizations that already have production systems and seeks innovation and modernization.
 
-=== Data acquisition and preparation
+AI/ML production deployment is an iterative process that goes beyond simply generating AI/ML models or even ML Ops.
+
+The primary milestones in the AI/ML life cycle depending on an organization's business goals for its AI/ML effort are as follows:
+
+- Collect and prepare the data needed for your AI/ML project. It is critical to be astute in terms of what functions take place at the edge. We do not want to do compute or storage intensive operations at the Edge, but rather should use the core or cloud.
+What we should concentrate on at the edge is data collecting and data inference, where you will use AIML to make real-time decisions.
+- Create ML models based on business objectives. MLOps should take place on the core or in the cloud to retrain models as needed.
+- Integrate the ML models with the intelligent applications that you will create to serve the model and assist in making critical business choices.
+- Model accuracy should be monitored and managed throughout time.
+
+.AI/ML lifecycle for the Edge.
+
+image::02-AIML-lifecycle.png[]
 
 As organizations continue to grapple with massive amounts of data being generated from sources ranging from device edge to off-site facilities and public and private cloud environments, data managers are encountering a new challenge: how to properly ingest and process that data to receive actionable intelligence in a timely manner.
 
 With fresh, relevant data, businesses can learn effectively and adapt to changing customer behavior. However, managing vast amounts of ingested data  and preparing to make that data ready as soon as possible—preferably in real time—for analytics and artificial intelligence and machine learning (AI/ML), is extremely challenging for data engineers.
 
-Red Hat® OpenShift® Container Platform, Red Hat OpenShift Data Foundation, Red Hat Application Foundations, and other tools can help automate the workflow of data ingestion, preparation, and management building data pipelines for hybrid cloud deployments that automate data processing upon acquisition.
-
 [#tech_stack]
 == Technology Stack
+
+Red Hat® OpenShift® Container Platform, Red Hat OpenShift Data Foundation, Red Hat Application Foundations, and other tools can help automate the workflow of data ingestion, preparation, and management building data pipelines for hybrid cloud deployments that automate data processing upon acquisition.
 
 === Red Hat Technology
 
 // Change links and text here as you see fit.
-* https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat OpenShift,window=_blank]
+* https://www.redhat.com/en/technologies/device-edge[Red Hat Device Edge]
 * https://www.redhat.com/en/products/application-foundations[Red Hat Application Foundations,window=_blank]
-** https://access.redhat.com/products/quarkus[Quarkus,window=_blank]
+** *https://access.redhat.com/products/quarkus[Red Hat build of Quarkus,window=_blank]:* Utilizes an innovative compile-time boot process that moves typical runtime steps to compile time. The result is an application that can consume as little as 10’s of MB of memory and start in 10’s of milliseconds.
 ** *https://access.redhat.com/products/red-hat-amq#broker[AMQ Broker,window=_blank]:* Pure-Java multi-protocol message broker. It’s built on an efficient, asynchronous core with a fast native journal for message persistence and the option of shared-nothing state replication for high availability.
 ** *https://access.redhat.com/products/red-hat-amq#streams[AMQ Streams,window=_blank]:* Based on the Apache Kafka project, AMQ Streams offers a distributed backbone that allows microservices and other applications to share data with extremely high throughput and extremely low latency.
-** *Camel Extensions for Quarkus:* Brings the integration capabilities of Apache Camel and its vast component library to the Quarkus runtime.
+** *https://access.redhat.com/documentation/en-us/red_hat_build_of_apache_camel_extensions_for_quarkus/2.13/html/getting_started_with_camel_extensions_for_quarkus/index[Red Hat build of Apache Camel Extensions for Quarkus,window=_blank]:* Utilize the integration capabilities of Apache Camel and its vast component library in the Quarkus runtime, optimizing for peak application performance with fast start up time.
+* https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat OpenShift,window=_blank]
 * https://www.redhat.com/es/technologies/cloud-computing/openshift/openshift-data-science[Red Hat OpenShift Data Science]
-* https://www.redhat.com/es/technologies/cloud-computing/openshift-container-storage[Red Hat OpenShift Data Foundation]
 
 === Additional Technology:
 
@@ -45,21 +57,26 @@ Red Hat® OpenShift® Container Platform, Red Hat OpenShift Data Foundation, Red
 
 Ingesting and preparing data can help organizations deploy automated data pipelines in an event-driven architecture. Continuous data, such as sensor metrics, temperature, and vibrations can be imported directly into an Apache Kafka topic in AMQ Streams.
 
-=== Data ingestion
+=== Data Acquisition
 
 Ingesting data into a distributed architecture allows data engineers to create pipelines that can help automate workflows and business processes.
 
-- *Discrete data:* Images, video, and records are input as objects into an RADOS Gateway (RGW) object bucket. Red Hat Ceph Storage and Red Hat OpenShift Data Foundation support RGW. 
-- *Multiprotocol:* Data in file system protocols can use the Network File System (NFS) gateway native to RGW to import files to an object bucket. Databases can connect to Kafka through a Debezium connector.
-
-=== Preparation
+- *Discrete data:* Images, video, and records are input as objects into an object bucket. 
+- *Multiprotocol:* Data can be acquire using different protocols. Databases can connect to Kafka through a Debezium connector.
 
 Data can be enhanced for an enriched data discovery experience, and it can be modified at various stages of the data pipeline life cycle as required by the use case.
 
 - *Enhancement:* Objects can be enhanced with multifaceted metadata to make data discovery easier for search, analytics, and AI/ML workloads.
 - *Modification:* Objects can be modified by AI tools. For example, an image may be anonymized to obscure sensitive data.
 
-=== Management
+See below an abstract representation of the stage:
+
+.Data Acquisition Overview.
+
+image::02-data-acquisition.png[]
+
+
+=== Data Preparation & Modeling
 
 One way to manage the flow of objects into the data pipeline is to create notifications that initiate a workflow. 
 
@@ -67,7 +84,11 @@ One way to manage the flow of objects into the data pipeline is to create notifi
 - *Notifications:* As objects enter, exit, or are modified in the bucket, a bucket notification is made to a Kafka broker in Red Hat AMQ.
 Change data capture: Red Hat Integration tools initiate processes like data replication and microservices integration through CDC.
 
-=== Data pipeline
+=== Application Development & Delivery
+
+Data moves through the pipeline and can trigger events. As the data is analyzed, it may trigger additional events creating an automated event-driven workflow.
+
+=== Edge ML Inference
 
 Data moves through the pipeline and can trigger events. As the data is analyzed, it may trigger additional events creating an automated event-driven workflow.
 

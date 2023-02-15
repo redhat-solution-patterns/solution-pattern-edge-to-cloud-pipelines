@@ -1,22 +1,23 @@
-= Solution Pattern: Edge to Cloud Data Pipelines for AI/ML
+= Solution Pattern: Edge to Core Data Pipelines for AI/ML
 :page-layout: home
 :sectnums:
 :sectlinks:
 :doctype: book
 
-== Background
-
-Data goes to work in challenging and unlikely places. Places like the International Space Station. Connected vehicles. Factory floors. Ships at sea. The neighborhood pharmacy. Data might have traditionally belonged in the data center or cloud, but many important decisions must happen here⁠–⁠on the edge.
+Data is created and required in unusual and challenging locations. Locations such as the International Space Station, connected vehicles, manufacturing floors, ships at sea, or the local pharmacy. Although data has historically been hosted in the central data center or cloud, many crucial choices must now be made at the edge.
 
 To reach the human level, the responses and decisions made by machines and applications need to operate in milliseconds or even microseconds. Waiting for more than 100 ms by sending data to the cloud could be the difference between a good or a poor customer experience.
 
-When analyzing user data at the edge, like the one coming from the Internet of Things (IoT) devices or industrial machinery, the challenge is facing overwhelming data. Every device can generate a massive amount of data every second that is only valuable if it can be stored or analyzed. This data becomes even more helpful when used locally and then transferred to the core data center of the open hybrid cloud.
+When analyzing user data at the edge, such as that from Internet of Things (IoT) devices or industrial machines, the problem becomes dealing with massive amounts of data. Every device generates vast amounts of data every second, which is only useful if it can be stored or analyzed. This data becomes much more useful when used locally and subsequently moved to the open hybrid cloud's core data center.
 
+This solution pattern provides an architecture solution for scenarios in which edge devices generate image data, which must be collected, processed, and stored at the edge before being utilized to train AI/ML models at the core data center or cloud.
 
 include::content-overview.adoc[]
 
 [#use-cases]
 == Use cases
+
+The interaction of AI/ML and Edge Computing occurs in a variety of businesses. For example, in the retail industry, customer behavior and patterns may be used to determine promotions, or in a manufacturing facility, where data inference can help improve processes where machines are failing and products are not up to standard, and so on. The basic premise is that you may collect data and then infer from it in order to make decisions based on it.
 
 Some common use cases for edge to cloud data pipelines for artificial intelligence and machine learning include: 
 
@@ -24,6 +25,17 @@ Some common use cases for edge to cloud data pipelines for artificial intelligen
 - Training and inference of machine learning models on data collected at the edge
 - Processing and analyzing sensor data for predictive analytics
 - Streaming data analysis and real-time decision making
+
+There are many potential business drivers for a company to use edge analytics. Some of the most common reasons include wanting to gain insights into customer behavior, improve operational efficiency, or better understand the performance of specific products or services. Additionally, companies may use edge analytics to detect and prevent fraud or to monitor and manage risk.
+
+- Reduce time to insights -Improve accuracy of insights
+- Enable real-time decision making 
+- Faster and more accessible data collection
+- Reduce costs associated with data collection and analysis
+
+****
+AI and machine learning can learn from client behavior and assist improve the customer experience. Gain a competitive advantage by automating a large portion of decision making, increasing revenue and decreasing costs.
+****
 
 include::01-pattern.adoc[]
 

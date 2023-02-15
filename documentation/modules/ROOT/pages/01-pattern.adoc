@@ -1,12 +1,15 @@
-== Edge Analytics
+[#_the_story_behind_this_solution_pattern]
+== The story behind this solution pattern
 
 Within Artificial Intelligence (AI), edge analytics focuses on inference (predicting), meaning applying a previously trained model to infer a result. Depending on how critical the data is, it will dictate if it needs to be processed in real-time or stored for later analysis. Storage becomes another critical variable depending on costs, availability, or compliance requirements.
 
 For Inferencing data by a trained model, we usually deploy applications containing the model on the devices or edge servers close to the site floor. At the same time, other processes select, transform (for data privacy and protection compliance) and transfer the generated raw data to create the datasets that will train the models to the core data center or cloud, where more computing power and specialized processors are available.
 
-== Enabling edge data processing with AI/ML
+=== Enabling edge data processing with AI/ML
 
-You can use the Edge to Cloud Pipelines pattern to collect, organize, process, and monitor edge data on-site. You can process your data locally, send it to your data center, cloud, or data lake, or load it into on-premises applications. Because you can process and route your data locally, you can choose to send only aggregated data to the cloud, optimizing your bandwidth usage and cloud storage costs.
+The solution pattern is supported by the narrative of a retail store that began using various sorts of devices to collect images of their products at store locations in order to offer customers with the most up-to-date information, such as the pricing and promotions linked. They must collect photos, prepare them for transmission to the core for training an AI Vision model, and then deploy it as an application that may be deployed in the remote location server to respond inference queries from consumers and their own kiosks.
+
+You can use the Edge to Core Pipelines pattern to collect, organize, process, and monitor edge data on-site. You can process your data locally, send it to your data center, cloud, or data lake, or load it into on-premises applications. Because you can process and route your data locally, you can choose to send only aggregated data to the cloud, optimizing your bandwidth usage and cloud storage costs.
 
 The following is a list of commonly used protocols in edge devices to share data with a gateway or local server:
 
@@ -16,15 +19,40 @@ The following is a list of commonly used protocols in edge devices to share data
 - RTSP
 - WebRTC
 
-== Business Drivers
+[TIP]
+The solution pattern demonstration employs REST HTTP clients and MQTT over websockets. However, as previously stated, the implementation framework provides out-of-the-box access to a large number of protocols while also allowing teams to implement proprietary ones.
 
-There are many potential business drivers for a company to use edge analytics. Some of the most common reasons include wanting to gain insights into customer behavior, improve operational efficiency, or better understand the performance of specific products or services. Additionally, companies may use edge analytics to detect and prevent fraud or to monitor and manage risk.
-
-- Reduce time to insights -Improve accuracy of insights
-- Enable real-time decision making 
-- Faster and more accessible data collection
-- Reduce costs associated with data collection and analysis
-
-== Alternatives
+=== Alternatives
 
 There are a few current alternatives to edge analytics, but they are losing traction for a few reasons. An option is to use cloud-based analytics, which requires a constant internet connection and can be expensive. Another is using a data warehouse, which can be slow and difficult to set up on the edge.
+
+[#_the_solution]
+== The Solution
+
+This solution pattern is divided into four major stages that cover various aspects of the end-to-end AI/ML lifecycle:
+
+1. Data Acquisition
+2. Data Preparation & Modeling
+3. Application Development & Delivery
+4. Edge ML Inference 
+
+The first stage begins with the acquisition of images. The check out kiosks take a picture of every item that the cashier scans. Each image is then delivered over MQTT to a message broker, who passes it on to the processing application, which prepares the data for transmission.
+
+The image is cleaned up by the processing application to remove sensitive or private info and resized for management purposes. The resulting data is sent to an Apache Kafka topic, where streaming applications can perform additional parallel processing while benefiting from the platform's streaming and repeatability. 
+
+To send data from the edge to the core, we can use Mirror Maker 2's technology or a Kafka connector that saves the data in a distributed file system. When connectivity is available, both modes allow for information replication to the core.
+
+With data available in the core data center or in the cloud, enterprise data analysts can utilize OpenShift Data Science to build a model that enables the application to detect objects.
+
+Once trained, a model can be saved as part of an application or service that provides an API for inferencing. This application must be built and delivered as part of the organization's CI/CD process to ensure that security policies are followed.
+
+Finally, once the application is deployed at the edge, some of the event-driven architecture can be reused for customers. Consumer devices use a mobile application that enables users to shoot photos with their phones and subsequently upload those photos to the event broker. A processing service retrieves the image from the queue and transmits it to the inference service, which returns the information in the image. If, for whatever reason, the image cannot be detected. It will save the data locally in order to include it to the future set of data that will be transferred to the core for further model improvement.
+
+See below a simplified representation of the solution:
+
+.Simplified Solution Overview.
+
+image::01-solution-overview.png[]
+
+[TIP]
+Please see the xref:02-architecture.adoc[Architecture] section for more extensive architecture diagrams.

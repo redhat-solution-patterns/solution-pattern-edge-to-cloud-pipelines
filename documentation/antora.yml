@@ -1,5 +1,5 @@
-name: solution-pattern-edge-to-cloud-pipelines
-title: 'Edge-to-Cloud Pipelines: Gather and prepare data for AI/ML'
+name: solution-pattern-edge-to-core-pipelines
+title: 'Edge-to-Core Pipelines: Gather and prepare data for AI/ML'
 version: master
 nav:
   - modules/ROOT/nav.adoc

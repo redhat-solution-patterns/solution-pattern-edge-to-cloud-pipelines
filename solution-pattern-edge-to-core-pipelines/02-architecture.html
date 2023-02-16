@@ -86,13 +86,31 @@
     <a class="nav-link" href="02-architecture.html">2. Architecture</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#tech_stack">2.1. Technology stack</a>
+    <a class="nav-link" href="#_common_challenges">1. Common challenges</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#in_depth">2.2. An in-depth look at the solution&#8217;s architecture</a>
+    <a class="nav-link" href="#tech_stack">2. Technology stack</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#tech_stack">2.3. More about the technology stack</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#in_depth">3. An in-depth look at the solution&#8217;s architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_data_acquisition">3.1. Data Acquisition</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_data_preparation_and_modeling">3.2. Data Preparation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_application_development_and_delivery">3.3. Application Development</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_edge_ml_inference">3.4. Edge ML Inference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#more_tech">4. More about the technology stack</a>
   </li>
 </ul>
   </li>
@@ -101,48 +119,31 @@
     <a class="nav-link" href="03-demo.html">3. See the Solution in Action</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-demo.html#_demonstration">3.1. Demonstration</a>
+    <a class="nav-link" href="03-demo.html#_demonstration">1. Demonstration</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="03-demo.html#_run_the_demonstration">3.2. Run this demonstration</a>
+    <a class="nav-link" href="03-demo.html#_run_the_demonstration">2. Run this demonstration</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03-demo.html#_before_getting_started">3.3. Pre-requisites</a>
+    <a class="nav-link" href="03-demo.html#_before_getting_started">2.1. Pre-requisites</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03-demo.html#_installing_the_demo">3.4. Installing the demo</a>
+    <a class="nav-link" href="03-demo.html#_installing_the_demo">2.2. Installing the demo</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="03-demo.html#_walkthrough_guide">3.5. Walkthrough guide</a>
+    <a class="nav-link" href="03-demo.html#_walkthrough_guide">2.3. Walkthrough guide</a>
   </li>
 </ul>
   </li>
 </ul>
   </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="04-workshop.html">4. Workshop</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="04-workshop.html#_installing_the_workshop_environment">4.1. Installing the workshop environment</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <span class="nav-text">xref:04-workshop.adoc#_before_getting_started[4.2. Pre-requisites</span>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="04-workshop.html#install_wksp_details">4.3. Installing the environment</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="04-workshop.html#deliver_wksp">4.4. Delivering the workshop</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="https://redhat-solution-patterns.github.io/">5. Other Red Hat Solution Patterns</a>
+    <a class="nav-link" href="https://redhat-solution-patterns.github.io/">4. Other Red Hat Solution Patterns</a>
   </li>
 </ul>
   </li>
@@ -323,6 +324,27 @@ What we should concentrate on at the edge is data collecting and data inference,
 </ul>
 </div>
 <div class="paragraph">
+<p>The first stage begins with image acquisition. The check-out kiosks capture every item that the cashier scans. Each image is then sent over MQTT to the AMQ Broker-implemented <strong>Event Broker</strong>. The data is then passed on to the <strong>Image Processor</strong> processing application, which prepares it for transmission. The framework provides an easy way to connect to the broker and generate a lightweight native build or container image, so this application is generated using Red Hat build or Apache Camel Extensions for Quarkus.</p>
+</div>
+<div class="paragraph">
+<p>The image is cleaned up by the processing application to remove sensitive or private information and resized for management purposes. The resulting data is saved in the <strong>Software Defined Storage</strong> filesystem, and the metadata is routed to a Kafka topic in the AMQ Streams <strong>Event Bus</strong>, where streaming applications built with the Kafka Streams Quarkus extension or Camel can perform additional parallel processing while benefiting from the platform&#8217;s streaming and repeatability capabilities.</p>
+</div>
+<div class="paragraph">
+<p>Mirror Maker 2 technology is used to transport metadata from the edge to the core. The platform offers replication possibilities for saved data. When connected to the core, both components support information replication.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If the edge constraints prevent the deployment of software-defined storage, we may still save the files locally and then run a Camel pipeline that implements the logic to replicate the data to the core using conventional protocols such as S3.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
 <p>See below an abstract representation of the stage:</p>
 </div>
 <div class="imageblock">
@@ -333,7 +355,7 @@ What we should concentrate on at the edge is data collecting and data inference,
 </div>
 </div>
 <div class="sect2">
-<h3 id="_data_preparation_modeling"><a class="anchor" href="#_data_preparation_modeling"></a><a class="link" href="#_data_preparation_modeling">3.2. Data Preparation &amp; Modeling</a></h3>
+<h3 id="_data_preparation_and_modeling"><a class="anchor" href="#_data_preparation_and_modeling"></a><a class="link" href="#_data_preparation_and_modeling">3.2. Data Preparation and Modeling</a></h3>
 <div class="paragraph">
 <p>One way to manage the flow of objects into the data pipeline is to create notifications that initiate a workflow.</p>
 </div>
@@ -350,7 +372,7 @@ Change data capture: Red Hat Integration tools initiate processes like data repl
 </div>
 </div>
 <div class="sect2">
-<h3 id="_application_development_delivery"><a class="anchor" href="#_application_development_delivery"></a><a class="link" href="#_application_development_delivery">3.3. Application Development &amp; Delivery</a></h3>
+<h3 id="_application_development_and_delivery"><a class="anchor" href="#_application_development_and_delivery"></a><a class="link" href="#_application_development_and_delivery">3.3. Application Development and Delivery</a></h3>
 <div class="paragraph">
 <p>Data moves through the pipeline and can trigger events. As the data is analyzed, it may trigger additional events creating an automated event-driven workflow.</p>
 </div>

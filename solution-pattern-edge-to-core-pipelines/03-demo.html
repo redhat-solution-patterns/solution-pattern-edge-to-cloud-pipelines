@@ -6,7 +6,6 @@
     <title>Solution Pattern: Name Template :: Solution Patterns for Cloud Native Architectures</title>
     <link rel="canonical" href="https://redhat-solution-patterns.github.io/solution-patterns/solution-pattern-edge-to-core-pipelines/03-demo.html">
     <link rel="prev" href="02-architecture.html">
-    <link rel="next" href="04-workshop.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
 <link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
@@ -86,13 +85,31 @@
     <a class="nav-link" href="02-architecture.html">2. Architecture</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02-architecture.html#tech_stack">2.1. Technology stack</a>
+    <a class="nav-link" href="02-architecture.html#_common_challenges">1. Common challenges</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02-architecture.html#in_depth">2.2. An in-depth look at the solution&#8217;s architecture</a>
+    <a class="nav-link" href="02-architecture.html#tech_stack">2. Technology stack</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02-architecture.html#tech_stack">2.3. More about the technology stack</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-architecture.html#in_depth">3. An in-depth look at the solution&#8217;s architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="02-architecture.html#_data_acquisition">3.1. Data Acquisition</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="02-architecture.html#_data_preparation_and_modeling">3.2. Data Preparation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="02-architecture.html#_application_development_and_delivery">3.3. Application Development</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="02-architecture.html#_edge_ml_inference">3.4. Edge ML Inference</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#more_tech">4. More about the technology stack</a>
   </li>
 </ul>
   </li>
@@ -101,48 +118,31 @@
     <a class="nav-link" href="03-demo.html">3. See the Solution in Action</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#_demonstration">3.1. Demonstration</a>
+    <a class="nav-link" href="#_demonstration">1. Demonstration</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="#_run_the_demonstration">3.2. Run this demonstration</a>
+    <a class="nav-link" href="#_run_the_demonstration">2. Run this demonstration</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#_before_getting_started">3.3. Pre-requisites</a>
+    <a class="nav-link" href="#_before_getting_started">2.1. Pre-requisites</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#_installing_the_demo">3.4. Installing the demo</a>
+    <a class="nav-link" href="#_installing_the_demo">2.2. Installing the demo</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#_walkthrough_guide">3.5. Walkthrough guide</a>
+    <a class="nav-link" href="#_walkthrough_guide">2.3. Walkthrough guide</a>
   </li>
 </ul>
   </li>
 </ul>
   </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="04-workshop.html">4. Workshop</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="04-workshop.html#_installing_the_workshop_environment">4.1. Installing the workshop environment</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <span class="nav-text">xref:04-workshop.adoc#_before_getting_started[4.2. Pre-requisites</span>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="04-workshop.html#install_wksp_details">4.3. Installing the environment</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="04-workshop.html#deliver_wksp">4.4. Delivering the workshop</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="https://redhat-solution-patterns.github.io/">5. Other Red Hat Solution Patterns</a>
+    <a class="nav-link" href="https://redhat-solution-patterns.github.io/">4. Other Red Hat Solution Patterns</a>
   </li>
 </ul>
   </li>
@@ -201,16 +201,227 @@
 <div class="sect1">
 <h2 id="_run_the_demonstration"><a class="anchor" href="#_run_the_demonstration"></a><a class="link" href="#_run_the_demonstration">2. Run the demonstration</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>This Red Hat build of Apache Camel Quarkus component links MQTT and HTTP clients (such as IoT devices, mobile phones, and third-party clients) with an AI/ML engine to obtain detection results from images.</p>
+</div>
 <div class="sect2">
 <h3 id="_before_getting_started"><a class="anchor" href="#_before_getting_started"></a><a class="link" href="#_before_getting_started">2.1. Before getting started</a></h3>
 <div class="paragraph">
-<p>Coming soon!</p>
+<p>The following components are necessary for the demo deployment:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the REST AI/ML engine</p>
+</li>
+<li>
+<p>the REST Price engine (Camel K)</p>
+</li>
+<li>
+<p>an AMQ Broker (local or remote)</p>
+</li>
+<li>
+<p>Camel K Operator</p>
+</li>
+<li>
+<p>S3 storage provided by OpenShift Data Foundation</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_installing_the_demo"><a class="anchor" href="#_installing_the_demo"></a><a class="link" href="#_installing_the_demo">2.2. Installing the demo</a></h3>
 <div class="paragraph">
-<p>Coming Soon!</p>
+<p><strong>Preparing the environment</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Clone <a href="https://github.com/RedHat-Middleware-Workshops/camel-edge-rhte">this</a> GitHub repository:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">git clone https://github.com/RedHat-Middleware-Workshops/camel-edge-rhte &amp;&amp; cd camel-edge-rhte</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Order the <a href="https://demo.redhat.com/catalog?search=dil+camel&amp;item=babylon-catalog-prod%2Fsandboxes-gpte.camel3-wksp.prod">Day In the Life - Camel</a> workshop from Red Hat Demo Platform.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Use the default values, but you will need to fill out the information regarding your salesforce opportunity.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+The workshop deployment can take several minutes to provision.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Deploy the AI/ML engine</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Follow the steps in this tutorial: <a href="https://redhat-scholars.github.io/rhods-od-workshop/rhods-od-workshop/2-01-deploy-s2i.html#_openshift_console">Deploy with Source to Image</a></p>
+</li>
+<li>
+<p>Validate the deployment with:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh"> MY_IMAGE=./images/numberplate2.jpeg &amp;&amp; \
+ MY_ROUTE=https://YOUR_ROUTE_URL/ &amp;&amp; \
+ (echo -n '{"image": "'; base64 $MY_IMAGE; echo '"}') | curl -X POST -H "Content-Type: application/json" -d @- ${MY_ROUTE}/predictions</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Deploy the Broker on OpenShift</strong></p>
+</div>
+<div class="paragraph">
+<p>We will deploy an AMQ Broker instance using the templates.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Login with admin credentials and create a new project</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc new-project demo</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Using the OpenShift Command Line create the template:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc replace --force -f \
+  https://raw.githubusercontent.com/jboss-container-images/jboss-amq-7-broker-openshift-image/74-7.4.0.GA/templates/amq-broker-74-basic.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create an instance from the template:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc new-app --template=amq-broker-74-basic \
+  -p AMQ_PROTOCOL=openwire,amqp,stomp,mqtt,hornetq \
+  -p AMQ_USER=admin \
+  -p AMQ_PASSWORD=admin</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a route by exposing the MQTT service. You need to ensure the HTML page can access the broker remotely via secure WebSockets.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc create route edge broker-amq-mqtt --service broker-amq-mqtt</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Make sure the route created has the <code>broker-amq-mqtt</code>.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Do we need to use templates?</div>
+No, you can also use the Operator to deploy the AMQ Broker or run a local instance from the zip file.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Deploy the Price engine</strong></p>
+</div>
+<div class="paragraph">
+<p>The Camel Edge integration gets detections from the inference engine and requests the price engine for a price match. A Camel K instance serves as the price engine.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to the <code>price-engine</code> directory</p>
+</li>
+<li>
+<p>You can run locally with Camel JBang with the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">camel run * --port 8090</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To deploy to OpenShift, run the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">kamel run price-engine.xml \
+--resource file:catalogue.json</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>You can test using the following cURL command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">curl \
+-H "item: Apple" \
+http://price-engine-demo.apps.cluster-lv7nl.lv7nl.sandbox257.opentlc.com/price</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Replace the URL with your current cluster deployment.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>S3 Storage</strong></p>
+</div>
+<div class="paragraph">
+<p>You can use the RHPDS Camel Workshop instance, which offers an S3 Storage option with ODF, for the time being.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Follow the same steps indicated in the <a href="https://github.com/RedHat-Middleware-Workshops/workshop-camel3/blob/main/docs/labs/stage5/walkthrough.adoc#deploy-in-openshift">Camel Workshop</a></p>
+</li>
+<li>
+<p>Configure <code>application.properties</code></p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -223,7 +434,6 @@
 </div>
 <nav class="pagination">
   <span class="prev"><a href="02-architecture.html" class="query-params-link">2. Architecture</a></span>
-  <span class="next"><a href="04-workshop.html" class="query-params-link">4. Workshop</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

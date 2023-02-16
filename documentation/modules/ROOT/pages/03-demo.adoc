@@ -17,13 +17,120 @@ Coming soon!
 
 == Run the demonstration
 
+This Red Hat build of Apache Camel Quarkus component links MQTT and HTTP clients (such as IoT devices, mobile phones, and third-party clients) with an AI/ML engine to obtain detection results from images.
+
 === Before getting started
 
-Coming soon! 
+The following components are necessary for the demo deployment:
+
+ - the REST AI/ML engine
+ - the REST Price engine (Camel K)
+ - an AMQ Broker (local or remote)
+ - Camel K Operator
+ - S3 storage provided by OpenShift Data Foundation
 
 === Installing the demo
 
-Coming Soon!
+*Preparing the environment*
+
+1. Clone https://github.com/RedHat-Middleware-Workshops/camel-edge-rhte[this] GitHub repository:
++
+```sh
+git clone https://github.com/RedHat-Middleware-Workshops/camel-edge-rhte && cd camel-edge-rhte
+```
+
+2. Order the https://demo.redhat.com/catalog?search=dil+camel&item=babylon-catalog-prod%2Fsandboxes-gpte.camel3-wksp.prod[Day In the Life - Camel] workshop from Red Hat Demo Platform. 
++
+NOTE: Use the default values, but you will need to fill out the information regarding your salesforce opportunity.
++
+CAUTION: The workshop deployment can take several minutes to provision.
+
+*Deploy the AI/ML engine*
+
+2. Follow the steps in this tutorial: https://redhat-scholars.github.io/rhods-od-workshop/rhods-od-workshop/2-01-deploy-s2i.html#_openshift_console[Deploy with Source to Image]
+
+3. Validate the deployment with:
++
+```sh
+ MY_IMAGE=./images/numberplate2.jpeg && \
+ MY_ROUTE=https://YOUR_ROUTE_URL/ && \
+ (echo -n '{"image": "'; base64 $MY_IMAGE; echo '"}') | curl -X POST -H "Content-Type: application/json" -d @- ${MY_ROUTE}/predictions
+```
+
+*Deploy the Broker on OpenShift*
+
+We will deploy an AMQ Broker instance using the templates.
+
+1. Login with admin credentials and create a new project
++
+```sh
+oc new-project demo
+```
+
+2. Using the OpenShift Command Line create the template:
++
+```sh
+oc replace --force -f \
+  https://raw.githubusercontent.com/jboss-container-images/jboss-amq-7-broker-openshift-image/74-7.4.0.GA/templates/amq-broker-74-basic.yaml
+```
+
+3. Create an instance from the template:
++
+```sh
+oc new-app --template=amq-broker-74-basic \
+  -p AMQ_PROTOCOL=openwire,amqp,stomp,mqtt,hornetq \
+  -p AMQ_USER=admin \
+  -p AMQ_PASSWORD=admin
+```
+
+4. Create a route by exposing the MQTT service. You need to ensure the HTML page can access the broker remotely via secure WebSockets.
++
+```sh
+oc create route edge broker-amq-mqtt --service broker-amq-mqtt
+```
++
+Make sure the route created has the `broker-amq-mqtt`.
+
+[NOTE]
+.Do we need to use templates?
+No, you can also use the Operator to deploy the AMQ Broker or run a local instance from the zip file.
+
+*Deploy the Price engine*
+
+The Camel Edge integration gets detections from the inference engine and requests the price engine for a price match. A Camel K instance serves as the price engine.
+
+1. Go to the `price-engine` directory
+
+2. You can run locally with Camel JBang with the following command:
++
+```sh
+camel run * --port 8090
+```
+
+3. To deploy to OpenShift, run the following command:
++
+```sh
+kamel run price-engine.xml \
+--resource file:catalogue.json
+```
+
+4. You can test using the following cURL command:
++
+```sh
+curl \
+-H "item: Apple" \
+http://price-engine-demo.apps.cluster-lv7nl.lv7nl.sandbox257.opentlc.com/price
+```
++
+IMPORTANT: Replace the URL with your current cluster deployment.
+
+*S3 Storage*
+
+You can use the RHPDS Camel Workshop instance, which offers an S3 Storage option with ODF, for the time being.
+
+1. Follow the same steps indicated in the https://github.com/RedHat-Middleware-Workshops/workshop-camel3/blob/main/docs/labs/stage5/walkthrough.adoc#deploy-in-openshift[Camel Workshop]
+
+2. Configure `application.properties`
 
 === Walkthrough guide
 

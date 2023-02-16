@@ -69,6 +69,15 @@ Data can be enhanced for an enriched data discovery experience, and it can be mo
 - *Enhancement:* Objects can be enhanced with multifaceted metadata to make data discovery easier for search, analytics, and AI/ML workloads.
 - *Modification:* Objects can be modified by AI tools. For example, an image may be anonymized to obscure sensitive data.
 
+The first stage begins with image acquisition. The check-out kiosks capture every item that the cashier scans. Each image is then sent over MQTT to the AMQ Broker-implemented *Event Broker*. The data is then passed on to the *Image Processor* processing application, which prepares it for transmission. The framework provides an easy way to connect to the broker and generate a lightweight native build or container image, so this application is generated using Red Hat build or Apache Camel Extensions for Quarkus.
+
+The image is cleaned up by the processing application to remove sensitive or private information and resized for management purposes. The resulting data is saved in the *Software Defined Storage* filesystem, and the metadata is routed to a Kafka topic in the AMQ Streams *Event Bus*, where streaming applications built with the Kafka Streams Quarkus extension or Camel can perform additional parallel processing while benefiting from the platform's streaming and repeatability capabilities.
+
+Mirror Maker 2 technology is used to transport metadata from the edge to the core. The platform offers replication possibilities for saved data. When connected to the core, both components support information replication.
+
+[TIP]
+If the edge constraints prevent the deployment of software-defined storage, we may still save the files locally and then run a Camel pipeline that implements the logic to replicate the data to the core using conventional protocols such as S3.
+
 See below an abstract representation of the stage:
 
 .Data Acquisition Overview.
@@ -76,7 +85,7 @@ See below an abstract representation of the stage:
 image::02-data-acquisition.png[]
 
 
-=== Data Preparation & Modeling
+=== Data Preparation and Modeling
 
 One way to manage the flow of objects into the data pipeline is to create notifications that initiate a workflow. 
 
@@ -84,7 +93,7 @@ One way to manage the flow of objects into the data pipeline is to create notifi
 - *Notifications:* As objects enter, exit, or are modified in the bucket, a bucket notification is made to a Kafka broker in Red Hat AMQ.
 Change data capture: Red Hat Integration tools initiate processes like data replication and microservices integration through CDC.
 
-=== Application Development & Delivery
+=== Application Development and Delivery
 
 Data moves through the pipeline and can trigger events. As the data is analyzed, it may trigger additional events creating an automated event-driven workflow.
 
@@ -102,3 +111,5 @@ Life cycle: Prioritized data can be moved back into a data repository for ML ret
 == About the Technology Stack
 
 If you want to include more details about the tech stack you used, this is the place.
+
+// end::arch-in-depth[]

@@ -34,7 +34,7 @@ With fresh, relevant data, businesses can learn effectively and adapt to changin
 
 Red Hat® OpenShift® Container Platform, Red Hat OpenShift Data Foundation, Red Hat Application Foundations, and other tools can help automate the workflow of data ingestion, preparation, and management building data pipelines for hybrid cloud deployments that automate data processing upon acquisition.
 
-=== Red Hat Technology
+// === Red Hat Technology
 
 // Change links and text here as you see fit.
 * https://www.redhat.com/en/technologies/device-edge[Red Hat Device Edge]
@@ -46,10 +46,10 @@ Red Hat® OpenShift® Container Platform, Red Hat OpenShift Data Foundation, Red
 * https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat OpenShift,window=_blank]
 * https://www.redhat.com/es/technologies/cloud-computing/openshift/openshift-data-science[Red Hat OpenShift Data Science]
 
-=== Additional Technology:
+// === Additional Technology:
 
-** https://www.postgresql.org/[PostgreSQL database,window=_blank]
-** https://helm.sh/[Helm,window=_blank]
+// ** https://www.postgresql.org/[PostgreSQL database,window=_blank]
+// ** https://helm.sh/[Helm,window=_blank]
 
 
 [#in_depth]

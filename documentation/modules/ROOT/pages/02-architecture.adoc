@@ -129,7 +129,7 @@ image::02-device-edge.png[]
 [TIP]
 Learn more about Red Hat Device Edge collaborations with https://www.redhat.com/en/about/press-releases/lockheed-martin-red-hat-collaborate-advance-artificial-intelligence-military-missions[Lockheed Martin] and https://www.redhat.com/en/about/press-releases/abb-and-red-hat-partner-deliver-further-scalable-digital-solutions-across-industrial-edge-and-hybrid-cloud[ABB].
 
-=== ZooKeeper-less Kafka
+=== Single Node Apache Kafka Broker
 
 The Red Hat® AMQ streams component is a massively scalable, distributed, and high-performance data streaming platform based on the Apache Kafka project. It offers a distributed backbone that allows microservices and other applications to share data with high throughput and low latency. 
 

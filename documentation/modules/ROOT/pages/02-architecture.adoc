@@ -137,7 +137,7 @@ The latest AMQ Streams release introduces the new `UseKRaft` feature gate. This 
 
 .KRaft architecture for Kafka..
 
-image::02-kafka-kraft.png[]
+image::02-kafka-kraft-cluster.png[]
 
 ****
 With KRaft, we can deploy a single node Kafka broker that also serves as the controller. All of the advantages of stream processing in a small footprint.

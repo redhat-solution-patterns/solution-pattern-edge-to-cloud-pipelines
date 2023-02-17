@@ -386,8 +386,64 @@ Life cycle: Prioritized data can be moved back into a data repository for ML ret
 <div class="sect1">
 <h2 id="more_tech"><a class="anchor" href="#more_tech"></a><a class="link" href="#more_tech">4. About the Technology Stack</a></h2>
 <div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
 <div class="paragraph">
-<p>If you want to include more details about the tech stack you used, this is the place.</p>
+<p><a href="https://www.redhat.com/en/topics/edge-computing/what-is-edge-computing">Edge computing</a> shifts computing power away from core datacenters and distributes it closer to users and data sources—often across a large number of locations., providing faster response times, more reliable services, and a better application experience back to users.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_is_red_hat_device_edge"><a class="anchor" href="#_what_is_red_hat_device_edge"></a><a class="link" href="#_what_is_red_hat_device_edge">4.1. What is Red Hat Device Edge?</a></h3>
+<div class="paragraph">
+<p>Red Hat® Device Edge extends operational consistency across edge and hybrid cloud environments, no matter where devices are deployed in the field. Red Hat Device Edge combines enterprise-ready lightweight Kubernetes container orchestrations using MicroShift with Red Hat Enterprise Linux® to support different use cases and workloads on small, resource-constrained devices at the farthest edge.</p>
+</div>
+<div class="paragraph">
+<p>MicroShift comes as an RPM software package that you can add to the blueprint of your system images when needed. Include your Kubernetes workloads, too, if you want. They will be deployed the next time you roll out updates to your devices. Red Hat Device Edge with MicroShift runs on Intel and Arm systems as small as 2 CPU cores and 2GB RAM.</p>
+</div>
+<div class="paragraph">
+<p>MicroShift also provides OpenShift’s APIs for security context constraints and routes, but to reduce footprint we’ve removed APIs that are only useful on build clusters or clusters with multi-user interactive access. We’ve also removed Operators responsible for managing the operating system updates and configuration or orchestrating control plane components, as they are not needed in the MicroShift model.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/02-device-edge.png" alt="02 device edge">
+</div>
+<div class="title">Figure 3. Red Hat Device Edge Technical Overview.</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Learn more about Red Hat Device Edge collaborations with <a href="https://www.redhat.com/en/about/press-releases/lockheed-martin-red-hat-collaborate-advance-artificial-intelligence-military-missions">Lockheed Martin</a> and <a href="https://www.redhat.com/en/about/press-releases/abb-and-red-hat-partner-deliver-further-scalable-digital-solutions-across-industrial-edge-and-hybrid-cloud">ABB</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_zookeeper_less_kafka"><a class="anchor" href="#_zookeeper_less_kafka"></a><a class="link" href="#_zookeeper_less_kafka">4.2. ZooKeeper-less Kafka</a></h3>
+<div class="paragraph">
+<p>The Red Hat® AMQ streams component is a massively scalable, distributed, and high-performance data streaming platform based on the Apache Kafka project. It offers a distributed backbone that allows microservices and other applications to share data with high throughput and low latency.</p>
+</div>
+<div class="paragraph">
+<p>The latest AMQ Streams release introduces the new <code>UseKRaft</code> feature gate. This feature gate provides a way to deploy a Kafka cluster in the KRaft (Kafka Raft metadata) mode without ZooKeeper. This feature gate is currently in an experimental stage, but it can be used for development and testing of AMQ Streams and Apache Kafka.</p>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="02-kafka-kraft.png" alt="02 kafka kraft">
+</div>
+<div class="title">Figure 4. KRaft architecture for Kafka..</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>With KRaft, we can deploy a single node Kafka broker that also serves as the controller. All of the advantages of stream processing in a small footprint.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>

@@ -202,224 +202,107 @@
 <h2 id="_run_the_demonstration"><a class="anchor" href="#_run_the_demonstration"></a><a class="link" href="#_run_the_demonstration">2. Run the demonstration</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This Red Hat build of Apache Camel Quarkus component links MQTT and HTTP clients (such as IoT devices, mobile phones, and third-party clients) with an AI/ML engine to obtain detection results from images.</p>
+<p>This Camel Quarkus component combines MQTT and HTTP clients (such as IoT devices, cellphones, and third-party clients) with an AI/ML engine to obtain image detection results.</p>
 </div>
 <div class="sect2">
-<h3 id="_before_getting_started"><a class="anchor" href="#_before_getting_started"></a><a class="link" href="#_before_getting_started">2.1. Before getting started</a></h3>
+<h3 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a><a class="link" href="#_prerequisites">2.1. Prerequisites</a></h3>
 <div class="paragraph">
-<p>The following components are necessary for the demo deployment:</p>
+<p>You will require:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>the REST AI/ML engine</p>
+<p>An OpenShift Container Platform cluster running version 4.12 or above with Cluster Admin access.<br></p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+  You can obtain one by ordering from <a href="https://demo.redhat.com/catalog?search=4.12">Red Hat Demo Platform</a> or deploying the trial version available at <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift/try-it">Try Red Hat OpenShift</a>.
+</td>
+</tr>
+</table>
+</div>
 </li>
 <li>
-<p>the REST Price engine (Camel K)</p>
-</li>
-<li>
-<p>an AMQ Broker (local or remote)</p>
-</li>
-<li>
-<p>Camel K Operator</p>
-</li>
-<li>
-<p>S3 storage provided by OpenShift Data Foundation</p>
+<p>Docker is installed and running.<br></p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+  The ansible playbook that configures the environment is run using Docker and Linux container images in this demonstration. You should use the most recent Docker version. See the <a href="https://docs.docker.com/engine/installation/">Docker Engine installation documentation</a> for further information.
+</td>
+</tr>
+</table>
+</div>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_installing_the_demo"><a class="anchor" href="#_installing_the_demo"></a><a class="link" href="#_installing_the_demo">2.2. Installing the demo</a></h3>
-<div class="paragraph">
-<p><strong>Preparing the environment</strong></p>
-</div>
+<h3 id="_install_the_demo"><a class="anchor" href="#_install_the_demo"></a><a class="link" href="#_install_the_demo">2.2. Install the demo</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Clone <a href="https://github.com/RedHat-Middleware-Workshops/camel-edge-rhte">this</a> GitHub repository:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">git clone https://github.com/RedHat-Middleware-Workshops/camel-edge-rhte &amp;&amp; cd camel-edge-rhte</code></pre>
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">git clone https://github.com/hguerrero/edge-to-cloud-data-pipelines-demo.git</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Order the <a href="https://demo.redhat.com/catalog?search=dil+camel&amp;item=babylon-catalog-prod%2Fsandboxes-gpte.camel3-wksp.prod">Day In the Life - Camel</a> workshop from Red Hat Demo Platform.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Use the default values, but you will need to fill out the information regarding your salesforce opportunity.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-The workshop deployment can take several minutes to provision.
-</td>
-</tr>
-</table>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Deploy the AI/ML engine</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Follow the steps in this tutorial: <a href="https://redhat-scholars.github.io/rhods-od-workshop/rhods-od-workshop/2-01-deploy-s2i.html#_openshift_console">Deploy with Source to Image</a></p>
-</li>
-<li>
-<p>Validate the deployment with:</p>
+<p>Change to the Ansible directory.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh"> MY_IMAGE=./images/numberplate2.jpeg &amp;&amp; \
- MY_ROUTE=https://YOUR_ROUTE_URL/ &amp;&amp; \
- (echo -n '{"image": "'; base64 $MY_IMAGE; echo '"}') | curl -X POST -H "Content-Type: application/json" -d @- ${MY_ROUTE}/predictions</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Deploy the Broker on OpenShift</strong></p>
-</div>
-<div class="paragraph">
-<p>We will deploy an AMQ Broker instance using the templates.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Login with admin credentials and create a new project</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc new-project demo</code></pre>
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">cd edge-to-cloud-data-pipelines-demo/ansible</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Using the OpenShift Command Line create the template:</p>
+<p>Set the cluster admin variable.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc replace --force -f \
-  https://raw.githubusercontent.com/jboss-container-images/jboss-amq-7-broker-openshift-image/74-7.4.0.GA/templates/amq-broker-74-basic.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">OCP_USERNAME=&lt;your_admin_username&gt;</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Create an instance from the template:</p>
+<p>Configure the <code>KUBECONFIG</code> file to use.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc new-app --template=amq-broker-74-basic \
-  -p AMQ_PROTOCOL=openwire,amqp,stomp,mqtt,hornetq \
-  -p AMQ_USER=admin \
-  -p AMQ_PASSWORD=admin</code></pre>
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">export KUBECONFIG=./kube-demo</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Create a route by exposing the MQTT service. You need to ensure the HTML page can access the broker remotely via secure WebSockets.</p>
+<p>Login into your OpenShift cluster from the <code>oc</code> command line.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc create route edge broker-amq-mqtt --service broker-amq-mqtt</code></pre>
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc login --username="${OCP_USERNAME}" --server=https://(...):6443 --insecure-skip-tls-verify=true</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Make sure the route created has the <code>broker-amq-mqtt</code>.</p>
+<p>Replace the <code>--server</code> url with your own cluster API endpoint.</p>
 </div>
 </li>
-</ol>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="title">Do we need to use templates?</div>
-No, you can also use the Operator to deploy the AMQ Broker or run a local instance from the zip file.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p><strong>Deploy the Price engine</strong></p>
-</div>
-<div class="paragraph">
-<p>The Camel Edge integration gets detections from the inference engine and requests the price engine for a price match. A Camel K instance serves as the price engine.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
 <li>
-<p>Go to the <code>price-engine</code> directory</p>
-</li>
-<li>
-<p>You can run locally with Camel JBang with the following command:</p>
+<p>Run the playbook</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">camel run * --port 8090</code></pre>
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">docker run -i -t --rm --entrypoint /usr/local/bin/ansible-playbook \
+    -v $PWD:/runner \
+    -v $PWD/kube-demo:/home/runner/.kube/config \
+    quay.io/agnosticd/ee-multicloud:v0.0.11  \
+    -e="ocp_username=${OCP_USERNAME}" \
+    ./install.yaml</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>To deploy to OpenShift, run the following command:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">kamel run price-engine.xml \
---resource file:catalogue.json</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>You can test using the following cURL command:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">curl \
--H "item: Apple" \
-http://price-engine-demo.apps.cluster-lv7nl.lv7nl.sandbox257.opentlc.com/price</code></pre>
-</div>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-Replace the URL with your current cluster deployment.
-</td>
-</tr>
-</table>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>S3 Storage</strong></p>
-</div>
-<div class="paragraph">
-<p>You can use the RHPDS Camel Workshop instance, which offers an S3 Storage option with ODF, for the time being.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Follow the same steps indicated in the <a href="https://github.com/RedHat-Middleware-Workshops/workshop-camel3/blob/main/docs/labs/stage5/walkthrough.adoc#deploy-in-openshift">Camel Workshop</a></p>
-</li>
-<li>
-<p>Configure <code>application.properties</code></p>
 </li>
 </ol>
 </div>

@@ -65,10 +65,31 @@ oc login --username="${OCP_USERNAME}" --server=https://(...):6443 --insecure-ski
 +
 Replace the `--server` url with your own cluster API endpoint.
 
-6. Run the playbook
+6. Run the playbook either
++
+.. Using Ansible
++
+```sh
+ansible-playbook -i inventory/openshift.yaml   \
+    -e="ocp_username=${OCP_USERNAME}" \
+    ./install.yaml
+```
++
+.. Using Docker
 +
 ```sh
 docker run -i -t --rm --entrypoint /usr/local/bin/ansible-playbook \
+    -v $PWD:/runner \
+    -v $PWD/kube-demo:/home/runner/.kube/config \
+    quay.io/agnosticd/ee-multicloud:v0.0.11  \
+    -e="ocp_username=${OCP_USERNAME}" \
+    ./install.yaml
+```
++
+.. Using Podman
++
+```sh
+podman run -i -t --rm --entrypoint /usr/local/bin/ansible-playbook \
     -v $PWD:/runner \
     -v $PWD/kube-demo:/home/runner/.kube/config \
     quay.io/agnosticd/ee-multicloud:v0.0.11  \

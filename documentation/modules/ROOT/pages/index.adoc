@@ -12,8 +12,6 @@ When analyzing user data at the edge, such as that from Internet of Things (IoT)
 
 This solution pattern provides an architecture solution for scenarios in which edge devices generate image data, which must be collected, processed, and stored at the edge before being utilized to train AI/ML models at the core data center or cloud.
 
-include::content-overview.adoc[]
-
 [#use-cases]
 == Use cases
 

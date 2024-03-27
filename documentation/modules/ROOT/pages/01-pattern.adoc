@@ -1,3 +1,5 @@
+:imagesdir: ../assets/images
+
 [#_the_story_behind_this_solution_pattern]
 == The story behind this solution pattern
 
@@ -5,9 +7,19 @@ Within Artificial Intelligence (AI), edge analytics focuses on inference (predic
 
 For Inferencing data by a trained model, we usually deploy applications containing the model on the devices or edge servers close to the site floor. At the same time, other processes select, transform (for data privacy and protection compliance) and transfer the generated raw data to create the datasets that will train the models to the core data center or cloud, where more computing power and specialized processors are available.
 
-=== Enabling edge data processing with AI/ML
+=== An ever-evolving product catalogue
 
 The solution pattern is supported by the narrative of a retail store that began using various sorts of devices to collect images of their products at store locations in order to offer customers with the most up-to-date information, such as the pricing and promotions linked. They must collect photos, prepare them for transmission to the core for training an AI Vision model, and then deploy it as an application that may be deployed in the remote location server to respond inference queries from consumers and their own kiosks.
+
+The challenge ahead in the presented retail use case is the need to continuously update the catalogue of products which customers explore from their smart devices. Products on the store's shelves are changing all the time. New products are added on a daily/weekly basis while other products, not selling well, are removed to free up shelf space. Sometimes articles change their packaging and appearance. Also government regulations may, for example, enforce prohibitions on food ingredients, forcing the retirement of certain products.
+
+image::06-product-timeline.png[]
+
+These fast-paced product catalogue updates require a sophisticated platform capable of absorbing the constant demand to acquire, train, deliver and hot deploy new AI model versions at a fast cadence, with a high degree of automatism and lower levels of human intervention.
+
+
+
+=== Enabling edge data processing with AI/ML
 
 You can use the Edge to Core Pipelines pattern to collect, organize, process, and monitor edge data on-site. You can process your data locally, send it to your data center, cloud, or data lake, or load it into on-premises applications. Because you can process and route your data locally, you can choose to send only aggregated data to the cloud, optimizing your bandwidth usage and cloud storage costs.
 

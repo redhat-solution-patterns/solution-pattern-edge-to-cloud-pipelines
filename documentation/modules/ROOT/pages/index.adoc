@@ -10,7 +10,7 @@ To reach the human level, the responses and decisions made by machines and appli
 
 When analyzing user data at the edge, such as that from Internet of Things (IoT) devices or industrial machines, the problem becomes dealing with massive amounts of data. Every device generates vast amounts of data every second, which is only useful if it can be stored or analyzed. This data becomes much more useful when used locally and subsequently moved to the open hybrid cloud's core data center.
 
-This solution pattern provides an architecture solution for scenarios in which edge devices generate image data, which must be collected, processed, and stored at the edge before being utilized to train AI/ML models at the core data center or cloud.
+This solution pattern provides an architecture solution for scenarios in which edge devices generate image data, which must be collected, processed, and stored at the near edge before being utilized to train AI/ML models at the core data center or cloud.
 
 [#use-cases]
 == Use cases

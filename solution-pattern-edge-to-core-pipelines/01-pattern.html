@@ -215,6 +215,9 @@
 </div>
 </div>
 <div class="paragraph">
+<p>&lt;img src="../images/06-product-timeline.png" alt="image" width="300" height="auto"&gt;&lt;/img&gt;</p>
+</div>
+<div class="paragraph">
 <p>These fast-paced product catalogue updates require a sophisticated platform capable of absorbing the constant demand to acquire, train, deliver and hot deploy new AI model versions at a fast cadence, with a high degree of automatism and lower levels of human intervention.</p>
 </div>
 </div>
@@ -278,33 +281,58 @@ The solution pattern demonstration employs REST HTTP clients and MQTT over webso
 <p>Data Acquisition</p>
 </li>
 <li>
-<p>Data Preparation &amp; Modeling</p>
+<p>Data Preparation &amp; Modelling</p>
 </li>
 <li>
 <p>Application Development &amp; Delivery</p>
 </li>
 <li>
-<p>Edge ML Inference</p>
+<p>Edge/NearEdge ML Inferencing</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>The first stage begins with the acquisition of images. The check out kiosks take a picture of every item that the cashier scans. Each image is then delivered over MQTT to a message broker, who passes it on to the processing application, which prepares the data for transmission.</p>
+<p><br></p>
+</div>
+<div class="sect2">
+<h3 id="_data_acquisition"><a class="anchor" href="#_data_acquisition"></a>Data Acquisition</h3>
+<div class="paragraph">
+<p>The first stage begins with the acquisition of images. For example, the check out kiosks can take pictures of every item that the cashier scans. Each image is then delivered over MQTT to a message broker, who passes it on to the processing application, which prepares the data for transmission.</p>
 </div>
 <div class="paragraph">
-<p>The image is cleaned up by the processing application to remove sensitive or private info and resized for management purposes. The resulting data is sent to an Apache Kafka topic, where streaming applications can perform additional parallel processing while benefiting from the platform&#8217;s streaming and repeatability.</p>
+<p>To send data from the edge to the core, depending on the use case, we can use an Apache Kafka topic for example, to allow other streaming applications perform additional parallel processing by benefiting from the platform&#8217;s streaming and repeatability. In this image-based example however we find preferable to move images via traditional HTTP (still is data streaming).</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>To send data from the edge to the core, we can use Mirror Maker 2&#8217;s technology or a Kafka connector that saves the data in a distributed file system. When connectivity is available, both modes allow for information replication to the core.</p>
+<p><em>Kafka</em> is usually not the right technology to store and process large payloads (images, videos, big files, etc.) as a whole. It can however complement other strategies to integrate, coordinate, orchestrate or preprocess the data, for example.</p>
 </div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_data_preparation_modelling"><a class="anchor" href="#_data_preparation_modelling"></a>Data Preparation &amp; Modelling</h3>
 <div class="paragraph">
-<p>With data available in the core data center or in the cloud, enterprise data analysts can utilize OpenShift Data Science to build a model that enables the application to detect objects.</p>
+<p>Once the data is available in the core data center or in the cloud, the imagery is cleaned up by the processing application to remove sensitive or private info and resized for management purposes. Then enterprise data analysts can utilize OpenShift Data Science to build a model that enables the application to detect objects.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_application_development_delivery"><a class="anchor" href="#_application_development_delivery"></a>Application Development &amp; Delivery</h3>
 <div class="paragraph">
 <p>Once trained, a model can be saved as part of an application or service that provides an API for inferencing. This application must be built and delivered as part of the organization&#8217;s CI/CD process to ensure that security policies are followed.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_edgenearedge_ml_inferencing"><a class="anchor" href="#_edgenearedge_ml_inferencing"></a>Edge/NearEdge ML inferencing</h3>
 <div class="paragraph">
-<p>Finally, once the application is deployed at the edge, some of the event-driven architecture can be reused for customers. Consumer devices use a mobile application that enables users to shoot photos with their phones and subsequently upload those photos to the event broker. A processing service retrieves the image from the queue and transmits it to the inference service, which returns the information in the image. If, for whatever reason, the image cannot be detected. It will save the data locally in order to include it to the future set of data that will be transferred to the core for further model improvement.</p>
+<p>Finally, once the application is deployed at the edge (or near edge), some of the event-driven architecture can be reused for customers. Consumer devices use a mobile application that enables users to shoot photos with their phones and subsequently upload those photos to the event broker. A processing service retrieves the image from the queue and transmits it to the inference service, which returns the information in the image. If, for whatever reason, the image cannot be detected. It will save the data locally in order to include it to the future set of data that will be transferred to the core for further model improvement.</p>
 </div>
 <div class="paragraph">
 <p>See below a simplified representation of the solution:</p>
@@ -314,6 +342,9 @@ The solution pattern demonstration employs REST HTTP clients and MQTT over webso
 <img src="_images/01-solution-overview.png" alt="01 solution overview">
 </div>
 <div class="title">Figure 1. Simplified Solution Overview.</div>
+</div>
+<div class="paragraph">
+<p><br></p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -326,6 +357,7 @@ Please see the <a href="02-architecture.html" class="xref page">Architecture</a>
 </td>
 </tr>
 </table>
+</div>
 </div>
 </div>
 </div>

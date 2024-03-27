@@ -15,6 +15,8 @@ The challenge ahead in the presented retail use case is the need to continuously
 
 image::06-product-timeline.png[]
 
+<img src="../images/06-product-timeline.png" alt="image" width="300" height="auto"></img>
+
 These fast-paced product catalogue updates require a sophisticated platform capable of absorbing the constant demand to acquire, train, deliver and hot deploy new AI model versions at a fast cadence, with a high degree of automatism and lower levels of human intervention.
 
 
@@ -44,27 +46,41 @@ There are a few current alternatives to edge analytics, but they are losing trac
 This solution pattern is divided into four major stages that cover various aspects of the end-to-end AI/ML lifecycle:
 
 1. Data Acquisition
-2. Data Preparation & Modeling
+2. Data Preparation & Modelling
 3. Application Development & Delivery
-4. Edge ML Inference 
+4. Edge/NearEdge ML Inferencing
 
-The first stage begins with the acquisition of images. The check out kiosks take a picture of every item that the cashier scans. Each image is then delivered over MQTT to a message broker, who passes it on to the processing application, which prepares the data for transmission.
+{empty} +
 
-The image is cleaned up by the processing application to remove sensitive or private info and resized for management purposes. The resulting data is sent to an Apache Kafka topic, where streaming applications can perform additional parallel processing while benefiting from the platform's streaming and repeatability. 
+=== Data Acquisition
 
-To send data from the edge to the core, we can use Mirror Maker 2's technology or a Kafka connector that saves the data in a distributed file system. When connectivity is available, both modes allow for information replication to the core.
+The first stage begins with the acquisition of images. For example, the check out kiosks can take pictures of every item that the cashier scans. Each image is then delivered over MQTT to a message broker, who passes it on to the processing application, which prepares the data for transmission.
 
-With data available in the core data center or in the cloud, enterprise data analysts can utilize OpenShift Data Science to build a model that enables the application to detect objects.
+To send data from the edge to the core, depending on the use case, we can use an Apache Kafka topic for example, to allow other streaming applications perform additional parallel processing by benefiting from the platform's streaming and repeatability. In this image-based example however we find preferable to move images via traditional HTTP (still is data streaming).
+
+[NOTE]
+==== 
+_Kafka_ is usually not the right technology to store and process large payloads (images, videos, big files, etc.) as a whole. It can however complement other strategies to integrate, coordinate, orchestrate or preprocess the data, for example.
+====
+
+=== Data Preparation & Modelling
+
+Once the data is available in the core data center or in the cloud, the imagery is cleaned up by the processing application to remove sensitive or private info and resized for management purposes. Then enterprise data analysts can utilize OpenShift Data Science to build a model that enables the application to detect objects.
+
+=== Application Development & Delivery
 
 Once trained, a model can be saved as part of an application or service that provides an API for inferencing. This application must be built and delivered as part of the organization's CI/CD process to ensure that security policies are followed.
 
-Finally, once the application is deployed at the edge, some of the event-driven architecture can be reused for customers. Consumer devices use a mobile application that enables users to shoot photos with their phones and subsequently upload those photos to the event broker. A processing service retrieves the image from the queue and transmits it to the inference service, which returns the information in the image. If, for whatever reason, the image cannot be detected. It will save the data locally in order to include it to the future set of data that will be transferred to the core for further model improvement.
+=== Edge/NearEdge ML inferencing
+
+Finally, once the application is deployed at the edge (or near edge), some of the event-driven architecture can be reused for customers. Consumer devices use a mobile application that enables users to shoot photos with their phones and subsequently upload those photos to the event broker. A processing service retrieves the image from the queue and transmits it to the inference service, which returns the information in the image. If, for whatever reason, the image cannot be detected. It will save the data locally in order to include it to the future set of data that will be transferred to the core for further model improvement.
 
 See below a simplified representation of the solution:
 
 .Simplified Solution Overview.
-
 image::01-solution-overview.png[]
+
+{empty} +
 
 [TIP]
 Please see the xref:02-architecture.adoc[Architecture] section for more extensive architecture diagrams.

@@ -2,6 +2,7 @@
 :sectnums:
 :sectlinks:
 :doctype: book
+:imagesdir: ../assets/images
 
 = Architecture 
 
@@ -41,10 +42,12 @@ Red Hat® OpenShift® Container Platform, Red Hat OpenShift Data Foundation, Red
 * https://www.redhat.com/en/products/application-foundations[Red Hat Application Foundations,window=_blank]
 ** *https://access.redhat.com/products/red-hat-amq#broker[AMQ Broker,window=_blank]:* Pure-Java multi-protocol message broker. It’s built on an efficient, asynchronous core with a fast native journal for message persistence and the option of shared-nothing state replication for high availability.
 ** *https://access.redhat.com/products/red-hat-amq#streams[AMQ Streams,window=_blank]:* Based on the Apache Kafka project, AMQ Streams offers a distributed backbone that allows microservices and other applications to share data with extremely high throughput and extremely low latency.
-** *https://access.redhat.com/documentation/en-us/red_hat_build_of_apache_camel_extensions_for_quarkus/2.13/html/getting_started_with_camel_extensions_for_quarkus/index[Red Hat build of Apache Camel Extensions for Quarkus,window=_blank]:* Utilize the integration capabilities of Apache Camel and its vast component library in the Quarkus runtime, optimizing for peak application performance with fast start up time.
+** *https://developers.redhat.com/products/redhat-build-of-apache-camel[Red Hat build of Apache Camel,window=_blank]:* Utilize the integration capabilities of Apache Camel and its vast component library in the Quarkus runtime, optimizing for peak application performance with fast start up time.
 ** *https://access.redhat.com/products/quarkus[Red Hat build of Quarkus,window=_blank]:* Utilizes an innovative compile-time boot process that moves typical runtime steps to compile time. The result is an application that can consume as little as 10’s of MB of memory and start in 10’s of milliseconds.
 * https://www.redhat.com/en/technologies/cloud-computing/openshift[Red Hat OpenShift,window=_blank]
-* https://www.redhat.com/es/technologies/cloud-computing/openshift/openshift-data-science[Red Hat OpenShift Data Science]
+* https://www.redhat.com/en/technologies/cloud-computing/openshift/openshift-ai[Red Hat OpenShift AI]
+* https://www.redhat.com/en/technologies/cloud-computing/openshift-data-foundation[Red Hat OpenShift Data Foundation]
+* https://www.redhat.com/en/technologies/cloud-computing/service-interconnect[Red Hat Service Interconnect]
 
 // === Additional Technology:
 
@@ -55,63 +58,101 @@ Red Hat® OpenShift® Container Platform, Red Hat OpenShift Data Foundation, Red
 [#in_depth]
 == An in-depth look at the solution's architecture
 
-Ingesting and preparing data can help organizations deploy automated data pipelines in an event-driven architecture. Continuous data, such as sensor metrics, temperature, and vibrations can be imported directly into an Apache Kafka topic in AMQ Streams.
+This solution pattern implements an architecture that allows large organisations to have a core data center doing all the CPU-hungry processing (AI/ML training) where different branches of the company are connected to push training data and obtain upgraded model versions.
+
+In the retail space for instance you may find a company that runs multiple stores with different needs. One branch (_Edge1_ for example) runs a big surface area store, with a big product catalogue aimed at the every-day citizen. Another branch (_Edge2_), small-sized store, may be located in a prominent area and offers luxury products to their customers. Both require different product catalogues and run at different speeds.
+
+
+image::07-full-architecture.png[]
+
+Each _Near Edge_ zone in the diagram above represents the branches (stores) and run independent from each other. They all rely on the main data center to produce iterations of the AI/ML models they run for their stores.
+
+[TIP]
+====
+The demo provided in this Solution Pattern can be provisioned with multiple edge zones, as per the diagram above, to showcase zone isolation and scalability (growing number of branches).
+====
+
+In the sections that follow the focus is centred in the interactions between one of near-edge zones (one single branch) and the core data center.
+
 
 === Data Acquisition
 
-Ingesting data into a distributed architecture allows data engineers to create pipelines that can help automate workflows and business processes.
+Ingesting and preparing data help organizations to deploy automated data pipelines in an event-driven architecture. In other spaces where continuous data is produced, such as sensor metrics, temperature, and vibrations can be imported directly into an Apache Kafka topic in AMQ Streams for example.
 
-- *Discrete data:* Images, video, and records are input as objects into an object bucket. 
-- *Multiprotocol:* Data can be acquire using different protocols. Databases can connect to Kafka through a Debezium connector.
+Data engineers can create pipelines to help automate workflows and business processes.
 
-Data can be enhanced for an enriched data discovery experience, and it can be modified at various stages of the data pipeline life cycle as required by the use case.
+- *Discrete data:* Images, video, documents, are types of content data you can store in object buckets. 
+- *Multiprotocol:* Data can be acquired using different protocols. Databases can connect to Kafka through a Debezium connector for example.
 
-- *Enhancement:* Objects can be enhanced with multifaceted metadata to make data discovery easier for search, analytics, and AI/ML workloads.
-- *Modification:* Objects can be modified by AI tools. For example, an image may be anonymized to obscure sensitive data.
+The _Data Acquisition_ stage in the solution pattern is presented in the diagram below:
 
-The first stage begins with image acquisition. The check-out kiosks capture every item that the cashier scans. Each image is then sent over MQTT to the AMQ Broker-implemented *Event Broker*. The data is then passed on to the *Image Processor* processing application, which prepares it for transmission. The framework provides an easy way to connect to the broker and generate a lightweight native build or container image, so this application is generated using Red Hat build or Apache Camel Extensions for Quarkus.
+image::08-stage1-data-aquisition.png[]
 
-The image is cleaned up by the processing application to remove sensitive or private information and resized for management purposes. The resulting data is saved in the *Software Defined Storage* filesystem, and the metadata is routed to a Kafka topic in the AMQ Streams *Event Bus*, where streaming applications built with the Kafka Streams Quarkus extension or Camel can perform additional parallel processing while benefiting from the platform's streaming and repeatability capabilities.
+When a new product needs to be added in the catalogue, its imagery is pushed to the system (_Device_ to _Edge1_). All the data is kept in local object storage (not shown in the diagram above). When the imagery collection is complete, an integration process (_Camel_) packages the data and sends it over the wire to a remote S3 bucket located in the main data center (_Central_).
 
-Mirror Maker 2 technology is used to transport metadata from the edge to the core. The platform offers replication possibilities for saved data. When connected to the core, both components support information replication.
+When the training data upload to S3 completes, a coordination signal is sent via Kafka to announce new training data is available, allowing
 
-[TIP]
-If the edge constraints prevent the deployment of software-defined storage, we may still save the files locally and then run a Camel pipeline that implements the logic to replicate the data to the core using conventional protocols such as S3.
+[Note]
+====
+Edge/Core connectivity is enabled with Service Interconnect. More details to follow.
+====
 
-See below an abstract representation of the stage:
+{empty} +
 
-.Data Acquisition Overview.
+=== Data Preparation & Modelling
 
-image::02-data-acquisition.png[]
+The second stage is focussed on two important tasks:
 
+- Design and Implement the AI/ML model that meets the business requirements.
+- Prepare/Pre-process the raw data to be used as input training data.
 
-=== Data Preparation and Modeling
+There is considerable manual labour involved into the activities above listed. However, once the team of data scientists produce the desired implementation to generate the AI/ML models, it can be injected as part of an automated pipeline, along with other automated steps.
 
-One way to manage the flow of objects into the data pipeline is to create notifications that initiate a workflow. 
+The same is true for the pre-processing work to refine the raw training data which can be added to the chain of automated steps in the pipeline.
 
-- *Object bucket:* Object bucket notifications can be pushed to various endpoints, such as Kafka, HTML, or Advanced Message Queuing Protocol (AMQP).
-- *Notifications:* As objects enter, exit, or are modified in the bucket, a bucket notification is made to a Kafka broker in Red Hat AMQ.
-Change data capture: Red Hat Integration tools initiate processes like data replication and microservices integration through CDC.
+The solution pattern implements this stage as a fully automated workflow, initiated by the Kafka signal sent by the near edge system as illustrated in the diagram below:
+
+image::09-stage2-data-prep-n-model.png[]
+
+The Kafka (_Streams_) event (signal) announces new training data is available. The _Camel_ integration consumes the event and triggers the automated pipeline.
+
+The pipeline obtains all the training data from the S3 bucket and starts training the new AI/ML model. When the training completes, it uploads the new version to a model repository.
 
 === Application Development and Delivery
 
-Data moves through the pipeline and can trigger events. As the data is analyzed, it may trigger additional events creating an automated event-driven workflow.
+The third stage is primarily focussed on including all the https://www.redhat.com/en/topics/devops[_DevOps_] and https://www.redhat.com/en/topics/ai/what-is-mlops[_MLOps_] processes necessary to deliver the applications and upgrades the near edge needs to deploy and run.
+
+Here, all the best cloud-native practices apply. To know more, follow the link of the resources listed below:
+
+- https://developers.redhat.com/e-books/devops-culture-and-practice-openshift[DevOps Culture and Practice with OpenShift]
+- https://www.redhat.com/en/resources/mlops-architecture-openshift-infographic[MLOps: Machine learning operations with Red Hat OpenShift]
+
+
+Smart applications, powered by the AI/ML models, need to be designed and implemented along with their automated delivery mechanisms.
+
+The demo provided in this _Solution Pattern_ already includes all the applications and integration systems. The focus is set on showcasing the automated pipeline responsible for producing new model versions which are uploaded to the platform's object storage system, keeping duplicates in a model repository.
+
+The diagram below illustrates the stage:
+
+image::10-stage3-app-dev-delivery.png[]
+
+When the pipeline produces new model versions it pushes a copy into an edge-dedicated S3 bucket. An integration system (Camel) on the near edge environment monitors the bucket and when a new model version is available it downloads and hot-deploys it in the model server.
 
 === Edge ML Inference
 
-Data moves through the pipeline and can trigger events. As the data is analyzed, it may trigger additional events creating an automated event-driven workflow.
+The last stage involves customers and users generating live traffic that interacts with the platform and triggers AI/ML inferences against the Model server.
 
-- *Eventing:* Whether discrete data has been pushed to a Kafka topic or continuous data is sent directly to the Kafka broker, the Kafka producer will call a service that writes to a Kafka topic and initiates an event. 
-- *Elasticity:* Red Hat OpenShift Serverless can receive these event triggers and spawn multiple applications such as inferencing, alerts, messaging, anonymization, and preventative remediation. 
-- *Edge to core:* Kafka can also mirror data from edge locations to a core repository for further processing.
-Life cycle: Prioritized data can be moved back into a data repository for ML retraining, constituting a continuous improvement pipeline.
+Other systems are also at play in orchestrated workflows, executing business use cases and delivering responses to customers.
 
+image::11-stage4-ml-inferencing.png[]
+
+The demo also provides a monitoring view that provides more in-depth insight into the systems that are involved end-to-end.
 
 [#more_tech]
 == About the Technology Stack
 
 ****
-https://www.redhat.com/en/topics/edge-computing/what-is-edge-computing[Edge computing] shifts computing power away from core datacenters and distributes it closer to users and data sources—often across a large number of locations., providing faster response times, more reliable services, and a better application experience back to users.
+https://www.redhat.com/en/topics/edge-computing/what-is-edge-computing[Edge computing] shifts computing power away from core data-centers and distributes it closer to users and data sources—often across a large number of locations, providing faster response times, more reliable services, and a better application experience back to users.
 ****
 
 === What is Red Hat Device Edge?

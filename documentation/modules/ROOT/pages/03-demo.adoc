@@ -58,9 +58,10 @@ You will require:
 
 1. Clone this GitHub repository:
 +
-```sh .console-input
-git clone https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo.git
-```
+[,console]
+----
+$ git clone https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo.git
+----
 
 1. Change directory to the root of the project.
 +

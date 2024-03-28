@@ -13,7 +13,10 @@ The solution pattern is supported by the narrative of a retail store that began 
 
 The challenge ahead in the presented retail use case is the need to continuously update the catalogue of products which customers explore from their smart devices. Products on the store's shelves are changing all the time. New products are added on a daily/weekly basis while other products, not selling well, are removed to free up shelf space. Sometimes articles change their packaging and appearance. Also government regulations may, for example, enforce prohibitions on food ingredients, forcing the retirement of certain products.
 
-image::06-product-timeline.png[,80%,align="center"]
+[.left.text-center]
+image::06-product-timeline.png[,40%]
+
+// ,align="center"]
 
 
 These fast-paced product catalogue updates require a sophisticated platform capable of absorbing the constant demand to acquire, train, deliver and hot deploy new AI model versions at a fast cadence, with a high degree of automatism and lower levels of human intervention.

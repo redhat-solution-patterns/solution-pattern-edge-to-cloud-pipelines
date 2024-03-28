@@ -245,7 +245,7 @@
 <p>An <em>OpenShift Container Platform</em> cluster running version 4.12 or above with cluster admin access and <em>Red Hat OpenShift AI</em> installed.</p>
 </li>
 <li>
-<p>Docker, Podman or Ansible installed and running.<br></p>
+<p><em>Docker, Podman or Ansible</em> installed and running.<br></p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -253,7 +253,19 @@
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-  The ansible playbook that configures the environment is run using Docker and Linux container images in this demonstration. You should use the most recent Docker version. See the <a href="https://docs.docker.com/engine/installation/" target="_blank" rel="noopener">Docker Engine installation documentation</a> for further information.
+  To run the demo&#8217;s <em>Ansible Playbook</em> to deploy it you&#8217;ll need one of the above. If none of them is installed on your machine we suggest installing <em>Docker</em> using the most recent Docker version. See the <a href="https://docs.docker.com/engine/installation/" target="_blank" rel="noopener">Docker Engine installation documentation</a> for further information.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+  You&#8217;ll find more information below on how to use <em>Podman</em> or <em>Ansible</em> as alternatives to <em>Docker</em>.
 </td>
 </tr>
 </table>
@@ -291,7 +303,7 @@
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-  You can obtain one by deploying the trial version available at <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift/try-it">Try Red Hat OpenShift</a>.
+  You can obtain one by deploying the trial version available at <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift/try-it" target="_blank" rel="noopener">Try Red Hat OpenShift</a>.
 </td>
 </tr>
 </table>
@@ -309,9 +321,9 @@
 <ol class="arabic">
 <li>
 <p>Clone this GitHub repository:</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ git clone https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo.git</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo.git</code></pre>
 </div>
 </div>
 </li>
@@ -319,23 +331,23 @@
 <p>Change directory to the root of the project.</p>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">$ cd sp-edge-to-cloud-data-pipelines-demo</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd sp-edge-to-cloud-data-pipelines-demo</code></pre>
 </div>
 </div>
 </li>
 <li>
 <p>Configure the <code>KUBECONFIG</code> file to use (where kube details are set after login).</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">export KUBECONFIG=./ansible/kube-demo</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export KUBECONFIG=./ansible/kube-demo</code></pre>
 </div>
 </div>
 </li>
 <li>
 <p>Login into your OpenShift cluster from the <code>oc</code> command line.</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc login --username="admin" --server=https://(...):6443 --insecure-skip-tls-verify=true</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc login --username="admin" --server=https://(...):6443 --insecure-skip-tls-verify=true</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -351,9 +363,9 @@
 <ul>
 <li>
 <p>With Docker:</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">docker run -i -t --rm --entrypoint /usr/local/bin/ansible-playbook \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker run -i -t --rm --entrypoint /usr/local/bin/ansible-playbook \
 -v $PWD:/runner \
 -v $PWD/ansible/kube-demo:/home/runner/.kube/config \
 quay.io/agnosticd/ee-multicloud:v0.0.11  \
@@ -363,9 +375,9 @@ quay.io/agnosticd/ee-multicloud:v0.0.11  \
 </li>
 <li>
 <p>With Podman:</p>
-<div class="listingblock">
+<div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">podman run -i -t --rm --entrypoint /usr/local/bin/ansible-playbook \
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">podman run -i -t --rm --entrypoint /usr/local/bin/ansible-playbook \
 -v $PWD:/runner \
 -v $PWD/ansible/kube-demo:/home/runner/.kube/config \
 quay.io/agnosticd/ee-multicloud:v0.0.11  \

@@ -33,9 +33,13 @@ This Camel Quarkus component combines MQTT and HTTP clients (such as IoT devices
 You will require:
 
 - An _OpenShift Container Platform_ cluster running version 4.12 or above with cluster admin access and _Red Hat OpenShift AI_ installed.
-- Docker, Podman or Ansible installed and running. +
+- _Docker, Podman or Ansible_ installed and running. +
 [NOTE]
-  The ansible playbook that configures the environment is run using Docker and Linux container images in this demonstration. You should use the most recent Docker version. See the https://docs.docker.com/engine/installation/[Docker Engine installation documentation^] for further information. 
+  To run the demo's _Ansible Playbook_ to deploy it you'll need one of the above. If none of them is installed on your machine we suggest installing _Docker_ using the most recent Docker version. See the https://docs.docker.com/engine/installation/[Docker Engine installation documentation^] for further information.
++ 
+[TIP]
+  You'll find more information below on how to use _Podman_ or _Ansible_ as alternatives to _Docker_. 
+
 
 {empty} +
 
@@ -48,7 +52,7 @@ You will require:
 
 1. Alternatively, if you don't have access to RHDP, ensure you have an _OpenShift_ environment available and install _Red Hat OpenShift AI_.
 [TIP]
-  You can obtain one by deploying the trial version available at https://www.redhat.com/en/technologies/cloud-computing/openshift/try-it[Try Red Hat OpenShift].
+  You can obtain one by deploying the trial version available at https://www.redhat.com/en/technologies/cloud-computing/openshift/try-it[Try Red Hat OpenShift^].
 
 {empty} +
 
@@ -58,30 +62,35 @@ You will require:
 
 1. Clone this GitHub repository:
 +
-[,console]
+[.console-input]
+[source,bash]
 ----
-$ git clone https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo.git
+git clone https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo.git
 ----
 
 1. Change directory to the root of the project.
 +
 [.console-input]
-[source,shell script]
+[source,bash]
 ----
-$ cd sp-edge-to-cloud-data-pipelines-demo
+cd sp-edge-to-cloud-data-pipelines-demo
 ----
 
 1. Configure the `KUBECONFIG` file to use (where kube details are set after login).
 +
-```sh
+[.console-input]
+[source,bash]
+----
 export KUBECONFIG=./ansible/kube-demo
-```
+----
 
 1. Login into your OpenShift cluster from the `oc` command line.
 +
-```sh
+[.console-input]
+[source,bash]
+----
 oc login --username="admin" --server=https://(...):6443 --insecure-skip-tls-verify=true
-```
+----
 +
 Replace the `--server` url with your own cluster API endpoint.
 +
@@ -90,31 +99,34 @@ Replace the `--server` url with your own cluster API endpoint.
 1. Run the Playbook
 +
 * With Docker:
-+  
-```sh
++
+[.console-input]
+[source,bash]
+----
 docker run -i -t --rm --entrypoint /usr/local/bin/ansible-playbook \
 -v $PWD:/runner \
 -v $PWD/ansible/kube-demo:/home/runner/.kube/config \
 quay.io/agnosticd/ee-multicloud:v0.0.11  \
 ./ansible/install.yaml
-```
+----
 
 * With Podman:
 +
-```sh
+[.console-input]
+[source,bash]
+----
 podman run -i -t --rm --entrypoint /usr/local/bin/ansible-playbook \
 -v $PWD:/runner \
 -v $PWD/ansible/kube-demo:/home/runner/.kube/config \
 quay.io/agnosticd/ee-multicloud:v0.0.11  \
 ./ansible/install.yaml
-
-```
+----
 
 {empty} +
 
 [TIP]
 ====
-For more installation options and tips, look at the https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo/blob/main/README.md[README,window=_blank] file in the GitHub repository
+For more installation options and tips, look at the https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo/blob/main/README.md[README^] file in the GitHub repository
 ====
 
 {empty} +

@@ -15,6 +15,14 @@ The challenge ahead in the presented retail use case is the need to continuously
 
 image::06-product-timeline.png[width=40%]
 
+test passthrough
+
+++++
+<p align="center">
+	<img src="_images/06-product-timeline.png" alt="06 product timeline" width="40%">
+</p>
+++++
+
 These fast-paced product catalogue updates require a sophisticated platform capable of absorbing the constant demand to acquire, train, deliver and hot deploy new AI model versions at a fast cadence, with a high degree of automatism and lower levels of human intervention.
 
 

@@ -196,7 +196,29 @@
 <h2 id="_demonstration"><a class="anchor" href="#_demonstration"></a><a class="link" href="#_demonstration">1. Demonstration</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Include here content related to potential existing demos: blogs, articles, recorded videos, walkthrough guides, tutorials.</p>
+<p>The Demo primarily focusses on showcasing how the combination of key Red Hat technologies unlocks the capability of constructing a fully automated platform that chains the full cycle of acquiring data, training models, delivering and deploying models, and run live inferencing.</p>
+</div>
+<div class="paragraph">
+<p>The sections below will help you walk through the essentials of installing and running the demo. But there is much more to discover and extract out of it, among other things:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Customise AI/ML models from publicly available pre-trained models.</p>
+</li>
+<li>
+<p>Create developer-friendly AI/ML models (easy to integrate with).</p>
+</li>
+<li>
+<p>Apply integration technology to move discrete or bulk-based training data.</p>
+</li>
+<li>
+<p>Bridge remote services using Service Interconnect</p>
+</li>
+<li>
+<p>Create scalable architectures growing numbers of edge environments.</p>
+</li>
+</ul>
 </div>
 <div class="sect2">
 <h3 id="demo-video"><a class="anchor" href="#demo-video"></a><a class="link" href="#demo-video">1.1. Watch a demonstration</a></h3>
@@ -220,22 +242,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>An OpenShift Container Platform cluster running version 4.12 or above with Cluster Admin access.<br></p>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-  You can obtain one by ordering from <a href="https://demo.redhat.com/catalog?search=4.12">Red Hat Demo Platform</a> or deploying the trial version available at <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift/try-it">Try Red Hat OpenShift</a>.
-</td>
-</tr>
-</table>
-</div>
+<p>An <em>OpenShift Container Platform</em> cluster running version 4.12 or above with cluster admin access and <em>Red Hat OpenShift AI</em> installed.</p>
 </li>
 <li>
-<p>Docker is installed and running.<br></p>
+<p>Docker, Podman or Ansible installed and running.<br></p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -251,40 +261,73 @@
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p><br></p>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_install_the_demo"><a class="anchor" href="#_install_the_demo"></a><a class="link" href="#_install_the_demo">2.2. Install the demo</a></h3>
+<h3 id="_provision_an_openshift_environment"><a class="anchor" href="#_provision_an_openshift_environment"></a><a class="link" href="#_provision_an_openshift_environment">2.2. Provision an OpenShift environment</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Clone <a href="https://github.com/RedHat-Middleware-Workshops/camel-edge-rhte">this</a> GitHub repository:</p>
+<p>Provision the following <em>Red Hat Demo Platform</em> (RHDP) item:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://demo.redhat.com/catalog?item=babylon-catalog-prod/community-content.com-edge-to-core.prod&amp;utm_source=webapp&amp;utm_medium=share-link"><strong>Solution Pattern - Edge to Core Data Pipelines for AI/ML</strong></a></p>
+<div class="paragraph">
+<p><br></p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Alternatively, if you don&#8217;t have access to RHDP, ensure you have an <em>OpenShift</em> environment available and install <em>Red Hat OpenShift AI</em>.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+  You can obtain one by deploying the trial version available at <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift/try-it">Try Red Hat OpenShift</a>.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><br></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_install_the_demo"><a class="anchor" href="#_install_the_demo"></a><a class="link" href="#_install_the_demo">2.3. Install the demo</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Clone this GitHub repository:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">git clone https://github.com/hguerrero/edge-to-cloud-data-pipelines-demo.git</code></pre>
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">git clone https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo.git</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Change to the Ansible directory.</p>
+<p>Change directory to the root of the project.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">cd edge-to-cloud-data-pipelines-demo/ansible</code></pre>
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">cd sp-edge-to-cloud-data-pipelines-demo</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Set the cluster admin variable.</p>
+<p>Configure the <code>KUBECONFIG</code> file to use (where kube details are set after login).</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">OCP_USERNAME=&lt;your_admin_username&gt;</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Configure the <code>KUBECONFIG</code> file to use.</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">export KUBECONFIG=./kube-demo</code></pre>
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">export KUBECONFIG=./ansible/kube-demo</code></pre>
 </div>
 </div>
 </li>
@@ -292,61 +335,72 @@
 <p>Login into your OpenShift cluster from the <code>oc</code> command line.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc login --username="${OCP_USERNAME}" --server=https://(...):6443 --insecure-skip-tls-verify=true</code></pre>
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc login --username="admin" --server=https://(...):6443 --insecure-skip-tls-verify=true</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Replace the <code>--server</code> url with your own cluster API endpoint.</p>
 </div>
-</li>
-<li>
-<p>Run the playbook either</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Using Ansible</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">ansible-playbook -i inventory/openshift.yaml   \
-    -e="ocp_username=${OCP_USERNAME}" \
-    ./install.yaml</code></pre>
-</div>
+<div class="paragraph">
+<p><br></p>
 </div>
 </li>
 <li>
-<p>Using Docker</p>
+<p>Run the Playbook</p>
+<div class="ulist">
+<ul>
+<li>
+<p>With Docker:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">docker run -i -t --rm --entrypoint /usr/local/bin/ansible-playbook \
-    -v $PWD:/runner \
-    -v $PWD/kube-demo:/home/runner/.kube/config \
-    quay.io/agnosticd/ee-multicloud:v0.0.11  \
-    -e="ocp_username=${OCP_USERNAME}" \
-    ./install.yaml</code></pre>
+-v $PWD:/runner \
+-v $PWD/ansible/kube-demo:/home/runner/.kube/config \
+quay.io/agnosticd/ee-multicloud:v0.0.11  \
+./ansible/install.yaml</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>Using Podman</p>
+<p>With Podman:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">podman run -i -t --rm --entrypoint /usr/local/bin/ansible-playbook \
-    -v $PWD:/runner \
-    -v $PWD/kube-demo:/home/runner/.kube/config \
-    quay.io/agnosticd/ee-multicloud:v0.0.11  \
-    -e="ocp_username=${OCP_USERNAME}" \
-    ./install.yaml</code></pre>
+-v $PWD:/runner \
+-v $PWD/ansible/kube-demo:/home/runner/.kube/config \
+quay.io/agnosticd/ee-multicloud:v0.0.11  \
+./ansible/install.yaml</code></pre>
 </div>
+</div>
+</li>
+</ul>
 </div>
 </li>
 </ol>
 </div>
-</li>
-</ol>
+<div class="paragraph">
+<p><br></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For more installation options and tips, look at the <a href="https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo/blob/main/README.md" target="_blank" rel="noopener">README</a> file in the GitHub repository</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_walkthrough_guide"><a class="anchor" href="#_walkthrough_guide"></a><a class="link" href="#_walkthrough_guide">2.3. Walkthrough guide</a></h3>
+<h3 id="_walkthrough_guide"><a class="anchor" href="#_walkthrough_guide"></a><a class="link" href="#_walkthrough_guide">2.4. Walkthrough guide</a></h3>
 <div class="paragraph">
 <p>Coming soon!</p>
 </div>

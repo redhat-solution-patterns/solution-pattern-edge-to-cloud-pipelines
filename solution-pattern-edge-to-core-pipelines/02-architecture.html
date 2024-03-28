@@ -348,17 +348,24 @@ What we should concentrate on at the edge is data collecting and data inference,
 </div>
 </div>
 <div class="paragraph">
-<p>When a new product needs to be added in the catalogue, its imagery is pushed to the system (<em>Device</em> to <em>Edge1</em>). All the data is kept in local object storage (not shown in the diagram above). When the imagery collection is complete, an integration process (<em>Camel</em>) packages the data and sends it over the wire to a remote S3 bucket located in the main data center (<em>Central</em>).</p>
+<p>When a new product needs to be added in the catalogue, its imagery is pushed to the system (<em>Device</em> to <em>Edge1</em>). The data is kept in local object storage while waiting to complete the collection. When the imagery is collected in full, an integration application (<em>Camel</em>) packages all the data and sends it over the wire to a remote S3 bucket located in the main data center (<em>Central</em>).</p>
 </div>
 <div class="paragraph">
 <p>When the training data upload to S3 completes, a coordination signal is sent via Kafka to announce new training data is available, allowing</p>
 </div>
-<div class="exampleblock">
-<div class="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
 <p>Edge/Core connectivity is enabled with Service Interconnect. More details to follow.</p>
 </div>
-</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p><br></p>

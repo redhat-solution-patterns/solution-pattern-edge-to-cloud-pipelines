@@ -35,14 +35,14 @@ You will require:
 - An _OpenShift Container Platform_ cluster running version 4.12 or above with cluster admin access and _Red Hat OpenShift AI_ installed.
 - Docker, Podman or Ansible installed and running. +
 [NOTE]
-  The ansible playbook that configures the environment is run using Docker and Linux container images in this demonstration. You should use the most recent Docker version. See the https://docs.docker.com/engine/installation/[Docker Engine installation documentation] for further information. 
+  The ansible playbook that configures the environment is run using Docker and Linux container images in this demonstration. You should use the most recent Docker version. See the https://docs.docker.com/engine/installation/[Docker Engine installation documentation^] for further information. 
 
 {empty} +
 
 ### Provision an OpenShift environment
 
 1. Provision the following _Red Hat Demo Platform_ (RHDP) item:
-    * https://demo.redhat.com/catalog?item=babylon-catalog-prod/community-content.com-edge-to-core.prod&utm_source=webapp&utm_medium=share-link[**Solution Pattern - Edge to Core Data Pipelines for AI/ML**]
+    * https://demo.redhat.com/catalog?item=babylon-catalog-prod/community-content.com-edge-to-core.prod&utm_source=webapp&utm_medium=share-link[**Solution Pattern - Edge to Core Data Pipelines for AI/ML**^]
 +
 {empty} +
 
@@ -58,7 +58,7 @@ You will require:
 
 1. Clone this GitHub repository:
 +
-```sh
+```sh .console-input
 git clone https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo.git
 ```
 

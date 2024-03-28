@@ -65,9 +65,11 @@ $ git clone https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo.g
 
 1. Change directory to the root of the project.
 +
-```sh
-cd sp-edge-to-cloud-data-pipelines-demo
-```
+[.console-input]
+[source,shell script]
+----
+$ cd sp-edge-to-cloud-data-pipelines-demo
+----
 
 1. Configure the `KUBECONFIG` file to use (where kube details are set after login).
 +

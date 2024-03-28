@@ -88,11 +88,11 @@ The _Data Acquisition_ stage in the solution pattern is presented in the diagram
 
 image::08-stage1-data-aquisition.png[]
 
-When a new product needs to be added in the catalogue, its imagery is pushed to the system (_Device_ to _Edge1_). All the data is kept in local object storage (not shown in the diagram above). When the imagery collection is complete, an integration process (_Camel_) packages the data and sends it over the wire to a remote S3 bucket located in the main data center (_Central_).
+When a new product needs to be added in the catalogue, its imagery is pushed to the system (_Device_ to _Edge1_). The data is kept in local object storage while waiting to complete the collection. When the imagery is collected in full, an integration application (_Camel_) packages all the data and sends it over the wire to a remote S3 bucket located in the main data center (_Central_).
 
 When the training data upload to S3 completes, a coordination signal is sent via Kafka to announce new training data is available, allowing
 
-[Note]
+[NOTE]
 ====
 Edge/Core connectivity is enabled with Service Interconnect. More details to follow.
 ====

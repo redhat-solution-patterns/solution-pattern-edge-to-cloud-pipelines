@@ -2,16 +2,25 @@
 :sectnums:
 :sectlinks:
 :doctype: book
+:imagesdir: ../assets/images
 
 = See the Solution in Action
 
 == Demonstration
 
-Include here content related to potential existing demos: blogs, articles, recorded videos, walkthrough guides, tutorials.
+The Demo primarily focusses on showcasing how the combination of key Red Hat technologies unlocks the capability of constructing a fully automated platform that chains the full cycle of acquiring data, training models, delivering and deploying models, and run live inferencing.
+
+The sections below will help you walk through the essentials of installing and running the demo. But there is much more to discover and extract out of it, among other things:
+  
+  - Customise AI/ML models from publicly available pre-trained models.
+  - Create developer-friendly AI/ML models (easy to integrate with).
+  - Apply integration technology to move discrete or bulk-based training data.
+  - Bridge remote services using Service Interconnect
+  - Create scalable architectures growing numbers of edge environments.
+
 
 [#demo-video]
 === Watch a demonstration
-
 
 Coming soon!
 
@@ -23,79 +32,89 @@ This Camel Quarkus component combines MQTT and HTTP clients (such as IoT devices
 
 You will require:
 
-- An OpenShift Container Platform cluster running version 4.12 or above with Cluster Admin access. +
-[TIP]
-  You can obtain one by ordering from https://demo.redhat.com/catalog?search=4.12[Red Hat Demo Platform] or deploying the trial version available at https://www.redhat.com/en/technologies/cloud-computing/openshift/try-it[Try Red Hat OpenShift].
-
-- Docker is installed and running. +
+- An _OpenShift Container Platform_ cluster running version 4.12 or above with cluster admin access and _Red Hat OpenShift AI_ installed.
+- Docker, Podman or Ansible installed and running. +
 [NOTE]
   The ansible playbook that configures the environment is run using Docker and Linux container images in this demonstration. You should use the most recent Docker version. See the https://docs.docker.com/engine/installation/[Docker Engine installation documentation] for further information. 
 
+{empty} +
+
+### Provision an OpenShift environment
+
+1. Provision the following _Red Hat Demo Platform_ (RHDP) item:
+    * https://demo.redhat.com/catalog?item=babylon-catalog-prod/community-content.com-edge-to-core.prod&utm_source=webapp&utm_medium=share-link[**Solution Pattern - Edge to Core Data Pipelines for AI/ML**]
++
+{empty} +
+
+1. Alternatively, if you don't have access to RHDP, ensure you have an _OpenShift_ environment available and install _Red Hat OpenShift AI_.
+[TIP]
+  You can obtain one by deploying the trial version available at https://www.redhat.com/en/technologies/cloud-computing/openshift/try-it[Try Red Hat OpenShift].
+
+{empty} +
+
+
 === Install the demo
 
-1. Clone https://github.com/RedHat-Middleware-Workshops/camel-edge-rhte[this] GitHub repository:
+
+1. Clone this GitHub repository:
 +
 ```sh
-git clone https://github.com/hguerrero/edge-to-cloud-data-pipelines-demo.git
+git clone https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo.git
 ```
 
-2. Change to the Ansible directory.
+1. Change directory to the root of the project.
 +
 ```sh
-cd edge-to-cloud-data-pipelines-demo/ansible
+cd sp-edge-to-cloud-data-pipelines-demo
 ```
 
-3. Set the cluster admin variable.
+1. Configure the `KUBECONFIG` file to use (where kube details are set after login).
 +
 ```sh
-OCP_USERNAME=<your_admin_username>
+export KUBECONFIG=./ansible/kube-demo
 ```
 
-4. Configure the `KUBECONFIG` file to use.
+1. Login into your OpenShift cluster from the `oc` command line.
 +
 ```sh
-export KUBECONFIG=./kube-demo
-```
-
-5. Login into your OpenShift cluster from the `oc` command line.
-+
-```sh
-oc login --username="${OCP_USERNAME}" --server=https://(...):6443 --insecure-skip-tls-verify=true
+oc login --username="admin" --server=https://(...):6443 --insecure-skip-tls-verify=true
 ```
 +
 Replace the `--server` url with your own cluster API endpoint.
++
+{empty} +
 
-6. Run the playbook either
+1. Run the Playbook
 +
-.. Using Ansible
-+
-```sh
-ansible-playbook -i inventory/openshift.yaml   \
-    -e="ocp_username=${OCP_USERNAME}" \
-    ./install.yaml
-```
-+
-.. Using Docker
-+
+* With Docker:
++  
 ```sh
 docker run -i -t --rm --entrypoint /usr/local/bin/ansible-playbook \
-    -v $PWD:/runner \
-    -v $PWD/kube-demo:/home/runner/.kube/config \
-    quay.io/agnosticd/ee-multicloud:v0.0.11  \
-    -e="ocp_username=${OCP_USERNAME}" \
-    ./install.yaml
+-v $PWD:/runner \
+-v $PWD/ansible/kube-demo:/home/runner/.kube/config \
+quay.io/agnosticd/ee-multicloud:v0.0.11  \
+./ansible/install.yaml
 ```
-+
-.. Using Podman
+
+* With Podman:
 +
 ```sh
 podman run -i -t --rm --entrypoint /usr/local/bin/ansible-playbook \
-    -v $PWD:/runner \
-    -v $PWD/kube-demo:/home/runner/.kube/config \
-    quay.io/agnosticd/ee-multicloud:v0.0.11  \
-    -e="ocp_username=${OCP_USERNAME}" \
-    ./install.yaml
+-v $PWD:/runner \
+-v $PWD/ansible/kube-demo:/home/runner/.kube/config \
+quay.io/agnosticd/ee-multicloud:v0.0.11  \
+./ansible/install.yaml
+
 ```
+
+{empty} +
+
+[TIP]
+====
+For more installation options and tips, look at the https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo/blob/main/README.md[README,window=_blank] file in the GitHub repository
+====
+
+{empty} +
 
 === Walkthrough guide
 

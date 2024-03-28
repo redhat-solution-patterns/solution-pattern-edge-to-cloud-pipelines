@@ -46,7 +46,16 @@ You will require:
 ### Provision an OpenShift environment
 
 1. Provision the following _Red Hat Demo Platform_ (RHDP) item:
-    * https://demo.redhat.com/catalog?item=babylon-catalog-prod/community-content.com-edge-to-core.prod&utm_source=webapp&utm_medium=share-link[**Solution Pattern - Edge to Core Data Pipelines for AI/ML**^]
++
+--
+* https://demo.redhat.com/catalog?item=babylon-catalog-prod/community-content.com-edge-to-core.prod&utm_source=webapp&utm_medium=share-link[**Solution Pattern - Edge to Core Data Pipelines for AI/ML**^]
+
+[NOTE]
+  The provisioning of the RHDP card above will just prepare for you a base environment (OCP+AI). You still need to deploy the demo by running the installation process described below.
+
+[NOTE]
+  The provisioning process takes around 80-90 minutes to complete. You need to wait its completion before proceeding to the demo deployment.
+--
 +
 {empty} +
 
@@ -57,8 +66,14 @@ You will require:
 {empty} +
 
 
-=== Install the demo
+=== Install the demo using _Docker_ or _Podman_
 
+[TIP]
+====
+For more installation tips and alternative options to _Docker_ and _Podman_, look at the https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo/blob/main/README.md[README^] file in the demo's GitHub repository.
+====
+
+Ensure your base _OpenShift+AI_ environment is ready and you have all the connection and credential details with you.
 
 1. Clone this GitHub repository:
 +
@@ -124,12 +139,6 @@ quay.io/agnosticd/ee-multicloud:v0.0.11  \
 
 {empty} +
 
-[TIP]
-====
-For more installation options and tips, look at the https://github.com/brunoNetId/sp-edge-to-cloud-data-pipelines-demo/blob/main/README.md[README^] file in the GitHub repository
-====
-
-{empty} +
 
 === Walkthrough guide
 

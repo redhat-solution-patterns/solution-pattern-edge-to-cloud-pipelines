@@ -24,7 +24,7 @@ What we should concentrate on at the edge is data collecting and data inference,
 
 .AI/ML lifecycle for the Edge.
 
-image::02-AIML-lifecycle.png[]
+image::02-AIML-lifecycle.png[,80%]
 
 As organizations continue to grapple with massive amounts of data being generated from sources ranging from device edge to off-site facilities and public and private cloud environments, data managers are encountering a new challenge: how to properly ingest and process that data to receive actionable intelligence in a timely manner.
 
@@ -63,7 +63,7 @@ This solution pattern implements an architecture that allows large organisations
 In the retail space for instance you may find a company that runs multiple stores with different needs. One branch (_Edge1_ for example) runs a big surface area store, with a big product catalogue aimed at the every-day citizen. Another branch (_Edge2_), small-sized store, may be located in a prominent area and offers luxury products to their customers. Both require different product catalogues and run at different speeds.
 
 
-image::07-full-architecture.png[]
+image::07-full-architecture.png[,80%]
 
 Each _Near Edge_ zone in the diagram above represents the branches (stores) and run independent from each other. They all rely on the main data center to produce iterations of the AI/ML models they run for their stores.
 
@@ -149,11 +149,13 @@ image::11-stage4-ml-inferencing.png[]
 The demo also provides a monitoring view that provides more in-depth insight into the systems that are involved end-to-end.
 
 [#more_tech]
-== About the Technology Stack
+== Additional notes about Edge Computing
 
-****
+[NOTE]
+Although not explicitly implemented in the Solution Pattern's demonstration, the following sections discusses topics very relevant to our _Solution Pattern_.
+
 https://www.redhat.com/en/topics/edge-computing/what-is-edge-computing[Edge computing] shifts computing power away from core data-centers and distributes it closer to users and data sources—often across a large number of locations, providing faster response times, more reliable services, and a better application experience back to users.
-****
+
 
 === What is Red Hat Device Edge?
 
@@ -165,10 +167,12 @@ MicroShift also provides OpenShift’s APIs for security context constraints and
 
 .Red Hat Device Edge Technical Overview.
 
-image::02-device-edge.png[]
+image::02-device-edge.png[,60%]
 
 [TIP]
 Learn more about Red Hat Device Edge collaborations with https://www.redhat.com/en/about/press-releases/lockheed-martin-red-hat-collaborate-advance-artificial-intelligence-military-missions[Lockheed Martin] and https://www.redhat.com/en/about/press-releases/abb-and-red-hat-partner-deliver-further-scalable-digital-solutions-across-industrial-edge-and-hybrid-cloud[ABB].
+
+{empty} +
 
 === Single Node Apache Kafka Broker
 
@@ -178,7 +182,7 @@ The latest AMQ Streams release introduces the new `UseKRaft` feature gate. This 
 
 .KRaft architecture for Kafka..
 
-image::02-kafka-kraft-cluster.png[]
+image::02-kafka-kraft-cluster.png[,60%]
 
 ****
 With KRaft, we can deploy a single node Kafka broker that also serves as the controller. All of the advantages of stream processing in a small footprint.

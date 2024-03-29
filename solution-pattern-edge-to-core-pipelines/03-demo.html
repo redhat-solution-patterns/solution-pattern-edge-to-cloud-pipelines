@@ -481,6 +481,8 @@ quay.io/agnosticd/ee-multicloud:v0.0.11  \
 <div class="paragraph">
 <p>The App has two main uses:</p>
 </div>
+<div class="openblock">
+<div class="content">
 <div class="ulist">
 <ul>
 <li>
@@ -488,8 +490,13 @@ quay.io/agnosticd/ee-multicloud:v0.0.11  \
 </li>
 <li>
 <p>Staff members can generate training data by capturing images for new products.</p>
+<div class="paragraph">
+<p></p>
+</div>
 </li>
 </ul>
+</div>
+</div>
 </div>
 </li>
 <li>
@@ -512,6 +519,83 @@ quay.io/agnosticd/ee-multicloud:v0.0.11  \
 <p><strong>Manager</strong>: This integration runs in the background monitoring the availability of new model versions in the Core Data Centre (<em>Central</em>). When a new model version is available it is responsible to obtain it and push it to the Model Server.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You&#8217;ll find in the <em>Edge</em> project other systems also deployed, but we won&#8217;t dive into them as they are of less importance to the main story. Some mentions will be done to them when the context is relevant.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The model server has been preloaded with a first version of the model (<strong>v1</strong>), pre-trained to only recognise two types of tea: <em>Earl Grey Tea</em> and <em>Lemon Tea</em>.
+<span class="image"><img src="_images/14-tea-earl-grey.webp" alt="14 tea earl grey" width="10%"></span>
+<span class="image"><img src="_images/15-tea-lemon.jpeg" alt="15 tea lemon" width="10%"></span></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s interact with the <em>Edge</em> environment from the Smart Application to see the system in action.</p>
+</div>
+<div class="paragraph">
+<p>First, let&#8217;s run some negative tests by taking random pictures of objects around you. Because <strong>v1</strong> has not been trained to identify those objects, the system will not be able to provide a price for them and will respond with the label <em>"Other"</em> (as in <em>'product not identified'</em>).</p>
+</div>
+<div class="paragraph">
+<p>Open the <em>Shopper App</em> by clicking on the <em>Route</em> exposed by the application pod, as shown in the picture below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/13-open-shopper-app.png" alt="13 open shopper app" width="30%">
+</div>
+</div>
+<div class="paragraph">
+<p>This action will open a new tab in your browser presenting the app&#8217;s landing page.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can also open the application from your smart phone if you share its URL to your device.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Next, follow the actions below illustrated to run some inferences. Observe the response on your screen every time you send an image.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/16-detection-mode.jpg" alt="16 detection mode">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The App allows you to simulate an image transmittion via <em>HTTP</em>, as would tipically apps interact with backend servers, or via <em>MQTT</em>, a lightweight messaging protocol, commonly used in the <em>IoT</em>, preferable for edge devices constrained by network bandwidth, energy consumption and CPU power.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

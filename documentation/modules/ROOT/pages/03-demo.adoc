@@ -222,7 +222,7 @@ In the demo, the App uses an _MQTT_ library that uses _Websockets_ to connect to
 
 You should see in your display the following response:
 
-image:17-result-other.png[,50%, align=left]
+image:17-result-other.png[,30%, align=left]
 
 It means it wasn't able to identify the object.
 
@@ -322,9 +322,9 @@ Each image, captured by a worker and sent over the network, is received and push
 
 To initiate the training process, click the button on the upper-left side of the window:
 
-image:21-monitor-admin-button.jpg[,40%]
+image:21-monitor-admin-button.jpg[,20%]
 
-After you click, you'll see in the monitoring view a series of animations illustrating the actions taking place in the platform. The following enumeration describes the process:
+After you click `_Train Data_`, you'll see in the monitoring view a series of live animations illustrating the actions actually taking place in the platform. The following enumeration describes the process:
 
 . The click action triggers a signal that a _Camel_ integration (_Manager_) picks up.
 . The _Manager_ reads all the training data from the S3 bucket where it resides and packages it as a ZIP container.
@@ -332,7 +332,11 @@ After you click, you'll see in the monitoring view a series of animations illust
 . The system _Feeder_ (_Camel_) exposing the above requested API, unpacks the ZIP container and pushes the data to a central S3 service used as the storage system (_ODF_) for training new models.
 . The same system _Feeder_ sends a signal via _Kafka_ to announce the arrival of new training data to be processed.
 . The system _Delivery_ (Camel) is subscribed to the announcements topic. It receives the Kafka signal and triggers the Pipeline responsible the create the a new model version.
-. The pipeline (_Tekton_) reads from the S3 storage system all the training data available and executes the Data Science notebooks based on _TensorFlow_
+. The pipeline (_Tekton_) kicks off. It reads from the S3 storage system all the training data available and executes the Data Science notebooks based on _TensorFlow_
++
+[NOTE]
+The entire execution of the pipeline may take between 2-5 minutes depending on the resources allocated in the environment.
++
 . At the end of the pipeline process, a new model is pushed to an edge-dedicated topic where new model placed.
 . A copy of the new model version is also pushed to a Model repository. In this demo, just another S3 bucket, where a history of model versions is kept.
 
@@ -340,4 +344,14 @@ All the steps above form part of the _Data Preparation and Modelling_ phase (des
 
 image::22-monitor-admin-pipeline.jpg[]
 
+But the process has not finished yet. It then enters into the _Delivery_ phase. The new model has now been pushed to an S3 bucket `edge1-ready` that is being monitored by an integration point on the Edge (_Manager_)
+
+[TIP]
+_Edge_ and _Core_ are connected via _Service Interconnect_. Both regions are running an instance of _Skupper_ to form virtual services which securely interconnect systems from both sides.
+
+When the _Tekton_ pipeline uploads the new model to the S3 bucket, the _Edge Manager_ notices the artifacts and initiates the download of the model and hot deploys it in the TensorFlow model server, as shown in the picture below:
+
+image::24-monitor-admin-delivery.jpg[]
+
+The AI/ML engine, powered by the _TensorFlow Model Server_, reacts to the new version (**v2**), now available in its local S3 bucket, and initiates a hot-deployment. It loads the new version and discards the old one that was held in memory. This process happens without service interruption. Clients sending inference requests inadvertently start obtaining results computed with the new hot-deployed version (**v2**).
 

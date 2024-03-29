@@ -505,7 +505,7 @@ Make sure your JSON document is valid after finishing editing. Make sure commas 
 
 Click `Save`.
 
-Now you need to restart the _Price Engine_. You can simply kill the pod and Kubernetes will restart a new one that will read the new ConfigMap value.
+Now you need to restart the _Price Engine_. You can simply kill the pod and _Kubernetes_ will restart a new one that will read the new _ConfigMap_ value.
 
 You can use the web Console to do so, or execute the `oc` command below:
 
@@ -520,15 +520,14 @@ You can validate, by inspecting the logs, the new started pod has loaded the new
 [.console-input]
 [source,bash]
 ----
-oc logs -n edge1 `oc get pods -n edge1 | grep price | awk '{print $1}'`
+oc logs svc/price-engine -n edge1
 ----
 
 In the output logs from the command above, you should find the value `"Computer Mouse"`. Your logs should look similar to:
 
 [source,bash]
 ----
-. . .
-2024-03-29 19:58:41,544 INFO  [pri.xml:74] (Camel (camel-1) thread #1 - timer://products) ["Earl Grey Tea", "(Bali) Green Tea", "Lemon Tea", "Computer Mouse", "Other"]
+... INFO  [pri.xml:74] (Camel (camel-1) thread #1 - timer://products) ["Earl Grey Tea", "(Bali) Green Tea", "Lemon Tea", "Computer Mouse", "Other"]
 ----
 
 Next, you need to configure the Smart Application to allow selecting the new product for training.
@@ -540,7 +539,7 @@ Next, you need to configure the Smart Application to allow selecting the new pro
 You need to perform a similar operation. From your OpenShift console, find the following _ConfigMap_:
 
 * `shopper-training-options` +
-This ConfigMap is owned by the _Shopper_ (_Camel_) integration and configures all the trainable products from the App's '_Ingestion Mode_' (Data Acquisition).
+This ConfigMap is owned by the _Shopper_ (_Camel_) integration and configures all the trainable products from the App's '_Ingestion Mode_' option (Data Acquisition).
 
 Follow the same steps as previously done to find the ConfigMap and open the Edit window.
 
@@ -552,7 +551,7 @@ Follow the same steps as previously done to find the ConfigMap and open the Edit
 . Click and drag the corner downwards to expand the text area.
 
 Replace the old product by the new one. +
-If you used the previous sample configuration for the Computer Mouse, copy the value below and replace the old product in your text area:
+If you used the previous sample configuration for the _"Computer Mouse"_, copy the value below and replace the old product in your text area:
 
 [.console-input]
 [source,json]
@@ -566,7 +565,7 @@ If you used the previous sample configuration for the Computer Mouse, copy the v
 ----
 
 [TIP]
-You can also add a sequence of procuts. Instead of deleting the old product, you can add the new one separated with a comma.
+You can also add a sequence of products. Instead of deleting the old product, you can add the new one separated with a comma.
 
 [WARNING]
 Make sure your JSON document is valid after finishing editing. Make sure commas (`,`) are in the right place. +
@@ -577,7 +576,7 @@ This information configures display options in the Smart App. Notice you don't d
 
 Click `Save`.
 
-Now you need to restart the _Shopper_. You can simply kill the pod and Kubernetes will restart a new one that will read the new ConfigMap value.
+Now you need to restart the _Shopper_ application. You can simply kill the pod and _Kubernetes_ will restart a new one that will read the new _ConfigMap_ value.
 
 You can use the Web Console to do so, or execute the `oc` command below:
 
@@ -586,3 +585,77 @@ You can use the Web Console to do so, or execute the `oc` command below:
 ----
 oc delete pod -n edge1 `oc get pods -n edge1 | grep shopper | awk '{print $1}'`
 ----
+
+You're now ready to generate and ingest training data.
+
+{empty} +
+
+
+==== Generate Training Data
+
+In this section you will use the web based Smart App to capture images and push them to the platform. The easiest way to capture images is to use your smart phone.
+
+Share the URL's address with your phone and open it with the device's browser.
+
+Follow the steps illustrate below to capture and send images:
+
+image::27-ingestion-mode.jpg[]
+
+Above, in step 2 you should find the option that you configured earlier. If you used the sample JSON snippets you should find on your screen the option:
+
+* `Computer Mouse`
+
+Now, take various pictures and push the as indicated. Change angles, rotate the object, flip the object. The more data you push, the more accurate your model will become.
+
+[TIP]
+AI/ML models are generally trained with thousands/millions of pictures to achieve the best results. However, with only few images for experimentation, it should work too.
+
+[TIP]
+If you open the monitoring view while pushing data from your smart device, you should see live interactions with the _Edge_ systems.
+
+When you're done with the _Ingestion_ phase, you should end up with a collection similar to the picture below:
+
+image::28-data-computer-mouse.jpg[,50%]
+
+[TIP]
+Use the same S3 browser to visualise the data.
+
+{empty} +
+
+==== Kick-off the training process
+
+As you did earlier, from the administrative page, trigger the training process using the UI button.
+
+image:21-monitor-admin-button.jpg[,20%]
+
+Click `Train Data`.
+
+Verify the pipeline is running and wait for its completion. +
+Use the command:
+
+[.console-input]
+[source,bash]
+----
+oc get pipelinerun -n tf
+----
+
+You should obtain something similar to:
+
+----
+NAME                    SUCCEEDED   REASON      STARTTIME   COMPLETIONTIME
+train-model-run-ljrdk   True        Succeeded   6h23m       6h20m
+train-model-run-lms4q   Unknown     Running     9s
+----
+
+where you can see the previous _PipelineRun_ in status `Succeeded`, and the new one `Running`.
+
+When the pipeline completes, go back to your App's `Detection Mode` and try the new product out. If you trained your computer mouse, take a picture and send it.
+
+You should obtain a price tag for your mouse:
+
+[%autowidth]
+|===
+|_Computer Mouse_: _19.99_
+|===
+
+Well done! You have iterated the _Product Catalogue_ to include new articles on offer.

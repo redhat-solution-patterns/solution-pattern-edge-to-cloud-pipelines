@@ -1,4 +1,4 @@
-= Solution Pattern: Name Template
+= Solution Pattern: Edge to Core Data Pipelines for AI/ML
 :sectnums:
 :sectlinks:
 :doctype: book

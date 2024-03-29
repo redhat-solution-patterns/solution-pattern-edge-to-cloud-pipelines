@@ -226,11 +226,11 @@ image:17-result-other.png[,20%, align=left]
 
 It means it wasn't able to identify the object.
 
-Let's now run some positive inferences. We have included in the GitHub repositories images that have been used to train the model. 
+Let's now run some positive inferences. We have included in the GitHub repository images that have been used as input to train the model. 
 
-Make sure you operate from your computer's browser, and this time click on the `Pick from Device` button instead. This action will open your system's file picker.
+Make sure you operate from your computer's browser, and this time click on the button `Pick from Device` instead. This action will open your system's file chooser.
 
-To choose the images to test with, navigate to the following project path:
+To pick the images to test with, navigate to the following project path:
 
 * `sp-edge-to-cloud-data-pipelines-demo/demo`
 
@@ -253,11 +253,36 @@ Try them out. You should obtain positive results with the following responses:
 
 {empty} +
 
+In the section that follows you will train a new version of the model (**v2**) to include a third type of tea, _Bali Green Tea_, which **v1** does not identify.
+
+Before you continue to the next section, run one last negative to confirm the model does not know about it.
+
+. Enter the _Detection Mode_ in your Smart App
+. Click on the `Pick from Device` button.
+. Navigate to the following project path:
++
+--
+* `sp-edge-to-cloud-data-pipelines-demo/demo`
+
+where you will find the image:
+
+* `tea-bali.jpg`
+--
++
+. Select and send it via HTTP or MQTT
+
+You should obtain the negative response:
+
+image:17-result-other.png[,20%, align=left]
+
+
+{empty} +
+
 === Train a new product
 
 The _Edge_ environment has been pre-loaded with training data. This will make it easy for you to produce a second version of the model (**v2**) which you can try out.
 
-You can visualise the training data by opening _Minio_'s UI and browsing the `data` S3 bucket. Or you can use the following online S3 browser which will nicely display all the images to use for training, head to:
+You can visualise the training data by opening _Minio_'s UI and browsing the `data` S3 bucket. Or you can use the following online S3 browser which nicely displays all the images to use for training, head to:
 
 * https://www.filestash.app/s3-browser.html[Online S3 browser^] 
 
@@ -305,7 +330,7 @@ echo "https://`oc get route camel-edge -n edge1 --template={{.spec.host}}`/admin
 
 Copy the resulting URL address and use it in a new tab in your computer's browser.
 
-A monitoring view will display all the playing parts in the demo. You will already be familiar with most of the parts shown on the monitoring view (which map with those visible from your _Topology_ view from the _OpenShift_'s console):
+A monitoring view will display all the playing parts in the demo. You will already be familiar with most of the parts shown on the monitoring view (which map to those visible from your _Topology_ view from the _OpenShift_'s console):
 
 image::20-monitor-admin-view.jpg[]
 
@@ -406,3 +431,69 @@ train-model-run-ljrdk   True        Succeeded   92m         89m
 ----
 --
 
+Go back to the Smart Application in your browser and this time, with the newly trained model (**v2**), send the _Bali Green Tea_ image that **v1** didn't know about.
+
+. Enter the _Detection Mode_ in your Smart App
+. Click on the `Pick from Device` button.
+. Navigate to the following project path:
++
+--
+* `sp-edge-to-cloud-data-pipelines-demo/demo`
+
+where you will find the image:
+
+* `tea-bali.jpg`
+--
++
+. Select and send it via HTTP or MQTT
+
+This time, the product should be identified, and you should obtain a price tag as follows:
+
+[%autowidth]
+|===
+|_(Bali) Green Tea: 2.49_
+|===
+
+Bravo !! you have completed the full cycle.
+
+{empty} +
+
+
+=== Create your own product
+
+Up until now, you've played with pre-configured systems, and pre-loaded data, to train **v2**. It is time to go one level up. You will configure the system to create a new entry in the product catalogue, generate training data for the new product, train the new model **v3**, and run live inferences against it.
+
+
+==== Configure the system
+
+First things first, head to your OpenShift console and find the following _ConfigMap_:
+
+* `catalogue` +
+This configmap is owned by the _Price Engine_ and configures all the products available.
+
+Edit the catalogue to include a new product. +
+Follow the steps below to find your way:
+
+image:26-configure-configmap.jpg[]
+
+. From the console (`edge1` project), click on the menu option `ConfigMaps`
+. From the list of displayed configmaps, select `catalogue`.
+. You'll find the option to `Edit ConfigMap` from the top right-right corner of the console.
+* Click Actions -> Edit ConfigMap
+. Locate the lower-right corner of the text area
+. Click and drag the corner to expand the text area.
+
+You'll find the JSON data that configures the products, indexing all the products you've been playing with.
+
+Now include in the configuration a new product.
+If one does not come to mind, use the JSON data below to configure a `Computer Mouse` product:
+
+[.console-input]
+[source,json]
+----
+    {
+      "item": "computer-mouse",
+      "label": "Computer Mouse",
+      "price": 19.99
+    },
+----

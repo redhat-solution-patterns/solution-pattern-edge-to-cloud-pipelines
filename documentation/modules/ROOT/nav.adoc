@@ -9,10 +9,10 @@
 ** xref:02-architecture.adoc#tech_stack[{counter:submodule2}. Technology stack]
 ** xref:02-architecture.adoc#in_depth[{counter:submodule2}. An in-depth look at the solution's architecture]
 *** xref:02-architecture.adoc#_data_acquisition[{submodule2}.{counter:_submodule2}. Data Acquisition]
-*** xref:02-architecture.adoc#_data_preparation_and_modeling[{submodule2}.{counter:_submodule2}. Data Preparation]
-*** xref:02-architecture.adoc#_application_development_and_delivery[{submodule2}.{counter:_submodule2}. Application Development]
+*** xref:02-architecture.adoc#_data_preparation_modelling[{submodule2}.{counter:_submodule2}. Data Preparation & Modelling]
+*** xref:02-architecture.adoc#_application_development_and_delivery[{submodule2}.{counter:_submodule2}. Application Development and Delivery]
 *** xref:02-architecture.adoc#_edge_ml_inference[{submodule2}.{counter:_submodule2}. Edge ML Inference]
-** xref:02-architecture.adoc#more_tech[{counter:submodule2}. More about the technology stack]
+** xref:02-architecture.adoc#more_tech[{counter:submodule2}. Additional notes about Edge Computing]
 
 * xref:03-demo.adoc[{counter:module}. See the Solution in Action]
 ** xref:03-demo.adoc#_demonstration[{counter:submodule3}. Demonstration]

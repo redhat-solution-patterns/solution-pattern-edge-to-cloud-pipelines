@@ -37,5 +37,6 @@ AI and machine learning can learn from client behavior and assist improve the cu
 
 include::01-pattern.adoc[]
 
+[#_explore_more_solution_patterns]
 == Explore more solution patterns
 include::https://raw.githubusercontent.com/redhat-solution-patterns/redhat-solution-patterns.github.io/master/documentation/modules/ROOT/pages/solution-pattern-list.adoc[]

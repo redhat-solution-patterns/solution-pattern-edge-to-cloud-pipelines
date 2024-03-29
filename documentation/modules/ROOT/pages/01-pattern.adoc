@@ -1,6 +1,6 @@
 :imagesdir: ../assets/images
 
-[#_the_story_behind_this_solution_pattern]
+// [#_the_story_behind_this_solution_pattern]
 == The story behind this solution pattern
 
 Within Artificial Intelligence (AI), edge analytics focuses on inference (predicting), meaning applying a previously trained model to infer a result. Depending on how critical the data is, it will dictate if it needs to be processed in real-time or stored for later analysis. Storage becomes another critical variable depending on costs, availability, or compliance requirements.

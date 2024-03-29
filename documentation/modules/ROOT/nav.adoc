@@ -17,7 +17,7 @@
 * xref:03-demo.adoc[{counter:module}. See the Solution in Action]
 ** xref:03-demo.adoc#_demonstration[{counter:submodule3}. Demonstration]
 ** xref:03-demo.adoc#_install_the_demonstration[{counter:submodule3}. Install the demonstration]
-** xref:03-demo.adoc#_walkthrough_guide[{counter:submodule3}.{counter:_submodule3}. Walkthrough guide]
+** xref:03-demo.adoc#_walkthrough_guide[{counter:submodule3}. Walkthrough guide]
 
 // * xref:04-workshop.adoc[{counter:module}. Workshop]
 // ** xref:04-workshop.adoc#_installing_the_workshop_environment[{module}.{counter:submodule4}. Installing the workshop environment]

@@ -222,7 +222,7 @@ In the demo, the App uses an _MQTT_ library that uses _Websockets_ to connect to
 
 You should see in your display the following response:
 
-image::17-result-other.png[,50%, align=left]
+image:17-result-other.png[,50%, align=left]
 
 It means it wasn't able to identify the object.
 
@@ -257,9 +257,6 @@ Try them out. You should obtain positive results with the following responses:
 
 The _Edge_ environment has been pre-loaded with training data. This will make it easy for you to produce a second version of the model (**v2**) which you can try out.
 
-[NOTE]
-We are bypassing the ingestion (_Data Acquisition_) phase described to speed up the process of producing a second version of the model. Later you will participate in generating your own training data to produce a third version of the model.
-
 You can visualise the training data by opening _Minio_'s UI and browsing the `data` S3 bucket. Or you can use the following online S3 browser which will nicely display all the images to use for training, head to:
 
 * https://www.filestash.app/s3-browser.html[Online S3 browser^] 
@@ -291,10 +288,12 @@ image::19-s3-data.jpg[,50%]
 [NOTE]
 This collection of training data was captured during a live demonstration where the audience participated in generating the images.
 
-This new product is _"(Bali) Green Tea"_ and is labelled as `tea-green`. The price engine is also preconfigured with a specific price tag for this product.
-
 [TIP]
 A quick reminder: **v1** does not know about this type of tea, it only knows about _Earl Grey Tea_ and _Lemon Tea_.
+
+
+This new product is _"(Bali) Green Tea"_ and is labelled as `tea-green`. The price engine is also preconfigured with a specific price tag for this product.
+
 
 We can trigger the training process from a hidden administrative page the _Shopper_ application includes. Use the following command to obtain the admin page URL address:
 
@@ -310,9 +309,20 @@ A monitoring view will display all the playing parts in the demo. You will alrea
 
 image::20-monitor-admin-view.jpg[]
 
+Prior to initiating the training process, and now that you're familiar with the monitoring view, let's rewind a little and remind ourselves what processes are involved in the _Data Acquisition_ phase.
+
+[NOTE]
+We are bypassing the ingestion (_Data Acquisition_) phase to speed up the process of producing a second version of the model. Later you will participate in generating your own training data to produce a third version of the model.
+
+The illustration below shows how, during the _Data Acquisition_ phase, training data is generated from devices and pushed to the system.
+
+image::23-monitor-admin-ingestion.jpg[]
+
+Each image, captured by a worker and sent over the network, is received and pushed to local S3 storage on the _Edge_. This phase may take a certain period of time until a large number of images is collected. To maximise accuracy you ideally want to train the model with vast amounts of training data.
+
 To initiate the training process, click the button on the upper-left side of the window:
 
-image::21-monitor-admin-button.jpg[,40%]
+image:21-monitor-admin-button.jpg[,40%]
 
 After you click, you'll see in the monitoring view a series of animations illustrating the actions taking place in the platform. The following enumeration describes the process:
 
@@ -326,7 +336,7 @@ After you click, you'll see in the monitoring view a series of animations illust
 . At the end of the pipeline process, a new model is pushed to an edge-dedicated topic where new model placed.
 . A copy of the new model version is also pushed to a Model repository. In this demo, just another S3 bucket, where a history of model versions is kept.
 
-All the steps above described are well illustrated in the diagram below:
+All the steps above form part of the _Data Preparation and Modelling_ phase (described in the _Architecture_ chapter) and are well illustrated in the diagram below:
 
 image::22-monitor-admin-pipeline.jpg[]
 

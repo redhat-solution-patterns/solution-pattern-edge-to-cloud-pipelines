@@ -442,7 +442,76 @@ quay.io/agnosticd/ee-multicloud:v0.0.11  \
 <div class="sect2">
 <h3 id="_walkthrough_guide"><a class="anchor" href="#_walkthrough_guide"></a><a class="link" href="#_walkthrough_guide">2.4. Walkthrough guide</a></h3>
 <div class="paragraph">
-<p>Coming soon!</p>
+<p>The guide below will help you to familiarise with the main components in the demo, and how to operate it to trigger the actions&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>Open your <em>OpenShift</em> console with your given admin credentials and open the <em>Topology View</em> to inspect the main systems deployed in the <em>Edge1</em> namespace.</p>
+</div>
+<div class="paragraph">
+<p>Following the illustration below:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select from the left menu the Developer view</p>
+</li>
+<li>
+<p>Search in the filter textbox by <code>edge1</code></p>
+</li>
+<li>
+<p>Select the project <code>edge1</code></p>
+</li>
+<li>
+<p>Make sure you display the <em>Topologoy</em> view (left menu)</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/12-topology-edge1.png" alt="12 topology edge1">
+</div>
+</div>
+<div class="paragraph">
+<p>In the image above you&#8217;ll see the main applications deployed in the <em>Edge</em> zone:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Shopper</strong>: This is the main AI-powered application. The application exposes a smart device App you can open from your phone or browser. The application integrates with the <em>AI/ML Model Server</em> to request inferences, and also with the <em>Price Engine</em> to obtain price information from the product catalogue.</p>
+<div class="paragraph">
+<p>The App has two main uses:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Customers/Shoppers use it to obtain information about product, in this context of this demo, the price tag of a product.</p>
+</li>
+<li>
+<p>Staff members can generate training data by capturing images for new products.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Model Server</strong>: This is the AI/ML engine running inferences and capable of recognizing products. It exposes an API for clients to send an image, and responds with the product name identified. The Model Server is composed of:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>TensorFlow model server: the AI/ML brain executor.</p>
+</li>
+<li>
+<p>Minio instance (from where the models are loaded).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Price Engine</strong>: This application keeps the product catalogue and contains the pricing information. It exposes an API to obtain product information where the price tag is included.</p>
+</li>
+<li>
+<p><strong>Manager</strong>: This integration runs in the background monitoring the availability of new model versions in the Core Data Centre (<em>Central</em>). When a new model version is available it is responsible to obtain it and push it to the Model Server.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>

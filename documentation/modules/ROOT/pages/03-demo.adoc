@@ -50,7 +50,7 @@ You will require:
 --
 * https://demo.redhat.com/catalog?item=babylon-catalog-prod/community-content.com-edge-to-core.prod&utm_source=webapp&utm_medium=share-link[**Solution Pattern - Edge to Core Data Pipelines for AI/ML**^]
 +
-image:29-rhdp-card.jpg[,30%,link=https://demo.redhat.com/catalog?item=babylon-catalog-prod/community-content.com-edge-to-core.prod&utm_source=webapp&utm_medium=share-link]
+image:29-rhdp-card.jpg[,30%,link=https://demo.redhat.com/catalog?item=babylon-catalog-prod/community-content.com-edge-to-core.prod&utm_source=webapp&utm_medium=share-link, window=_blank]
 +
 [NOTE]
   The provisioning of the RHDP card above will just prepare for you a base environment (OCP+AI). You still need to deploy the demo by running the installation process described below.

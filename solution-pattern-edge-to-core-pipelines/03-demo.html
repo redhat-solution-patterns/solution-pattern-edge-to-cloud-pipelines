@@ -229,7 +229,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_run_the_demonstration"><a class="anchor" href="#_run_the_demonstration"></a><a class="link" href="#_run_the_demonstration">2. Run the demonstration</a></h2>
+<h2 id="_install_the_demonstration"><a class="anchor" href="#_install_the_demonstration"></a><a class="link" href="#_install_the_demonstration">2. Install the demonstration</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This Camel Quarkus component combines MQTT and HTTP clients (such as IoT devices, cellphones, and third-party clients) with an AI/ML engine to obtain image detection results.</p>
@@ -439,13 +439,16 @@ quay.io/agnosticd/ee-multicloud:v0.0.11  \
 <p><br></p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_walkthrough_guide"><a class="anchor" href="#_walkthrough_guide"></a><a class="link" href="#_walkthrough_guide">2.4. Walkthrough guide</a></h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_walkthrough_guide"><a class="anchor" href="#_walkthrough_guide"></a><a class="link" href="#_walkthrough_guide">3. Walkthrough guide</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The guide below will help you to familiarise with the main components in the demo, and how to operate it to trigger the actions&#8230;&#8203;</p>
 </div>
-<div class="sect3">
-<h4 id="_quick_topology_overview"><a class="anchor" href="#_quick_topology_overview"></a><a class="link" href="#_quick_topology_overview">2.4.1. Quick Topology Overview</a></h4>
+<div class="sect2">
+<h3 id="_quick_topology_overview"><a class="anchor" href="#_quick_topology_overview"></a><a class="link" href="#_quick_topology_overview">3.1. Quick Topology Overview</a></h3>
 <div class="paragraph">
 <p>Open your <em>OpenShift</em> console with your given admin credentials and open the <em>Topology View</em> to inspect the main systems deployed in the <em>Edge1</em> namespace.</p>
 </div>
@@ -538,8 +541,8 @@ You&#8217;ll find in the <em>Edge</em> project other systems also deployed, but 
 <p><br></p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_play_with_the_smart_application"><a class="anchor" href="#_play_with_the_smart_application"></a><a class="link" href="#_play_with_the_smart_application">2.4.2. Play with the Smart Application</a></h4>
+<div class="sect2">
+<h3 id="_play_with_the_smart_application"><a class="anchor" href="#_play_with_the_smart_application"></a><a class="link" href="#_play_with_the_smart_application">3.2. Play with the Smart Application</a></h3>
 <div class="paragraph">
 <p>Let&#8217;s interact with the <em>Edge</em> environment from the Smart Application to see the system in action.</p>
 </div>
@@ -624,7 +627,7 @@ In the demo, the App uses an <em>MQTT</em> library that uses <em>Websockets</em>
 <p>You should see in your display the following response:</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="_images/17-result-other.png" alt="17 result other" width="30%"></span></p>
+<p><span class="image"><img src="_images/17-result-other.png" alt="17 result other" width="20%"></span></p>
 </div>
 <div class="paragraph">
 <p>It means it wasn&#8217;t able to identify the object.</p>
@@ -685,8 +688,8 @@ In the demo, the App uses an <em>MQTT</em> library that uses <em>Websockets</em>
 <p><br></p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_train_a_new_product"><a class="anchor" href="#_train_a_new_product"></a><a class="link" href="#_train_a_new_product">2.4.3. Train a new product</a></h4>
+<div class="sect2">
+<h3 id="_train_a_new_product"><a class="anchor" href="#_train_a_new_product"></a><a class="link" href="#_train_a_new_product">3.3. Train a new product</a></h3>
 <div class="paragraph">
 <p>The <em>Edge</em> environment has been pre-loaded with training data. This will make it easy for you to produce a second version of the model (<strong>v2</strong>) which you can try out.</p>
 </div>
@@ -797,6 +800,11 @@ A quick reminder: <strong>v1</strong> does not know about this type of tea, it o
 </div>
 </div>
 <div class="paragraph">
+<p><br></p>
+</div>
+<div class="sect3">
+<h4 id="_review_the_data_acquisition_phase"><a class="anchor" href="#_review_the_data_acquisition_phase"></a><a class="link" href="#_review_the_data_acquisition_phase">3.3.1. Review the <em>Data Acquisition</em> phase</a></h4>
+<div class="paragraph">
 <p>Prior to initiating the training process, and now that you&#8217;re familiar with the monitoring view, let&#8217;s rewind a little and remind ourselves what processes are involved in the <em>Data Acquisition</em> phase.</p>
 </div>
 <div class="admonitionblock note">
@@ -823,6 +831,12 @@ We are bypassing the ingestion (<em>Data Acquisition</em>) phase to speed up the
 <p>Each image, captured by a worker and sent over the network, is received and pushed to local S3 storage on the <em>Edge</em>. This phase may take a certain period of time until a large number of images is collected. To maximise accuracy you ideally want to train the model with vast amounts of training data.</p>
 </div>
 <div class="paragraph">
+<p><br></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_enter_the_training_phase"><a class="anchor" href="#_enter_the_training_phase"></a><a class="link" href="#_enter_the_training_phase">3.3.2. Enter the <em>Training</em> phase</a></h4>
+<div class="paragraph">
 <p>To initiate the training process, click the button on the upper-left side of the window:</p>
 </div>
 <div class="paragraph">
@@ -841,6 +855,18 @@ We are bypassing the ingestion (<em>Data Acquisition</em>) phase to speed up the
 </li>
 <li>
 <p>The <em>Manager</em> invokes an API served from the Core Data Center (<em>Central</em>) to send the ZIP data.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<em>Edge</em> and <em>Core</em> are connected via <em>Service Interconnect</em>. Both regions are running an instance of <em>Skupper</em> to form virtual services which securely interconnect systems from both sides.
+</td>
+</tr>
+</table>
+</div>
 </li>
 <li>
 <p>The system <em>Feeder</em> (<em>Camel</em>) exposing the above requested API, unpacks the ZIP container and pushes the data to a central S3 service used as the storage system (<em>ODF</em>) for training new models.</p>
@@ -883,7 +909,13 @@ The entire execution of the pipeline may take between 2-5 minutes depending on t
 </div>
 </div>
 <div class="paragraph">
-<p>But the process has not finished yet. It then enters into the <em>Delivery</em> phase. The new model has now been pushed to an S3 bucket <code>edge1-ready</code> that is being monitored by an integration point on the Edge (<em>Manager</em>)</p>
+<p><br></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_the_delivery_phase"><a class="anchor" href="#_the_delivery_phase"></a><a class="link" href="#_the_delivery_phase">3.3.3. The <em>Delivery</em> phase</a></h4>
+<div class="paragraph">
+<p>The end-to-end process is not done yet. It then enters into the <em>Delivery</em> phase. The new model has now been pushed to an S3 bucket <code>edge1-ready</code> that is being monitored by an integration point on the Edge (<em>Manager</em>)</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -907,6 +939,67 @@ The entire execution of the pipeline may take between 2-5 minutes depending on t
 </div>
 <div class="paragraph">
 <p>The AI/ML engine, powered by the <em>TensorFlow Model Server</em>, reacts to the new version (<strong>v2</strong>), now available in its local S3 bucket, and initiates a hot-deployment. It loads the new version and discards the old one that was held in memory. This process happens without service interruption. Clients sending inference requests inadvertently start obtaining results computed with the new hot-deployed version (<strong>v2</strong>).</p>
+</div>
+<div class="paragraph">
+<p><br></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_the_inferencing_phase"><a class="anchor" href="#_the_inferencing_phase"></a><a class="link" href="#_the_inferencing_phase">3.3.4. The <em>Inferencing</em> phase</a></h4>
+<div class="paragraph">
+<p>The platform keeps running its live services at all times. Customers (shoppers) and workers interact with the platform while, in the background, new models are continuously being trained, delivered and deployed.</p>
+</div>
+<div class="paragraph">
+<p>The demo&#8217;s inferencing phase is illustrated in the picture below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/25-monitor-admin-inferencing.jpg" alt="25 monitor admin inferencing">
+</div>
+</div>
+<div class="paragraph">
+<p>You should already be familiar with the flows above. You had the chance to perform some positive/negative tests via HTTP/MQTT. The <em>Shopper</em> application (<em>Camel</em>) first sends an inference request against the AI/ML engine to identify the product, then:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If the AI engine identifies the product, it provides a label, for example <code>tea-lemon</code>, and <em>Camel</em> calls the Price Engine to obtain a price tag for that product. The image is also kept in S3 storage as it may be used to improve the accuracy of future models.</p>
+</li>
+<li>
+<p>If the AI engine does not identify the product (negative response <code>other</code>), Camel directly pushes the image to an S3 bucket of unidentified images. This may help Data Scientists to analyse the data.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You&#8217;ve already interacted with the application using the demo App. Let&#8217;s use it again to try out the newly trained version.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Before continuing, make sure your pipeline has finished execution. You can use your <em>OpenShift</em>'s console to inspect the state of the <em>PipelineRun</em>, or you can execute the following <code>oc</code> command to monitor it:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get pipelinerun -n tf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the pipeline completes successfully, you should see the following output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>NAME                    SUCCEEDED   REASON      STARTTIME   COMPLETIONTIME
+train-model-run-ljrdk   True        Succeeded   92m         89m</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>

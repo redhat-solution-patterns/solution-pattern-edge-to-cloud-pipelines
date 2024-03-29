@@ -222,7 +222,7 @@ In the demo, the App uses an _MQTT_ library that uses _Websockets_ to connect to
 
 You should see in your display the following response:
 
-image::17-result-other.png[,20%]
+image::17-result-other.png[,50%, align=left]
 
 It means it wasn't able to identify the object.
 
@@ -254,3 +254,62 @@ Try them out. You should obtain positive results with the following responses:
 {empty} +
 
 ==== Train a new product
+
+The _Edge_ environment has been pre-loaded with training data. This will make it easy for you to produce a second version of the model (**v2**) which you can try out.
+
+[NOTE]
+We are bypassing the ingestion (_Data Acquisition_) phase described to speed up the process of producing a second version of the model. Later you will participate in generating your own training data to produce a third version of the model.
+
+You can visualise the training data by opening _Minio_'s UI and browsing the `data` S3 bucket. Or you can use the following online S3 browser which will nicely display all the images to use for training, head to:
+
+* https://www.filestash.app/s3-browser.html[Online S3 browser^] 
+
+And enter the following details:
+
+** Access Key ID: `minio`
+** Secret Access ID: `minio123`
+** Advanced >
+*** Endpoint: [Minio's URL]
+
+You can obtain your Minio instance URL by executing the following `oc` command:
+[.console-input]
+[source,bash]
+----
+oc get route minio-api -o custom-columns=HOST:.spec.host -n edge1
+----
+
+Your connection details on screen should look similar to the picture below:
+
+image::18-s3-connect.png[,40%]
+
+Click `CONNECT`, and select the folder (bucket) `data`.
+
+Navigate to the folder `images/tea-green` where you should find all the training images you're about to use:
+
+image::19-s3-data.jpg[,50%]
+
+[NOTE]
+This collection of training data was captured during a live demonstration where the audience participated in generating the images.
+
+This new product is _"(Bali) Green Tea"_ and is labelled as `tea-green`. The price engine is also preconfigured with a specific price tag for this product.
+
+[TIP]
+A quick reminder: **v1** does not know about this type of tea, it only knows about _Earl Grey Tea_ and _Lemon Tea_.
+
+To initiate the training process, the Shopper application includes a hidden administrative page from where you can trigger it.
+
+Use the following command to obtain the app's admin URL address:
+
+[.console-input]
+[source,bash]
+----
+echo "https://`oc get route camel-edge -n edge1 --template={{.spec.host}}`/admin.html"
+----
+
+Copy the resulting URL address and use it in a new tab in your computer's laptop.
+
+A monitoring view will display showing all the playing parts in the demo. You will already be familiar with most of the parts shown on the monitoring view:
+
+image::20-monitor-admin-view.jpg[]
+
+

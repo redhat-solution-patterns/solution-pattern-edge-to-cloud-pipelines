@@ -633,13 +633,13 @@ In the demo, the App uses an <em>MQTT</em> library that uses <em>Websockets</em>
 <p>It means it wasn&#8217;t able to identify the object.</p>
 </div>
 <div class="paragraph">
-<p>Let&#8217;s now run some positive inferences. We have included in the GitHub repositories images that have been used to train the model.</p>
+<p>Let&#8217;s now run some positive inferences. We have included in the GitHub repository images that have been used as input to train the model.</p>
 </div>
 <div class="paragraph">
-<p>Make sure you operate from your computer&#8217;s browser, and this time click on the <code>Pick from Device</code> button instead. This action will open your system&#8217;s file picker.</p>
+<p>Make sure you operate from your computer&#8217;s browser, and this time click on the button <code>Pick from Device</code> instead. This action will open your system&#8217;s file chooser.</p>
 </div>
 <div class="paragraph">
-<p>To choose the images to test with, navigate to the following project path:</p>
+<p>To pick the images to test with, navigate to the following project path:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -687,6 +687,58 @@ In the demo, the App uses an <em>MQTT</em> library that uses <em>Websockets</em>
 <div class="paragraph">
 <p><br></p>
 </div>
+<div class="paragraph">
+<p>In the section that follows you will train a new version of the model (<strong>v2</strong>) to include a third type of tea, <em>Bali Green Tea</em>, which <strong>v1</strong> does not identify.</p>
+</div>
+<div class="paragraph">
+<p>Before you continue to the next section, run one last negative to confirm the model does not know about it.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Enter the <em>Detection Mode</em> in your Smart App</p>
+</li>
+<li>
+<p>Click on the <code>Pick from Device</code> button.</p>
+</li>
+<li>
+<p>Navigate to the following project path:</p>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>sp-edge-to-cloud-data-pipelines-demo/demo</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>where you will find the image:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>tea-bali.jpg</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Select and send it via HTTP or MQTT</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You should obtain the negative response:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/17-result-other.png" alt="17 result other" width="20%"></span></p>
+</div>
+<div class="paragraph">
+<p><br></p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_train_a_new_product"><a class="anchor" href="#_train_a_new_product"></a><a class="link" href="#_train_a_new_product">3.3. Train a new product</a></h3>
@@ -694,7 +746,7 @@ In the demo, the App uses an <em>MQTT</em> library that uses <em>Websockets</em>
 <p>The <em>Edge</em> environment has been pre-loaded with training data. This will make it easy for you to produce a second version of the model (<strong>v2</strong>) which you can try out.</p>
 </div>
 <div class="paragraph">
-<p>You can visualise the training data by opening <em>Minio</em>'s UI and browsing the <code>data</code> S3 bucket. Or you can use the following online S3 browser which will nicely display all the images to use for training, head to:</p>
+<p>You can visualise the training data by opening <em>Minio</em>'s UI and browsing the <code>data</code> S3 bucket. Or you can use the following online S3 browser which nicely displays all the images to use for training, head to:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -792,7 +844,7 @@ A quick reminder: <strong>v1</strong> does not know about this type of tea, it o
 <p>Copy the resulting URL address and use it in a new tab in your computer&#8217;s browser.</p>
 </div>
 <div class="paragraph">
-<p>A monitoring view will display all the playing parts in the demo. You will already be familiar with most of the parts shown on the monitoring view (which map with those visible from your <em>Topology</em> view from the <em>OpenShift</em>'s console):</p>
+<p>A monitoring view will display all the playing parts in the demo. You will already be familiar with most of the parts shown on the monitoring view (which map to those visible from your <em>Topology</em> view from the <em>OpenShift</em>'s console):</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1000,6 +1052,134 @@ train-model-run-ljrdk   True        Succeeded   92m         89m</pre>
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>Go back to the Smart Application in your browser and this time, with the newly trained model (<strong>v2</strong>), send the <em>Bali Green Tea</em> image that <strong>v1</strong> didn&#8217;t know about.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Enter the <em>Detection Mode</em> in your Smart App</p>
+</li>
+<li>
+<p>Click on the <code>Pick from Device</code> button.</p>
+</li>
+<li>
+<p>Navigate to the following project path:</p>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>sp-edge-to-cloud-data-pipelines-demo/demo</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>where you will find the image:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>tea-bali.jpg</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Select and send it via HTTP or MQTT</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This time, the product should be identified, and you should obtain a price tag as follows:</p>
+</div>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(Bali) Green Tea: 2.49</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Bravo !! you have completed the full cycle.</p>
+</div>
+<div class="paragraph">
+<p><br></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_your_own_product"><a class="anchor" href="#_create_your_own_product"></a><a class="link" href="#_create_your_own_product">3.4. Create your own product</a></h3>
+<div class="paragraph">
+<p>Up until now, you&#8217;ve played with pre-configured systems, and pre-loaded data, to train <strong>v2</strong>. It is time to go one level up. You will configure the system to create a new entry in the product catalogue, generate training data for the new product, train the new model <strong>v3</strong>, and run live inferences against it.</p>
+</div>
+<div class="sect3">
+<h4 id="_configure_the_system"><a class="anchor" href="#_configure_the_system"></a><a class="link" href="#_configure_the_system">3.4.1. Configure the system</a></h4>
+<div class="paragraph">
+<p>First things first, head to your OpenShift console and find the following <em>ConfigMap</em>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>catalogue</code><br>
+This configmap is owned by the <em>Price Engine</em> and configures all the products available.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Edit the catalogue to include a new product.<br>
+Follow the steps below to find your way:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/26-configure-configmap.jpg" alt="26 configure configmap"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>From the console (<code>edge1</code> project), click on the menu option <code>ConfigMaps</code></p>
+</li>
+<li>
+<p>From the list of displayed configmaps, select <code>catalogue</code>.</p>
+</li>
+<li>
+<p>You&#8217;ll find the option to <code>Edit ConfigMap</code> from the top right-right corner of the console.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Click Actions &#8594; Edit ConfigMap</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Locate the lower-right corner of the text area</p>
+</li>
+<li>
+<p>Click and drag the corner to expand the text area.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You&#8217;ll find the JSON data that configures the products, indexing all the products you&#8217;ve been playing with.</p>
+</div>
+<div class="paragraph">
+<p>Now include in the configuration a new product.
+If one does not come to mind, use the JSON data below to configure a <code>Computer Mouse</code> product:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">    {
+      "item": "computer-mouse",
+      "label": "Computer Mouse",
+      "price": 19.99
+    },</code></pre>
+</div>
 </div>
 </div>
 </div>

@@ -1200,7 +1200,7 @@ Make sure your JSON document is valid after finishing editing. Make sure commas 
 <p>Click <code>Save</code>.</p>
 </div>
 <div class="paragraph">
-<p>Now you need to restart the <em>Price Engine</em>. You can simply kill the pod and Kubernetes will restart a new one that will read the new ConfigMap value.</p>
+<p>Now you need to restart the <em>Price Engine</em>. You can simply kill the pod and <em>Kubernetes</em> will restart a new one that will read the new <em>ConfigMap</em> value.</p>
 </div>
 <div class="paragraph">
 <p>You can use the web Console to do so, or execute the <code>oc</code> command below:</p>
@@ -1215,7 +1215,7 @@ Make sure your JSON document is valid after finishing editing. Make sure commas 
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -n edge1 `oc get pods -n edge1 | grep price | awk '{print $1}'`</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs svc/price-engine -n edge1</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1223,8 +1223,7 @@ Make sure your JSON document is valid after finishing editing. Make sure commas 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">. . .
-2024-03-29 19:58:41,544 INFO  [pri.xml:74] (Camel (camel-1) thread #1 - timer://products) ["Earl Grey Tea", "(Bali) Green Tea", "Lemon Tea", "Computer Mouse", "Other"]</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">... INFO  [pri.xml:74] (Camel (camel-1) thread #1 - timer://products) ["Earl Grey Tea", "(Bali) Green Tea", "Lemon Tea", "Computer Mouse", "Other"]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1243,7 +1242,7 @@ Make sure your JSON document is valid after finishing editing. Make sure commas 
 <ul>
 <li>
 <p><code>shopper-training-options</code><br>
-This ConfigMap is owned by the <em>Shopper</em> (<em>Camel</em>) integration and configures all the trainable products from the App&#8217;s '<em>Ingestion Mode</em>' (Data Acquisition).</p>
+This ConfigMap is owned by the <em>Shopper</em> (<em>Camel</em>) integration and configures all the trainable products from the App&#8217;s '<em>Ingestion Mode</em>' option (Data Acquisition).</p>
 </li>
 </ul>
 </div>
@@ -1278,7 +1277,7 @@ This ConfigMap is owned by the <em>Shopper</em> (<em>Camel</em>) integration and
 </div>
 <div class="paragraph">
 <p>Replace the old product by the new one.<br>
-If you used the previous sample configuration for the Computer Mouse, copy the value below and replace the old product in your text area:</p>
+If you used the previous sample configuration for the <em>"Computer Mouse"</em>, copy the value below and replace the old product in your text area:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -1297,7 +1296,7 @@ If you used the previous sample configuration for the Computer Mouse, copy the v
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-You can also add a sequence of procuts. Instead of deleting the old product, you can add the new one separated with a comma.
+You can also add a sequence of products. Instead of deleting the old product, you can add the new one separated with a comma.
 </td>
 </tr>
 </table>
@@ -1331,7 +1330,7 @@ This information configures display options in the Smart App. Notice you don&#82
 <p>Click <code>Save</code>.</p>
 </div>
 <div class="paragraph">
-<p>Now you need to restart the <em>Shopper</em>. You can simply kill the pod and Kubernetes will restart a new one that will read the new ConfigMap value.</p>
+<p>Now you need to restart the <em>Shopper</em> application. You can simply kill the pod and <em>Kubernetes</em> will restart a new one that will read the new <em>ConfigMap</em> value.</p>
 </div>
 <div class="paragraph">
 <p>You can use the Web Console to do so, or execute the <code>oc</code> command below:</p>
@@ -1340,6 +1339,142 @@ This information configures display options in the Smart App. Notice you don&#82
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete pod -n edge1 `oc get pods -n edge1 | grep shopper | awk '{print $1}'`</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>You&#8217;re now ready to generate and ingest training data.</p>
+</div>
+<div class="paragraph">
+<p><br></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_generate_training_data"><a class="anchor" href="#_generate_training_data"></a><a class="link" href="#_generate_training_data">3.4.3. Generate Training Data</a></h4>
+<div class="paragraph">
+<p>In this section you will use the web based Smart App to capture images and push them to the platform. The easiest way to capture images is to use your smart phone.</p>
+</div>
+<div class="paragraph">
+<p>Share the URL&#8217;s address with your phone and open it with the device&#8217;s browser.</p>
+</div>
+<div class="paragraph">
+<p>Follow the steps illustrate below to capture and send images:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/27-ingestion-mode.jpg" alt="27 ingestion mode">
+</div>
+</div>
+<div class="paragraph">
+<p>Above, in step 2 you should find the option that you configured earlier. If you used the sample JSON snippets you should find on your screen the option:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Computer Mouse</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Now, take various pictures and push the as indicated. Change angles, rotate the object, flip the object. The more data you push, the more accurate your model will become.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+AI/ML models are generally trained with thousands/millions of pictures to achieve the best results. However, with only few images for experimentation, it should work too.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you open the monitoring view while pushing data from your smart device, you should see live interactions with the <em>Edge</em> systems.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When you&#8217;re done with the <em>Ingestion</em> phase, you should end up with a collection similar to the picture below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/28-data-computer-mouse.jpg" alt="28 data computer mouse" width="50%">
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Use the same S3 browser to visualise the data.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><br></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_kick_off_the_training_process"><a class="anchor" href="#_kick_off_the_training_process"></a><a class="link" href="#_kick_off_the_training_process">3.4.4. Kick-off the training process</a></h4>
+<div class="paragraph">
+<p>As you did earlier, from the administrative page, trigger the training process using the UI button.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="_images/21-monitor-admin-button.jpg" alt="21 monitor admin button" width="20%"></span></p>
+</div>
+<div class="paragraph">
+<p>Click <code>Train Data</code>.</p>
+</div>
+<div class="paragraph">
+<p>Verify the pipeline is running and wait for its completion.<br>
+Use the command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get pipelinerun -n tf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should obtain something similar to:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>NAME                    SUCCEEDED   REASON      STARTTIME   COMPLETIONTIME
+train-model-run-ljrdk   True        Succeeded   6h23m       6h20m
+train-model-run-lms4q   Unknown     Running     9s</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where you can see the previous <em>PipelineRun</em> in status <code>Succeeded</code>, and the new one <code>Running</code>.</p>
+</div>
+<div class="paragraph">
+<p>When the pipeline completes, go back to your App&#8217;s <code>Detection Mode</code> and try the new product out. If you trained your computer mouse, take a picture and send it.</p>
+</div>
+<div class="paragraph">
+<p>You should obtain a price tag for your mouse:</p>
+</div>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Computer Mouse</em>: <em>19.99</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Well done! You have iterated the <em>Product Catalogue</em> to include new articles on offer.</p>
 </div>
 </div>
 </div>

@@ -142,4 +142,35 @@ quay.io/agnosticd/ee-multicloud:v0.0.11  \
 
 === Walkthrough guide
 
-Coming soon!
+The guide below will help you to familiarise with the main components in the demo, and how to operate it to trigger the actions...
+
+Open your _OpenShift_ console with your given admin credentials and open the _Topology View_ to inspect the main systems deployed in the _Edge1_ namespace.
+
+Following the illustration below:
+
+. Select from the left menu the Developer view
+. Search in the filter textbox by `edge1`
+. Select the project `edge1`
+. Make sure you display the _Topologoy_ view (left menu)
+
+image::12-topology-edge1.png[]
+
+In the image above you'll see the main applications deployed in the _Edge_ zone:
+
+- **Shopper**: This is the main AI-powered application. The application exposes a smart device App you can open from your phone or browser. The application integrates with the _AI/ML Model Server_ to request inferences, and also with the _Price Engine_ to obtain price information from the product catalogue.
++
+The App has two main uses:
++
+  * Customers/Shoppers use it to obtain information about product, in this context of this demo, the price tag of a product.
+  * Staff members can generate training data by capturing images for new products.
+// +
+// {empty} +
+
+- **Model Server**: This is the AI/ML engine running inferences and capable of recognizing products. It exposes an API for clients to send an image, and responds with the product name identified. The Model Server is composed of:
+
+  * TensorFlow model server: the AI/ML brain executor.
+  * Minio instance (from where the models are loaded).
+
+- **Price Engine**: This application keeps the product catalogue and contains the pricing information. It exposes an API to obtain product information where the price tag is included.
+
+- **Manager**: This integration runs in the background monitoring the availability of new model versions in the Core Data Centre (_Central_). When a new model version is available it is responsible to obtain it and push it to the Model Server.

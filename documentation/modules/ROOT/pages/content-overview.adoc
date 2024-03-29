@@ -5,7 +5,7 @@
 ====
 xref:index.adoc[{counter:module}. Solution Pattern]::
 +
-xref:index.adoc#use-cases[{counter:submodule1}. Use cases] +
+xref:01-pattern.adoc#use-cases[{counter:submodule1}. Use cases] +
 xref:01-pattern.adoc#_the_story_behind_this_solution_pattern[{counter:submodule1}. The story behind this solution pattern] +
 xref:01-pattern.adoc#_the_solution[{counter:submodule1}. The solution] +
 xref:index.adoc#_explore_more_solution_patterns[{counter:submodule1}. Explore more solution patterns]

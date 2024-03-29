@@ -144,6 +144,8 @@ quay.io/agnosticd/ee-multicloud:v0.0.11  \
 
 The guide below will help you to familiarise with the main components in the demo, and how to operate it to trigger the actions...
 
+==== Quick Topology Overview
+
 Open your _OpenShift_ console with your given admin credentials and open the _Topology View_ to inspect the main systems deployed in the _Edge1_ namespace.
 
 Following the illustration below:
@@ -181,14 +183,21 @@ The App has two main uses:
 [NOTE]
 You'll find in the _Edge_ project other systems also deployed, but we won't dive into them as they are of less importance to the main story. Some mentions will be done to them when the context is relevant. 
 
-[IMPORTANT]
---
-The model server has been preloaded with a first version of the model (**v1**), pre-trained to only recognise two types of tea: _Earl Grey Tea_ and _Lemon Tea_.
-image:14-tea-earl-grey.webp[,10%]
-image:15-tea-lemon.jpeg[,10%]
---
+{empty} +
+
+==== Play with the Smart Application
 
 Let's interact with the _Edge_ environment from the Smart Application to see the system in action.
+
+[IMPORTANT]
+--
+The model server has been preloaded with a first version of the model (**v1**), pre-trained to only recognise two types of tea:
+
+_Earl Grey Tea_ and _Lemon Tea_.
+image:14-tea-earl-grey.png[,10%]
+image:15-tea-lemon.png[,10%]
+--
+
 
 First, let's run some negative tests by taking random pictures of objects around you. Because **v1** has not been trained to identify those objects, the system will not be able to provide a price for them and will respond with the label _"Other"_ (as in _'product not identified'_).
 
@@ -207,3 +216,41 @@ image::16-detection-mode.jpg[]
 
 [NOTE]
 The App allows you to simulate an image transmittion via _HTTP_, as would tipically apps interact with backend servers, or via _MQTT_, a lightweight messaging protocol, commonly used in the _IoT_, preferable for edge devices constrained by network bandwidth, energy consumption and CPU power.
+
+[NOTE]
+In the demo, the App uses an _MQTT_ library that uses _Websockets_ to connect to the _AMQ Broker_ deployed in the _Edge_ project. The _Camel_ application connects via _MQTT_ to pick up the messages, process them and respond, also via _MQTT_.
+
+You should see in your display the following response:
+
+image::17-result-other.png[,20%]
+
+It means it wasn't able to identify the object.
+
+Let's now run some positive inferences. We have included in the GitHub repositories images that have been used to train the model. 
+
+Make sure you operate from your computer's browser, and this time click on the `Pick from Device` button instead. This action will open your system's file picker.
+
+To choose the images to test with, navigate to the following project path:
+
+* `sp-edge-to-cloud-data-pipelines-demo/demo`
+
+where you will find the following images:
+
+* `tea-earl-grey.jpg`
+* `tea-lemon.jpg`
+
+Try them out. You should obtain positive results with the following responses:
+
+[%autowidth]
+|===
+|_Earl Grey Tea: 3.99_
+|===
+
+[%autowidth]
+|===
+|_Lemon Tea: 4.99_
+|===
+
+{empty} +
+
+==== Train a new product

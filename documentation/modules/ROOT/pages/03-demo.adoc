@@ -296,9 +296,7 @@ This new product is _"(Bali) Green Tea"_ and is labelled as `tea-green`. The pri
 [TIP]
 A quick reminder: **v1** does not know about this type of tea, it only knows about _Earl Grey Tea_ and _Lemon Tea_.
 
-To initiate the training process, the Shopper application includes a hidden administrative page from where you can trigger it.
-
-Use the following command to obtain the app's admin URL address:
+We can trigger the training process from a hidden administrative page the _Shopper_ application includes. Use the following command to obtain the admin page URL address:
 
 [.console-input]
 [source,bash]
@@ -306,10 +304,30 @@ Use the following command to obtain the app's admin URL address:
 echo "https://`oc get route camel-edge -n edge1 --template={{.spec.host}}`/admin.html"
 ----
 
-Copy the resulting URL address and use it in a new tab in your computer's laptop.
+Copy the resulting URL address and use it in a new tab in your computer's browser.
 
-A monitoring view will display showing all the playing parts in the demo. You will already be familiar with most of the parts shown on the monitoring view:
+A monitoring view will display all the playing parts in the demo. You will already be familiar with most of the parts shown on the monitoring view (which map with those visible from your _Topology_ view from the _OpenShift_'s console):
 
 image::20-monitor-admin-view.jpg[]
+
+To initiate the training process, click the button on the upper-left side of the window:
+
+image::21-monitor-admin-button.jpg[,40%]
+
+After you click, you'll see in the monitoring view a series of animations illustrating the actions taking place in the platform. The following enumeration describes the process:
+
+. The click action triggers a signal that a _Camel_ integration (_Manager_) picks up.
+. The _Manager_ reads all the training data from the S3 bucket where it resides and packages it as a ZIP container.
+. The _Manager_ invokes an API served from the Core Data Center (_Central_) to send the ZIP data.
+. The system _Feeder_ (_Camel_) exposing the above requested API, unpacks the ZIP container and pushes the data to a central S3 service used as the storage system (_ODF_) for training new models.
+. The same system _Feeder_ sends a signal via _Kafka_ to announce the arrival of new training data to be processed.
+. The system _Delivery_ (Camel) is subscribed to the announcements topic. It receives the Kafka signal and triggers the Pipeline responsible the create the a new model version.
+. The pipeline (_Tekton_) reads from the S3 storage system all the training data available and executes the Data Science notebooks based on _TensorFlow_
+. At the end of the pipeline process, a new model is pushed to an edge-dedicated topic where new model placed.
+. A copy of the new model version is also pushed to a Model repository. In this demo, just another S3 bucket, where a history of model versions is kept.
+
+All the steps above described are well illustrated in the diagram below:
+
+image::22-monitor-admin-pipeline.jpg[]
 
 

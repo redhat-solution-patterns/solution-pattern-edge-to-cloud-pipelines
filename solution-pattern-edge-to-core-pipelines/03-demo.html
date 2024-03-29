@@ -444,6 +444,8 @@ quay.io/agnosticd/ee-multicloud:v0.0.11  \
 <div class="paragraph">
 <p>The guide below will help you to familiarise with the main components in the demo, and how to operate it to trigger the actions&#8230;&#8203;</p>
 </div>
+<div class="sect3">
+<h4 id="_quick_topology_overview"><a class="anchor" href="#_quick_topology_overview"></a><a class="link" href="#_quick_topology_overview">2.4.1. Quick Topology Overview</a></h4>
 <div class="paragraph">
 <p>Open your <em>OpenShift</em> console with your given admin credentials and open the <em>Topology View</em> to inspect the main systems deployed in the <em>Edge1</em> namespace.</p>
 </div>
@@ -532,6 +534,15 @@ You&#8217;ll find in the <em>Edge</em> project other systems also deployed, but 
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p><br></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_play_with_the_smart_application"><a class="anchor" href="#_play_with_the_smart_application"></a><a class="link" href="#_play_with_the_smart_application">2.4.2. Play with the Smart Application</a></h4>
+<div class="paragraph">
+<p>Let&#8217;s interact with the <em>Edge</em> environment from the Smart Application to see the system in action.</p>
+</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -540,16 +551,16 @@ You&#8217;ll find in the <em>Edge</em> project other systems also deployed, but 
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The model server has been preloaded with a first version of the model (<strong>v1</strong>), pre-trained to only recognise two types of tea: <em>Earl Grey Tea</em> and <em>Lemon Tea</em>.
-<span class="image"><img src="_images/14-tea-earl-grey.webp" alt="14 tea earl grey" width="10%"></span>
-<span class="image"><img src="_images/15-tea-lemon.jpeg" alt="15 tea lemon" width="10%"></span></p>
+<p>The model server has been preloaded with a first version of the model (<strong>v1</strong>), pre-trained to only recognise two types of tea:</p>
+</div>
+<div class="paragraph">
+<p><em>Earl Grey Tea</em> and <em>Lemon Tea</em>.
+<span class="image"><img src="_images/14-tea-earl-grey.png" alt="14 tea earl grey" width="10%"></span>
+<span class="image"><img src="_images/15-tea-lemon.png" alt="15 tea lemon" width="10%"></span></p>
 </div>
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>Let&#8217;s interact with the <em>Edge</em> environment from the Smart Application to see the system in action.</p>
 </div>
 <div class="paragraph">
 <p>First, let&#8217;s run some negative tests by taking random pictures of objects around you. Because <strong>v1</strong> has not been trained to identify those objects, the system will not be able to provide a price for them and will respond with the label <em>"Other"</em> (as in <em>'product not identified'</em>).</p>
@@ -596,6 +607,89 @@ The App allows you to simulate an image transmittion via <em>HTTP</em>, as would
 </td>
 </tr>
 </table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In the demo, the App uses an <em>MQTT</em> library that uses <em>Websockets</em> to connect to the <em>AMQ Broker</em> deployed in the <em>Edge</em> project. The <em>Camel</em> application connects via <em>MQTT</em> to pick up the messages, process them and respond, also via <em>MQTT</em>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You should see in your display the following response:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/17-result-other.png" alt="17 result other" width="20%">
+</div>
+</div>
+<div class="paragraph">
+<p>It means it wasn&#8217;t able to identify the object.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s now run some positive inferences. We have included in the GitHub repositories images that have been used to train the model.</p>
+</div>
+<div class="paragraph">
+<p>Make sure you operate from your computer&#8217;s browser, and this time click on the <code>Pick from Device</code> button instead. This action will open your system&#8217;s file picker.</p>
+</div>
+<div class="paragraph">
+<p>To choose the images to test with, navigate to the following project path:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sp-edge-to-cloud-data-pipelines-demo/demo</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>where you will find the following images:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>tea-earl-grey.jpg</code></p>
+</li>
+<li>
+<p><code>tea-lemon.jpg</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Try them out. You should obtain positive results with the following responses:</p>
+</div>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Earl Grey Tea: 3.99</em></p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Lemon Tea: 4.99</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><br></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_train_a_new_product"><a class="anchor" href="#_train_a_new_product"></a><a class="link" href="#_train_a_new_product">2.4.3. Train a new product</a></h4>
+
 </div>
 </div>
 </div>

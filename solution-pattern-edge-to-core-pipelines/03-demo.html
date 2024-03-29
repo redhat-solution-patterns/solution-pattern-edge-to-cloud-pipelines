@@ -792,10 +792,7 @@ A quick reminder: <strong>v1</strong> does not know about this type of tea, it o
 </table>
 </div>
 <div class="paragraph">
-<p>To initiate the training process, the Shopper application includes a hidden administrative page from where you can trigger it.</p>
-</div>
-<div class="paragraph">
-<p>Use the following command to obtain the app&#8217;s admin URL address:</p>
+<p>We can trigger the training process from a hidden administrative page the <em>Shopper</em> application includes. Use the following command to obtain the admin page URL address:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -803,14 +800,64 @@ A quick reminder: <strong>v1</strong> does not know about this type of tea, it o
 </div>
 </div>
 <div class="paragraph">
-<p>Copy the resulting URL address and use it in a new tab in your computer&#8217;s laptop.</p>
+<p>Copy the resulting URL address and use it in a new tab in your computer&#8217;s browser.</p>
 </div>
 <div class="paragraph">
-<p>A monitoring view will display showing all the playing parts in the demo. You will already be familiar with most of the parts shown on the monitoring view:</p>
+<p>A monitoring view will display all the playing parts in the demo. You will already be familiar with most of the parts shown on the monitoring view (which map with those visible from your <em>Topology</em> view from the <em>OpenShift</em>'s console):</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/20-monitor-admin-view.jpg" alt="20 monitor admin view">
+</div>
+</div>
+<div class="paragraph">
+<p>To initiate the training process, click the button on the upper-left side of the window:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/21-monitor-admin-button.jpg" alt="21 monitor admin button" width="40%">
+</div>
+</div>
+<div class="paragraph">
+<p>After you click, you&#8217;ll see in the monitoring view a series of animations illustrating the actions taking place in the platform. The following enumeration describes the process:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The click action triggers a signal that a <em>Camel</em> integration (<em>Manager</em>) picks up.</p>
+</li>
+<li>
+<p>The <em>Manager</em> reads all the training data from the S3 bucket where it resides and packages it as a ZIP container.</p>
+</li>
+<li>
+<p>The <em>Manager</em> invokes an API served from the Core Data Center (<em>Central</em>) to send the ZIP data.</p>
+</li>
+<li>
+<p>The system <em>Feeder</em> (<em>Camel</em>) exposing the above requested API, unpacks the ZIP container and pushes the data to a central S3 service used as the storage system (<em>ODF</em>) for training new models.</p>
+</li>
+<li>
+<p>The same system <em>Feeder</em> sends a signal via <em>Kafka</em> to announce the arrival of new training data to be processed.</p>
+</li>
+<li>
+<p>The system <em>Delivery</em> (Camel) is subscribed to the announcements topic. It receives the Kafka signal and triggers the Pipeline responsible the create the a new model version.</p>
+</li>
+<li>
+<p>The pipeline (<em>Tekton</em>) reads from the S3 storage system all the training data available and executes the Data Science notebooks based on <em>TensorFlow</em></p>
+</li>
+<li>
+<p>At the end of the pipeline process, a new model is pushed to an edge-dedicated topic where new model placed.</p>
+</li>
+<li>
+<p>A copy of the new model version is also pushed to a Model repository. In this demo, just another S3 bucket, where a history of model versions is kept.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>All the steps above described are well illustrated in the diagram below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/22-monitor-admin-pipeline.jpg" alt="22 monitor admin pipeline">
 </div>
 </div>
 </div>

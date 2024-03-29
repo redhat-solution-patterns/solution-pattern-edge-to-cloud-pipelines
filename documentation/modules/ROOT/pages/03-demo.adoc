@@ -464,7 +464,7 @@ Bravo !! you have completed the full cycle.
 Up until now, you've played with pre-configured systems, and pre-loaded data, to train **v2**. It is time to go one level up. You will configure the system to create a new entry in the product catalogue, generate training data for the new product, train the new model **v3**, and run live inferences against it.
 
 
-==== Configure the system
+==== Configure the _Price Engine_
 
 First things first, head to your OpenShift console and find the following _ConfigMap_:
 
@@ -481,9 +481,9 @@ image:26-configure-configmap.jpg[]
 . You'll find the option to `Edit ConfigMap` from the top right-right corner of the console.
 * Click Actions -> Edit ConfigMap
 . Locate the lower-right corner of the text area
-. Click and drag the corner to expand the text area.
+. Click and drag the corner downwards to expand the text area.
 
-You'll find the JSON data that configures the products, indexing all the products you've been playing with.
+The JSON data configures the products. You'll find in the definition all the products you have been playing with.
 
 Now include in the configuration a new product.
 If one does not come to mind, use the JSON data below to configure a `Computer Mouse` product:
@@ -496,4 +496,93 @@ If one does not come to mind, use the JSON data below to configure a `Computer M
       "label": "Computer Mouse",
       "price": 19.99
     },
+----
+
+Copy the JSON node above and paste it in the _ConfigMap_.
+
+[WARNING]
+Make sure your JSON document is valid after finishing editing. Make sure commas (`,`) are in the right place.
+
+Click `Save`.
+
+Now you need to restart the _Price Engine_. You can simply kill the pod and Kubernetes will restart a new one that will read the new ConfigMap value.
+
+You can use the web Console to do so, or execute the `oc` command below:
+
+[.console-input]
+[source,bash]
+----
+oc delete pod -n edge1 `oc get pods -n edge1 | grep price | awk '{print $1}'`
+----
+
+You can validate, by inspecting the logs, the new started pod has loaded the new product catalogue. Again, you can use the web console, or execute from your terminal the command below:
+
+[.console-input]
+[source,bash]
+----
+oc logs -n edge1 `oc get pods -n edge1 | grep price | awk '{print $1}'`
+----
+
+In the output logs from the command above, you should find the value `"Computer Mouse"`. Your logs should look similar to:
+
+[source,bash]
+----
+. . .
+2024-03-29 19:58:41,544 INFO  [pri.xml:74] (Camel (camel-1) thread #1 - timer://products) ["Earl Grey Tea", "(Bali) Green Tea", "Lemon Tea", "Computer Mouse", "Other"]
+----
+
+Next, you need to configure the Smart Application to allow selecting the new product for training.
+
+{empty} +
+
+==== Configure the _Shopper_ application
+
+You need to perform a similar operation. From your OpenShift console, find the following _ConfigMap_:
+
+* `shopper-training-options` +
+This ConfigMap is owned by the _Shopper_ (_Camel_) integration and configures all the trainable products from the App's '_Ingestion Mode_' (Data Acquisition).
+
+Follow the same steps as previously done to find the ConfigMap and open the Edit window.
+
+. From the console (`edge1` project), click on the menu option `ConfigMaps`
+. From the list of displayed configmaps, select `shopper-training-options`.
+. You'll find the option to `Edit ConfigMap` from the top right-right corner of the console.
+* Click Actions -> Edit ConfigMap
+. Locate the lower-right corner of the text area
+. Click and drag the corner downwards to expand the text area.
+
+Replace the old product by the new one. +
+If you used the previous sample configuration for the Computer Mouse, copy the value below and replace the old product in your text area:
+
+[.console-input]
+[source,json]
+----
+[
+  {
+      "item": "computer-mouse",
+      "label": "Computer Mouse"
+  }
+]
+----
+
+[TIP]
+You can also add a sequence of procuts. Instead of deleting the old product, you can add the new one separated with a comma.
+
+[WARNING]
+Make sure your JSON document is valid after finishing editing. Make sure commas (`,`) are in the right place. +
+Also, the values in this configuration need to match those in the product catalogue. +
+
+[NOTE]
+This information configures display options in the Smart App. Notice you don't define a price tag here.
+
+Click `Save`.
+
+Now you need to restart the _Shopper_. You can simply kill the pod and Kubernetes will restart a new one that will read the new ConfigMap value.
+
+You can use the Web Console to do so, or execute the `oc` command below:
+
+[.console-input]
+[source,bash]
+----
+oc delete pod -n edge1 `oc get pods -n edge1 | grep shopper | awk '{print $1}'`
 ----

@@ -12,28 +12,9 @@ When analyzing user data at the edge, such as that from Internet of Things (IoT)
 
 This solution pattern provides an architecture solution for scenarios in which edge devices generate image data, which must be collected, processed, and stored at the near edge before being utilized to train AI/ML models at the core data center or cloud.
 
-[#use-cases]
-== Use cases
+*Contributors*: _Bruno Meseguer (Red Hat), Huge Guerrero (Red Hat)_
 
-The interaction of AI/ML and Edge Computing occurs in a variety of businesses. For example, in the retail industry, customer behavior and patterns may be used to determine promotions, or in a manufacturing facility, where data inference can help improve processes where machines are failing and products are not up to standard, and so on. The basic premise is that you may collect data and then infer from it in order to make decisions based on it.
-
-Some common use cases for edge to cloud data pipelines for artificial intelligence and machine learning include: 
-
-- Preprocessing and feature extraction of data at the edge for improved performance and lower latency
-- Training and inference of machine learning models on data collected at the edge
-- Processing and analyzing sensor data for predictive analytics
-- Streaming data analysis and real-time decision making
-
-There are many potential business drivers for a company to use edge analytics. Some of the most common reasons include wanting to gain insights into customer behavior, improve operational efficiency, or better understand the performance of specific products or services. Additionally, companies may use edge analytics to detect and prevent fraud or to monitor and manage risk.
-
-- Reduce time to insights -Improve accuracy of insights
-- Enable real-time decision making 
-- Faster and more accessible data collection
-- Reduce costs associated with data collection and analysis
-
-****
-AI and machine learning can learn from client behavior and assist improve the customer experience. Gain a competitive advantage by automating a large portion of decision making, increasing revenue and decreasing costs.
-****
+{empty} +
 
 include::01-pattern.adoc[]
 

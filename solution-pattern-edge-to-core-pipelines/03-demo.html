@@ -624,7 +624,7 @@ In the demo, the App uses an <em>MQTT</em> library that uses <em>Websockets</em>
 <p>You should see in your display the following response:</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="_images/17-result-other.png" alt="17 result other" width="50%"></span></p>
+<p><span class="image"><img src="_images/17-result-other.png" alt="17 result other" width="30%"></span></p>
 </div>
 <div class="paragraph">
 <p>It means it wasn&#8217;t able to identify the object.</p>
@@ -826,10 +826,10 @@ We are bypassing the ingestion (<em>Data Acquisition</em>) phase to speed up the
 <p>To initiate the training process, click the button on the upper-left side of the window:</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="_images/21-monitor-admin-button.jpg" alt="21 monitor admin button" width="40%"></span></p>
+<p><span class="image"><img src="_images/21-monitor-admin-button.jpg" alt="21 monitor admin button" width="20%"></span></p>
 </div>
 <div class="paragraph">
-<p>After you click, you&#8217;ll see in the monitoring view a series of animations illustrating the actions taking place in the platform. The following enumeration describes the process:</p>
+<p>After you click <code><em>Train Data</em></code>, you&#8217;ll see in the monitoring view a series of live animations illustrating the actions actually taking place in the platform. The following enumeration describes the process:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -852,7 +852,19 @@ We are bypassing the ingestion (<em>Data Acquisition</em>) phase to speed up the
 <p>The system <em>Delivery</em> (Camel) is subscribed to the announcements topic. It receives the Kafka signal and triggers the Pipeline responsible the create the a new model version.</p>
 </li>
 <li>
-<p>The pipeline (<em>Tekton</em>) reads from the S3 storage system all the training data available and executes the Data Science notebooks based on <em>TensorFlow</em></p>
+<p>The pipeline (<em>Tekton</em>) kicks off. It reads from the S3 storage system all the training data available and executes the Data Science notebooks based on <em>TensorFlow</em></p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The entire execution of the pipeline may take between 2-5 minutes depending on the resources allocated in the environment.
+</td>
+</tr>
+</table>
+</div>
 </li>
 <li>
 <p>At the end of the pipeline process, a new model is pushed to an edge-dedicated topic where new model placed.</p>
@@ -869,6 +881,32 @@ We are bypassing the ingestion (<em>Data Acquisition</em>) phase to speed up the
 <div class="content">
 <img src="_images/22-monitor-admin-pipeline.jpg" alt="22 monitor admin pipeline">
 </div>
+</div>
+<div class="paragraph">
+<p>But the process has not finished yet. It then enters into the <em>Delivery</em> phase. The new model has now been pushed to an S3 bucket <code>edge1-ready</code> that is being monitored by an integration point on the Edge (<em>Manager</em>)</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<em>Edge</em> and <em>Core</em> are connected via <em>Service Interconnect</em>. Both regions are running an instance of <em>Skupper</em> to form virtual services which securely interconnect systems from both sides.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When the <em>Tekton</em> pipeline uploads the new model to the S3 bucket, the <em>Edge Manager</em> notices the artifacts and initiates the download of the model and hot deploys it in the TensorFlow model server, as shown in the picture below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/24-monitor-admin-delivery.jpg" alt="24 monitor admin delivery">
+</div>
+</div>
+<div class="paragraph">
+<p>The AI/ML engine, powered by the <em>TensorFlow Model Server</em>, reacts to the new version (<strong>v2</strong>), now available in its local S3 bucket, and initiates a hot-deployment. It loads the new version and discards the old one that was held in memory. This process happens without service interruption. Clients sending inference requests inadvertently start obtaining results computed with the new hot-deployed version (<strong>v2</strong>).</p>
 </div>
 </div>
 </div>

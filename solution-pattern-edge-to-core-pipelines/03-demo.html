@@ -623,9 +623,9 @@ In the demo, the App uses an <em>MQTT</em> library that uses <em>Websockets</em>
 <div class="paragraph">
 <p>You should see in your display the following response:</p>
 </div>
-<div class="imageblock">
+<div class="imageblock text-left">
 <div class="content">
-<img src="_images/17-result-other.png" alt="17 result other" width="20%">
+<img src="_images/17-result-other.png" alt="17 result other" width="50%">
 </div>
 </div>
 <div class="paragraph">
@@ -689,7 +689,130 @@ In the demo, the App uses an <em>MQTT</em> library that uses <em>Websockets</em>
 </div>
 <div class="sect3">
 <h4 id="_train_a_new_product"><a class="anchor" href="#_train_a_new_product"></a><a class="link" href="#_train_a_new_product">2.4.3. Train a new product</a></h4>
-
+<div class="paragraph">
+<p>The <em>Edge</em> environment has been pre-loaded with training data. This will make it easy for you to produce a second version of the model (<strong>v2</strong>) which you can try out.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We are bypassing the ingestion (<em>Data Acquisition</em>) phase described to speed up the process of producing a second version of the model. Later you will participate in generating your own training data to produce a third version of the model.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can visualise the training data by opening <em>Minio</em>'s UI and browsing the <code>data</code> S3 bucket. Or you can use the following online S3 browser which will nicely display all the images to use for training, head to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.filestash.app/s3-browser.html" target="_blank" rel="noopener">Online S3 browser</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>And enter the following details:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Access Key ID: <code>minio</code></p>
+</li>
+<li>
+<p>Secret Access ID: <code>minio123</code></p>
+</li>
+<li>
+<p>Advanced &gt;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Endpoint: [Minio&#8217;s URL]</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can obtain your Minio instance URL by executing the following <code>oc</code> command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get route minio-api -o custom-columns=HOST:.spec.host -n edge1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your connection details on screen should look similar to the picture below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/18-s3-connect.png" alt="18 s3 connect" width="40%">
+</div>
+</div>
+<div class="paragraph">
+<p>Click <code>CONNECT</code>, and select the folder (bucket) <code>data</code>.</p>
+</div>
+<div class="paragraph">
+<p>Navigate to the folder <code>images/tea-green</code> where you should find all the training images you&#8217;re about to use:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/19-s3-data.jpg" alt="19 s3 data" width="50%">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This collection of training data was captured during a live demonstration where the audience participated in generating the images.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This new product is <em>"(Bali) Green Tea"</em> and is labelled as <code>tea-green</code>. The price engine is also preconfigured with a specific price tag for this product.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+A quick reminder: <strong>v1</strong> does not know about this type of tea, it only knows about <em>Earl Grey Tea</em> and <em>Lemon Tea</em>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To initiate the training process, the Shopper application includes a hidden administrative page from where you can trigger it.</p>
+</div>
+<div class="paragraph">
+<p>Use the following command to obtain the app&#8217;s admin URL address:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo "https://`oc get route camel-edge -n edge1 --template={{.spec.host}}`/admin.html"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Copy the resulting URL address and use it in a new tab in your computer&#8217;s laptop.</p>
+</div>
+<div class="paragraph">
+<p>A monitoring view will display showing all the playing parts in the demo. You will already be familiar with most of the parts shown on the monitoring view:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/20-monitor-admin-view.jpg" alt="20 monitor admin view">
+</div>
+</div>
 </div>
 </div>
 </div>

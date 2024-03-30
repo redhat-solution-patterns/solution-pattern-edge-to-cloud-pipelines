@@ -101,7 +101,7 @@ cd sp-edge-to-cloud-data-pipelines-demo
 export KUBECONFIG=./ansible/kube-demo
 ----
 
-1. Login into your OpenShift cluster from the `oc` command line.
+1. Obtain and execute your login command from _OpenShift_'s console, or use the `oc` command line below to access your cluster.
 +
 [.console-input]
 [source,bash]

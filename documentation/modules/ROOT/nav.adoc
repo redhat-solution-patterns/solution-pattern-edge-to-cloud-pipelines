@@ -19,6 +19,8 @@
 ** xref:03-demo.adoc#_install_the_demonstration[{counter:submodule3}. Install the demonstration]
 ** xref:03-demo.adoc#_walkthrough_guide[{counter:submodule3}. Walkthrough guide]
 
+* xref:04-devresources.adoc[{counter:module}. Developer Resources]
+
 // * xref:04-workshop.adoc[{counter:module}. Workshop]
 // ** xref:04-workshop.adoc#_installing_the_workshop_environment[{module}.{counter:submodule4}. Installing the workshop environment]
 // *** xref:04-workshop.adoc#_before_getting_started[{module}.{counter:submodule4}. Pre-requisites

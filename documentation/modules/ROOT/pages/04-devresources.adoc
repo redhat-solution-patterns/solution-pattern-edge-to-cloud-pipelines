@@ -1,0 +1,17 @@
+:sectnums:
+:sectlinks:
+:doctype: book
+= Solution Pattern: Edge to Core Data Pipelines for AI/ML
+
+= Developer Resources
+
+Here you find a list of developer resources relevant to this Solution Pattern
+
+* https://developers.redhat.com/about[{counter:submodule4}. Register^] for Red Hat developers subscription to get access to Red Hat products for personal use at no cost
+* https://developers.redhat.com/products/openshift/overview[{counter:submodule4}. Red Hat OpenShift^]
+* https://developers.redhat.com/products/quarkus/overview[{counter:submodule4}. Quarkus^]
+* https://developers.redhat.com/products/redhat-build-of-apache-camel/overview[{counter:submodule4}. Red Hat build of Apache Camel^]
+* https://developers.redhat.com/products/amq/overview[{counter:submodule4}. AMQ^]
+* https://www.redhat.com/en/resources/amq-streams-datasheet[{counter:submodule4}. AMQ Streams^]
+* https://developers.redhat.com/products/service-interconnect/overview[{counter:submodule4}. Service Interconnect^]
+* https://developers.redhat.com/products/red-hat-openshift-ai/overview[{counter:submodule4}. Red Hat OpenShift AI^]

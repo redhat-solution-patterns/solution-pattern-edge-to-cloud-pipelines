@@ -197,7 +197,7 @@
 <p>Training and inference of machine learning models on data collected at the edge</p>
 </li>
 <li>
-<p>Processing and analyzing sensor data for predictive analytics</p>
+<p>Processing and analysing sensor data for predictive analytics</p>
 </li>
 <li>
 <p>Streaming data analysis and real-time decision making</p>
@@ -205,7 +205,7 @@
 </ul>
 </div>
 <div class="paragraph">
-<p>There are many potential business drivers for a company to use edge analytics. Some of the most common reasons include wanting to gain insights into customer behavior, improve operational efficiency, or better understand the performance of specific products or services. Additionally, companies may use edge analytics to detect and prevent fraud or to monitor and manage risk.</p>
+<p>There are many potential business drivers for a company to use edge analytics. Some of the most common reasons include wanting to gain insights into customer behaviour, improve operational efficiency, or better understand the performance of specific products or services. Additionally, companies may use edge analytics to detect and prevent fraud or to monitor and manage risk.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -226,7 +226,7 @@
 <div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
-<p>AI and machine learning can learn from client behavior and assist improve the customer experience. Gain a competitive advantage by automating a large portion of decision making, increasing revenue and decreasing costs.</p>
+<p>AI and machine learning can learn from client behaviour and assist improve the customer experience. Gain a competitive advantage by automating a large portion of decision making, increasing revenue and decreasing costs.</p>
 </div>
 </div>
 </div>
@@ -341,7 +341,7 @@ The solution pattern demonstration employs REST HTTP clients and MQTT over webso
 <p>The first stage begins with the acquisition of images. For example, the check out kiosks can take pictures of every item that the cashier scans. Each image is then delivered over MQTT to a message broker, who passes it on to the processing application, which prepares the data for transmission.</p>
 </div>
 <div class="paragraph">
-<p>To send data from the edge to the core, depending on the use case, we can use an Apache Kafka topic for example, to allow other streaming applications perform additional parallel processing by benefiting from the platform&#8217;s streaming and repeatability. In this image-based example however we find preferable to move images via traditional HTTP (still is data streaming).</p>
+<p>To send data from the edge to the core, depending on the use case, we can use an Apache Kafka topic for example, to allow other streaming applications perform additional parallel processing by benefiting from the platform&#8217;s streaming and repeatability.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -353,6 +353,18 @@ The solution pattern demonstration employs REST HTTP clients and MQTT over webso
 <div class="paragraph">
 <p><em>Kafka</em> is usually not the right technology to store and process large payloads (images, videos, big files, etc.) as a whole. It can however complement other strategies to integrate, coordinate, orchestrate or preprocess the data, for example.</p>
 </div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In the image-based example provided in this <em>Solution Pattern</em>, we find preferable to move images combining traditional HTTP (using streaming techniques) and S3.
 </td>
 </tr>
 </table>

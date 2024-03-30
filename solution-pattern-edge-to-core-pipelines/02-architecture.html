@@ -94,31 +94,43 @@
     <a class="nav-link" href="02-architecture.html">2. Architecture</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#_common_challenges">1. Common challenges</a>
+    <a class="nav-link" href="#_common_challenges">2.1. Common challenges</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#tech_stack">2. Technology stack</a>
+    <a class="nav-link" href="#tech_stack">2.2. Technology stack</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="#in_depth">3. An in-depth look at the solution&#8217;s architecture</a>
+    <a class="nav-link" href="#in_depth">2.3. An in-depth look at the solution&#8217;s architecture</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#_data_acquisition">3.1. Data Acquisition</a>
+    <a class="nav-link" href="#_data_acquisition">2.3.1. Data Acquisition</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#_data_preparation_modelling">3.2. Data Preparation &amp; Modelling</a>
+    <a class="nav-link" href="#_data_preparation_modelling">2.3.2. Data Preparation &amp; Modelling</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#_application_development_and_delivery">3.3. Application Development and Delivery</a>
+    <a class="nav-link" href="#_application_development_and_delivery">2.3.3. Application Development and Delivery</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#_edge_ml_inference">3.4. Edge ML Inference</a>
+    <a class="nav-link" href="#_edge_ml_inference">2.3.4. Edge ML Inference</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#more_tech">4. Additional notes about Edge Computing</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#more_tech">2.4. Additional notes about The Technologies</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_red_hat_service_interconnect">2.4.1. Red Hat Service Interconnect</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_edge_computing">2.4.2 Edge Computing</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#_single_node_apache_kafka_broker">2.4.3 Single Node Apache Kafka Broker</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -127,13 +139,13 @@
     <a class="nav-link" href="03-demo.html">3. See the Solution in Action</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-demo.html#_demonstration">1. Demonstration</a>
+    <a class="nav-link" href="03-demo.html#_demonstration">3.4 Demonstration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-demo.html#_install_the_demonstration">2. Install the demonstration</a>
+    <a class="nav-link" href="03-demo.html#_install_the_demonstration">3.5. Install the demonstration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-demo.html#_walkthrough_guide">3. Walkthrough guide</a>
+    <a class="nav-link" href="03-demo.html#_walkthrough_guide">3.6. Walkthrough guide</a>
   </li>
 </ul>
   </li>
@@ -292,7 +304,7 @@ What we should concentrate on at the edge is data collecting and data inference,
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/07-full-architecture.png" alt="07 full architecture" width="80%">
+<img src="_images/07-full-architecture.png" alt="07 full architecture" width="90%">
 </div>
 </div>
 <div class="paragraph">
@@ -314,6 +326,9 @@ What we should concentrate on at the edge is data collecting and data inference,
 </div>
 <div class="paragraph">
 <p>In the sections that follow the focus is centred in the interactions between one of near-edge zones (one single branch) and the core data center.</p>
+</div>
+<div class="paragraph">
+<p><br></p>
 </div>
 <div class="sect2">
 <h3 id="_data_acquisition"><a class="anchor" href="#_data_acquisition"></a><a class="link" href="#_data_acquisition">3.1. Data Acquisition</a></h3>
@@ -342,10 +357,13 @@ What we should concentrate on at the edge is data collecting and data inference,
 </div>
 </div>
 <div class="paragraph">
-<p>When a new product needs to be added in the catalogue, its imagery is pushed to the system (<em>Device</em> to <em>Edge1</em>). The data is kept in local object storage while waiting to complete the collection. When the imagery is collected in full, an integration application (<em>Camel</em>) packages all the data and sends it over the wire to a remote S3 bucket located in the main data center (<em>Central</em>).</p>
+<p>In a first phase, when a new product needs to be added in the catalogue, its imagery is pushed to the system (<em>Device</em> to <em>Edge1</em>). The data is kept in local object storage (S3) while waiting to complete the image collection.</p>
 </div>
 <div class="paragraph">
-<p>When the training data upload to S3 completes, a coordination signal is sent via Kafka to announce new training data is available, allowing</p>
+<p>In a second phase, when the imagery is collected in full, an edge integration application (<em>Camel</em>) packages all the data and sends it over the wire, to the main data centre (<em>Central</em>) where a second integration (<em>Camel</em>) unpacks the images and pushes them to a local S3 bucket.</p>
+</div>
+<div class="paragraph">
+<p>When the training data upload to S3 completes, a coordination signal is sent via <em>Kafka</em> (<em>Streams</em>) to announce new training data is available, making other systems to react.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -355,7 +373,7 @@ What we should concentrate on at the edge is data collecting and data inference,
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Edge/Core connectivity is enabled with Service Interconnect. More details to follow.</p>
+<p>Edge/Core connectivity is enabled with <em>Service Interconnect</em>. More details to follow.</p>
 </div>
 </td>
 </tr>
@@ -384,10 +402,10 @@ What we should concentrate on at the edge is data collecting and data inference,
 <p>There is considerable manual labour involved into the activities above listed. However, once the team of data scientists produce the desired implementation to generate the AI/ML models, it can be injected as part of an automated pipeline, along with other automated steps.</p>
 </div>
 <div class="paragraph">
-<p>The same is true for the pre-processing work to refine the raw training data which can be added to the chain of automated steps in the pipeline.</p>
+<p>The same is true for the pre-processing tasks to refine the raw training data. More and more organisations seek to implement autonomous refinement and labelling processes which can be added to the chain of automated steps in the pipeline.</p>
 </div>
 <div class="paragraph">
-<p>The solution pattern implements this stage as a fully automated workflow, initiated by the Kafka signal sent by the near edge system as illustrated in the diagram below:</p>
+<p>The solution pattern implements this stage as a fully automated workflow, initiated by the <em>Kafka</em> signal (Streams) triggered upon the reception of new training data, as illustrated in the diagram below:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -400,11 +418,14 @@ What we should concentrate on at the edge is data collecting and data inference,
 <div class="paragraph">
 <p>The pipeline obtains all the training data from the S3 bucket and starts training the new AI/ML model. When the training completes, it uploads the new version to a model repository.</p>
 </div>
+<div class="paragraph">
+<p><br></p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_application_development_and_delivery"><a class="anchor" href="#_application_development_and_delivery"></a><a class="link" href="#_application_development_and_delivery">3.3. Application Development and Delivery</a></h3>
 <div class="paragraph">
-<p>The third stage is primarily focussed on including all the <a href="https://www.redhat.com/en/topics/devops"><em>DevOps</em></a> and <a href="https://www.redhat.com/en/topics/ai/what-is-mlops"><em>MLOps</em></a> processes necessary to deliver the applications and upgrades the near edge needs to deploy and run.</p>
+<p>The third stage is primarily focussed on including all the <a href="https://www.redhat.com/en/topics/devops"><em>DevOps</em></a> and <a href="https://www.redhat.com/en/topics/ai/what-is-mlops"><em>MLOps</em></a> processes necessary to deliver the applications and upgrades the near edge needs to continuously evolve.</p>
 </div>
 <div class="paragraph">
 <p>Here, all the best cloud-native practices apply. To know more, follow the link of the resources listed below:</p>
@@ -423,7 +444,7 @@ What we should concentrate on at the edge is data collecting and data inference,
 <p>Smart applications, powered by the AI/ML models, need to be designed and implemented along with their automated delivery mechanisms.</p>
 </div>
 <div class="paragraph">
-<p>The demo provided in this <em>Solution Pattern</em> already includes all the applications and integration systems. The focus is set on showcasing the automated pipeline responsible for producing new model versions which are uploaded to the platform&#8217;s object storage system, keeping duplicates in a model repository.</p>
+<p>The demo provided in this <em>Solution Pattern</em> already includes all the applications and integration systems. The focus is set on showcasing the automated pipeline responsible for producing new model versions, which are uploaded to the platform&#8217;s object storage system (S3), keeping duplicates in a model repository.</p>
 </div>
 <div class="paragraph">
 <p>The diagram below illustrates the stage:</p>
@@ -434,16 +455,19 @@ What we should concentrate on at the edge is data collecting and data inference,
 </div>
 </div>
 <div class="paragraph">
-<p>When the pipeline produces new model versions it pushes a copy into an edge-dedicated S3 bucket. An integration system (Camel) on the near edge environment monitors the bucket and when a new model version is available it downloads and hot-deploys it in the model server.</p>
+<p>When the pipeline produces new model versions it pushes a copy into an edge-dedicated S3 bucket. An integration system (Camel) on the near edge environment monitors the bucket and when a new model version is available it pulls it and hot-deploys it in the model server.</p>
+</div>
+<div class="paragraph">
+<p><br></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_edge_ml_inference"><a class="anchor" href="#_edge_ml_inference"></a><a class="link" href="#_edge_ml_inference">3.4. Edge ML Inference</a></h3>
 <div class="paragraph">
-<p>The last stage involves customers and users generating live traffic that interacts with the platform and triggers AI/ML inferences against the Model server.</p>
+<p>The last stage involves customers and users generating live traffic that interacts with the platform and invokes AI/ML inferences against the Model server.</p>
 </div>
 <div class="paragraph">
-<p>Other systems are also at play in orchestrated workflows, executing business use cases and delivering responses to customers.</p>
+<p>Other systems are also at play in orchestrated workflows to deliver end-to-end business use cases and provide responses to customers.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -451,14 +475,39 @@ What we should concentrate on at the edge is data collecting and data inference,
 </div>
 </div>
 <div class="paragraph">
-<p>The demo also provides a monitoring view that provides more in-depth insight into the systems that are involved end-to-end.</p>
+<p>The demo also includes a monitoring view that provides more in-depth insight into the systems involved in each stage.</p>
+</div>
+<div class="paragraph">
+<p><br></p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="more_tech"><a class="anchor" href="#more_tech"></a><a class="link" href="#more_tech">4. Additional notes about Edge Computing</a></h2>
+<h2 id="more_tech"><a class="anchor" href="#more_tech"></a><a class="link" href="#more_tech">4. Additional notes about the Technologies</a></h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_red_hat_service_interconnect"><a class="anchor" href="#_red_hat_service_interconnect"></a><a class="link" href="#_red_hat_service_interconnect">4.1. Red Hat Service Interconnect</a></h3>
+<div class="paragraph">
+<p>The Solution Pattern connects (<em>Near</em>) <em>Edges</em> to a <em>Core Data Centre</em> with Red Hat Service Interconnect.</p>
+</div>
+<div class="paragraph">
+<p>Red Hat Service Interconnect simplifies application connectivity across the hybrid cloud. Unlike traditional means of interconnectivity (such as VPNs combined with complex firewall rules), development teams can easily create interconnections without elevated privileges and deliver protected links without compromising the organization&#8217;s security or data.</p>
+</div>
+<div class="paragraph">
+<p>Applications and services across your environments can communicate with each other using Red Hat Service Interconnect as if they were all running in the same site. This connectivity can be maintained even as applications are migrated between environments.</p>
+</div>
+<div class="paragraph">
+<p>In the <em>Solution Pattern</em>, when <em>Edge</em> systems interact with <em>Core</em> systems, they don&#8217;t need to configure remote endpoints. <em>Service Interconnect</em> bridges the connectivity between the two sites and exposes remote <em>Core</em> services as local ones to <em>Edge</em>, as illustrated in the image below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/30-service-interconnect.png" alt="30 service interconnect">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_edge_computing"><a class="anchor" href="#_edge_computing"></a><a class="link" href="#_edge_computing">4.2. Edge Computing</a></h3>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -474,8 +523,8 @@ Although not explicitly implemented in the Solution Pattern&#8217;s demonstratio
 <div class="paragraph">
 <p><a href="https://www.redhat.com/en/topics/edge-computing/what-is-edge-computing">Edge computing</a> shifts computing power away from core data-centers and distributes it closer to users and data sources—often across a large number of locations, providing faster response times, more reliable services, and a better application experience back to users.</p>
 </div>
-<div class="sect2">
-<h3 id="_what_is_red_hat_device_edge"><a class="anchor" href="#_what_is_red_hat_device_edge"></a><a class="link" href="#_what_is_red_hat_device_edge">4.1. What is Red Hat Device Edge?</a></h3>
+<div class="sect3">
+<h4 id="_what_is_red_hat_device_edge"><a class="anchor" href="#_what_is_red_hat_device_edge"></a><a class="link" href="#_what_is_red_hat_device_edge">4.2.1. What is Red Hat Device Edge?</a></h4>
 <div class="paragraph">
 <p>Red Hat® Device Edge extends operational consistency across edge and hybrid cloud environments, no matter where devices are deployed in the field. Red Hat Device Edge combines enterprise-ready lightweight Kubernetes container orchestrations using MicroShift with Red Hat Enterprise Linux® to support different use cases and workloads on small, resource-constrained devices at the farthest edge.</p>
 </div>
@@ -507,8 +556,9 @@ Learn more about Red Hat Device Edge collaborations with <a href="https://www.re
 <p><br></p>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="_single_node_apache_kafka_broker"><a class="anchor" href="#_single_node_apache_kafka_broker"></a><a class="link" href="#_single_node_apache_kafka_broker">4.2. Single Node Apache Kafka Broker</a></h3>
+<h3 id="_single_node_apache_kafka_broker"><a class="anchor" href="#_single_node_apache_kafka_broker"></a><a class="link" href="#_single_node_apache_kafka_broker">4.3. Single Node Apache Kafka Broker</a></h3>
 <div class="paragraph">
 <p>The Red Hat® AMQ streams component is a massively scalable, distributed, and high-performance data streaming platform based on the Apache Kafka project. It offers a distributed backbone that allows microservices and other applications to share data with high throughput and low latency.</p>
 </div>

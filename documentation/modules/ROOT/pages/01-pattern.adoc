@@ -9,10 +9,10 @@ Some common use cases for edge to cloud data pipelines for artificial intelligen
 
 - Preprocessing and feature extraction of data at the edge for improved performance and lower latency
 - Training and inference of machine learning models on data collected at the edge
-- Processing and analyzing sensor data for predictive analytics
+- Processing and analysing sensor data for predictive analytics
 - Streaming data analysis and real-time decision making
 
-There are many potential business drivers for a company to use edge analytics. Some of the most common reasons include wanting to gain insights into customer behavior, improve operational efficiency, or better understand the performance of specific products or services. Additionally, companies may use edge analytics to detect and prevent fraud or to monitor and manage risk.
+There are many potential business drivers for a company to use edge analytics. Some of the most common reasons include wanting to gain insights into customer behaviour, improve operational efficiency, or better understand the performance of specific products or services. Additionally, companies may use edge analytics to detect and prevent fraud or to monitor and manage risk.
 
 - Reduce time to insights -Improve accuracy of insights
 - Enable real-time decision making 
@@ -20,7 +20,7 @@ There are many potential business drivers for a company to use edge analytics. S
 - Reduce costs associated with data collection and analysis
 
 ****
-AI and machine learning can learn from client behavior and assist improve the customer experience. Gain a competitive advantage by automating a large portion of decision making, increasing revenue and decreasing costs.
+AI and machine learning can learn from client behaviour and assist improve the customer experience. Gain a competitive advantage by automating a large portion of decision making, increasing revenue and decreasing costs.
 ****
 
 {empty} +
@@ -89,12 +89,15 @@ This solution pattern is divided into four major stages that cover various aspec
 
 The first stage begins with the acquisition of images. For example, the check out kiosks can take pictures of every item that the cashier scans. Each image is then delivered over MQTT to a message broker, who passes it on to the processing application, which prepares the data for transmission.
 
-To send data from the edge to the core, depending on the use case, we can use an Apache Kafka topic for example, to allow other streaming applications perform additional parallel processing by benefiting from the platform's streaming and repeatability. In this image-based example however we find preferable to move images via traditional HTTP (still is data streaming).
+To send data from the edge to the core, depending on the use case, we can use an Apache Kafka topic for example, to allow other streaming applications perform additional parallel processing by benefiting from the platform's streaming and repeatability.
 
 [NOTE]
 ==== 
 _Kafka_ is usually not the right technology to store and process large payloads (images, videos, big files, etc.) as a whole. It can however complement other strategies to integrate, coordinate, orchestrate or preprocess the data, for example.
 ====
+
+[NOTE]
+In the image-based example provided in this _Solution Pattern_, we find preferable to move images combining traditional HTTP (using streaming techniques) and S3.
 
 === Data Preparation & Modelling
 

@@ -97,7 +97,7 @@ When the training data upload to S3 completes, a coordination signal is sent via
 
 [NOTE]
 ====
-Edge/Core connectivity is enabled with _Service Interconnect_. More details to follow.
+Edge/Core connectivity is enabled with _Service Interconnect_. More details below.
 ====
 
 {empty} +
@@ -142,6 +142,11 @@ The diagram below illustrates the stage:
 image::10-stage3-app-dev-delivery.png[]
 
 When the pipeline produces new model versions it pushes a copy into an edge-dedicated S3 bucket. An integration system (Camel) on the near edge environment monitors the bucket and when a new model version is available it pulls it and hot-deploys it in the model server.
+
+[NOTE]
+====
+Edge/Core connectivity is enabled with _Service Interconnect_. More details below.
+====
 
 {empty} +
 

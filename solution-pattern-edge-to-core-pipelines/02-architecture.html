@@ -373,7 +373,7 @@ What we should concentrate on at the edge is data collecting and data inference,
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Edge/Core connectivity is enabled with <em>Service Interconnect</em>. More details to follow.</p>
+<p>Edge/Core connectivity is enabled with <em>Service Interconnect</em>. More details below.</p>
 </div>
 </td>
 </tr>
@@ -456,6 +456,20 @@ What we should concentrate on at the edge is data collecting and data inference,
 </div>
 <div class="paragraph">
 <p>When the pipeline produces new model versions it pushes a copy into an edge-dedicated S3 bucket. An integration system (Camel) on the near edge environment monitors the bucket and when a new model version is available it pulls it and hot-deploys it in the model server.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Edge/Core connectivity is enabled with <em>Service Interconnect</em>. More details below.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p><br></p>

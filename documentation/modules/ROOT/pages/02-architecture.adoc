@@ -63,7 +63,7 @@ This solution pattern implements an architecture that allows large organisations
 In the retail space for instance you may find a company that runs multiple stores with different needs. One branch (_Edge1_ for example) runs a big surface area store, with a big product catalogue aimed at the every-day citizen. Another branch (_Edge2_), small-sized store, may be located in a prominent area and offers luxury products to their customers. Both require different product catalogues and run at different speeds.
 
 
-image::07-full-architecture.png[,80%]
+image::07-full-architecture.png[,90%]
 
 Each _Near Edge_ zone in the diagram above represents the branches (stores) and run independent from each other. They all rely on the main data center to produce iterations of the AI/ML models they run for their stores.
 
@@ -74,6 +74,7 @@ The demo provided in this Solution Pattern can be provisioned with multiple edge
 
 In the sections that follow the focus is centred in the interactions between one of near-edge zones (one single branch) and the core data center.
 
+{empty} +
 
 === Data Acquisition
 
@@ -88,13 +89,15 @@ The _Data Acquisition_ stage in the solution pattern is presented in the diagram
 
 image::08-stage1-data-aquisition.png[]
 
-When a new product needs to be added in the catalogue, its imagery is pushed to the system (_Device_ to _Edge1_). The data is kept in local object storage while waiting to complete the collection. When the imagery is collected in full, an integration application (_Camel_) packages all the data and sends it over the wire to a remote S3 bucket located in the main data center (_Central_).
+In a first phase, when a new product needs to be added in the catalogue, its imagery is pushed to the system (_Device_ to _Edge1_). The data is kept in local object storage (S3) while waiting to complete the image collection. 
 
-When the training data upload to S3 completes, a coordination signal is sent via Kafka to announce new training data is available, allowing
+In a second phase, when the imagery is collected in full, an edge integration application (_Camel_) packages all the data and sends it over the wire, to the main data centre (_Central_) where a second integration (_Camel_) unpacks the images and pushes them to a local S3 bucket.
+
+When the training data upload to S3 completes, a coordination signal is sent via _Kafka_ (_Streams_) to announce new training data is available, making other systems to react.
 
 [NOTE]
 ====
-Edge/Core connectivity is enabled with Service Interconnect. More details to follow.
+Edge/Core connectivity is enabled with _Service Interconnect_. More details to follow.
 ====
 
 {empty} +
@@ -108,9 +111,9 @@ The second stage is focussed on two important tasks:
 
 There is considerable manual labour involved into the activities above listed. However, once the team of data scientists produce the desired implementation to generate the AI/ML models, it can be injected as part of an automated pipeline, along with other automated steps.
 
-The same is true for the pre-processing work to refine the raw training data which can be added to the chain of automated steps in the pipeline.
+The same is true for the pre-processing tasks to refine the raw training data. More and more organisations seek to implement autonomous refinement and labelling processes which can be added to the chain of automated steps in the pipeline.
 
-The solution pattern implements this stage as a fully automated workflow, initiated by the Kafka signal sent by the near edge system as illustrated in the diagram below:
+The solution pattern implements this stage as a fully automated workflow, initiated by the _Kafka_ signal (Streams) triggered upon the reception of new training data, as illustrated in the diagram below:
 
 image::09-stage2-data-prep-n-model.png[]
 
@@ -118,9 +121,11 @@ The Kafka (_Streams_) event (signal) announces new training data is available. T
 
 The pipeline obtains all the training data from the S3 bucket and starts training the new AI/ML model. When the training completes, it uploads the new version to a model repository.
 
+{empty} +
+
 === Application Development and Delivery
 
-The third stage is primarily focussed on including all the https://www.redhat.com/en/topics/devops[_DevOps_] and https://www.redhat.com/en/topics/ai/what-is-mlops[_MLOps_] processes necessary to deliver the applications and upgrades the near edge needs to deploy and run.
+The third stage is primarily focussed on including all the https://www.redhat.com/en/topics/devops[_DevOps_] and https://www.redhat.com/en/topics/ai/what-is-mlops[_MLOps_] processes necessary to deliver the applications and upgrades the near edge needs to continuously evolve.
 
 Here, all the best cloud-native practices apply. To know more, follow the link of the resources listed below:
 
@@ -130,26 +135,44 @@ Here, all the best cloud-native practices apply. To know more, follow the link o
 
 Smart applications, powered by the AI/ML models, need to be designed and implemented along with their automated delivery mechanisms.
 
-The demo provided in this _Solution Pattern_ already includes all the applications and integration systems. The focus is set on showcasing the automated pipeline responsible for producing new model versions which are uploaded to the platform's object storage system, keeping duplicates in a model repository.
+The demo provided in this _Solution Pattern_ already includes all the applications and integration systems. The focus is set on showcasing the automated pipeline responsible for producing new model versions, which are uploaded to the platform's object storage system (S3), keeping duplicates in a model repository.
 
 The diagram below illustrates the stage:
 
 image::10-stage3-app-dev-delivery.png[]
 
-When the pipeline produces new model versions it pushes a copy into an edge-dedicated S3 bucket. An integration system (Camel) on the near edge environment monitors the bucket and when a new model version is available it downloads and hot-deploys it in the model server.
+When the pipeline produces new model versions it pushes a copy into an edge-dedicated S3 bucket. An integration system (Camel) on the near edge environment monitors the bucket and when a new model version is available it pulls it and hot-deploys it in the model server.
+
+{empty} +
 
 === Edge ML Inference
 
-The last stage involves customers and users generating live traffic that interacts with the platform and triggers AI/ML inferences against the Model server.
+The last stage involves customers and users generating live traffic that interacts with the platform and invokes AI/ML inferences against the Model server.
 
-Other systems are also at play in orchestrated workflows, executing business use cases and delivering responses to customers.
+Other systems are also at play in orchestrated workflows to deliver end-to-end business use cases and provide responses to customers.
 
 image::11-stage4-ml-inferencing.png[]
 
-The demo also provides a monitoring view that provides more in-depth insight into the systems that are involved end-to-end.
+The demo also includes a monitoring view that provides more in-depth insight into the systems involved in each stage.
+
+{empty} +
 
 [#more_tech]
-== Additional notes about Edge Computing
+== Additional notes about the Technologies
+
+=== Red Hat Service Interconnect
+
+The Solution Pattern connects (_Near_) _Edges_ to a _Core Data Centre_ with Red Hat Service Interconnect.
+
+Red Hat Service Interconnect simplifies application connectivity across the hybrid cloud. Unlike traditional means of interconnectivity (such as VPNs combined with complex firewall rules), development teams can easily create interconnections without elevated privileges and deliver protected links without compromising the organization's security or data.
+
+Applications and services across your environments can communicate with each other using Red Hat Service Interconnect as if they were all running in the same site. This connectivity can be maintained even as applications are migrated between environments.
+
+In the _Solution Pattern_, when _Edge_ systems interact with _Core_ systems, they don't need to configure remote endpoints. _Service Interconnect_ bridges the connectivity between the two sites and exposes remote _Core_ services as local ones to _Edge_, as illustrated in the image below.
+
+image::30-service-interconnect.png[]
+
+=== Edge Computing
 
 [NOTE]
 Although not explicitly implemented in the Solution Pattern's demonstration, the following sections discusses topics very relevant to our _Solution Pattern_.
@@ -157,7 +180,7 @@ Although not explicitly implemented in the Solution Pattern's demonstration, the
 https://www.redhat.com/en/topics/edge-computing/what-is-edge-computing[Edge computing] shifts computing power away from core data-centers and distributes it closer to users and data sources—often across a large number of locations, providing faster response times, more reliable services, and a better application experience back to users.
 
 
-=== What is Red Hat Device Edge?
+==== What is Red Hat Device Edge?
 
 Red Hat® Device Edge extends operational consistency across edge and hybrid cloud environments, no matter where devices are deployed in the field. Red Hat Device Edge combines enterprise-ready lightweight Kubernetes container orchestrations using MicroShift with Red Hat Enterprise Linux® to support different use cases and workloads on small, resource-constrained devices at the farthest edge.
 

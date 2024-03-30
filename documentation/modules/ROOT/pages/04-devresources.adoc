@@ -15,3 +15,4 @@ Here you find a list of developer resources relevant to this Solution Pattern
 * https://www.redhat.com/en/resources/amq-streams-datasheet[{counter:submodule4}. AMQ Streams^]
 * https://developers.redhat.com/products/service-interconnect/overview[{counter:submodule4}. Service Interconnect^]
 * https://developers.redhat.com/products/red-hat-openshift-ai/overview[{counter:submodule4}. Red Hat OpenShift AI^]
+* https://www.redhat.com/en/technologies/cloud-computing/openshift-data-foundation[{counter:submodule4}. Red Hat OpenShift Data Foundation]

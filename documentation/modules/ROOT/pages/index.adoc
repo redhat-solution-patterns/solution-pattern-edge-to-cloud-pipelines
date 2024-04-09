@@ -13,11 +13,13 @@ When analysing user data at the edge, such as that from Internet of Things (IoT)
 This solution pattern provides an architecture solution for scenarios in which edge devices generate image data, which must be collected, processed, and stored at the near edge before being utilized to train AI/ML models at the core data center or cloud.
 
 *Contributors*: _Bruno Meseguer (Red Hat), Huge Guerrero (Red Hat)_
+++++
+ <br>
+++++
+[NOTE]
+====
+Solutions Patterns help you understand the art of the possible with Red Hat's portfolio, and are not intended to be used as-is for production environments. You are welcome use any part of this solution pattern for your own workloads.
+====
 
-{empty} +
 
 include::01-pattern.adoc[]
-
-[#_explore_more_solution_patterns]
-== Explore more solution patterns
-include::https://raw.githubusercontent.com/redhat-solution-patterns/redhat-solution-patterns.github.io/master/documentation/modules/ROOT/pages/solution-pattern-list.adoc[]

@@ -19,10 +19,10 @@ The sections below will help you walk through the essentials of installing and r
   - Create scalable architectures growing numbers of edge environments.
 
 
-[#demo-video]
-=== Watch a demonstration
+// [#demo-video]
+// === Watch a demonstration
 
-Coming soon!
+// Coming soon!
 
 == Install the demonstration
 
@@ -53,10 +53,10 @@ You will require:
 image:29-rhdp-card.jpg[,30%,link=https://demo.redhat.com/catalog?item=babylon-catalog-prod/community-content.com-edge-to-core.prod&utm_source=webapp&utm_medium=share-link, window=_blank]
 +
 [NOTE]
-  The provisioning of the RHDP card above will just prepare for you a base environment (OCP+AI). You still need to deploy the demo by running the installation process described below.
-+
-[NOTE]
-  The provisioning process takes around 80-90 minutes to complete. You need to wait its completion before proceeding to the demo installation.
+=====
+* The provisioning of the RHDP card above will just prepare for you a base environment (OCP+AI). You still need to deploy the demo by running the installation process described below. +
+* The provisioning process takes around 80-90 minutes to complete. You need to wait its completion before proceeding to the demo installation.
+=====
 --
 +
 {empty} +

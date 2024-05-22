@@ -227,13 +227,26 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_install_the_demonstration"><a class="anchor" href="#_install_the_demonstration"></a><a class="link" href="#_install_the_demonstration">2. Install the demonstration</a></h2>
+<h2 id="_recorded_video"><a class="anchor" href="#_recorded_video"></a><a class="link" href="#_recorded_video">2. Recorded Video</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Watch the recorded video of the solution pattern, and find below instructions on how to install the demo and run it.</p>
+</div>
+<div class="videoblock">
+<div class="content">
+<iframe width="800" height="480" src="https://www.youtube.com/embed/D7CsGIaKvhc?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_install_the_demonstration"><a class="anchor" href="#_install_the_demonstration"></a><a class="link" href="#_install_the_demonstration">3. Install the demonstration</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This Camel Quarkus component combines MQTT and HTTP clients (such as IoT devices, cellphones, and third-party clients) with an AI/ML engine to obtain image detection results.</p>
 </div>
 <div class="sect2">
-<h3 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a><a class="link" href="#_prerequisites">2.1. Prerequisites</a></h3>
+<h3 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a><a class="link" href="#_prerequisites">3.1. Prerequisites</a></h3>
 <div class="paragraph">
 <p>You will require:</p>
 </div>
@@ -276,7 +289,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_provision_an_openshift_environment"><a class="anchor" href="#_provision_an_openshift_environment"></a><a class="link" href="#_provision_an_openshift_environment">2.2. Provision an OpenShift environment</a></h3>
+<h3 id="_provision_an_openshift_environment"><a class="anchor" href="#_provision_an_openshift_environment"></a><a class="link" href="#_provision_an_openshift_environment">3.2. Provision an OpenShift environment</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -342,7 +355,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_install_the_demo_using_docker_or_podman"><a class="anchor" href="#_install_the_demo_using_docker_or_podman"></a><a class="link" href="#_install_the_demo_using_docker_or_podman">2.3. Install the demo using <em>Docker</em> or <em>Podman</em></a></h3>
+<h3 id="_install_the_demo_using_docker_or_podman"><a class="anchor" href="#_install_the_demo_using_docker_or_podman"></a><a class="link" href="#_install_the_demo_using_docker_or_podman">3.3. Install the demo using <em>Docker</em> or <em>Podman</em></a></h3>
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -440,13 +453,13 @@ quay.io/agnosticd/ee-multicloud:v0.0.11  \
 </div>
 </div>
 <div class="sect1">
-<h2 id="_walkthrough_guide"><a class="anchor" href="#_walkthrough_guide"></a><a class="link" href="#_walkthrough_guide">3. Walkthrough guide</a></h2>
+<h2 id="_walkthrough_guide"><a class="anchor" href="#_walkthrough_guide"></a><a class="link" href="#_walkthrough_guide">4. Walkthrough guide</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The guide below will help you to familiarise with the main components in the demo, and how to operate it to trigger the actions&#8230;&#8203;</p>
 </div>
 <div class="sect2">
-<h3 id="_quick_topology_overview"><a class="anchor" href="#_quick_topology_overview"></a><a class="link" href="#_quick_topology_overview">3.1. Quick Topology Overview</a></h3>
+<h3 id="_quick_topology_overview"><a class="anchor" href="#_quick_topology_overview"></a><a class="link" href="#_quick_topology_overview">4.1. Quick Topology Overview</a></h3>
 <div class="paragraph">
 <p>Open your <em>OpenShift</em> console with your given admin credentials and open the <em>Topology View</em> to inspect the main systems deployed in the <em>Edge1</em> namespace.</p>
 </div>
@@ -540,7 +553,7 @@ You&#8217;ll find in the <em>Edge</em> project other systems also deployed, but 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_play_with_the_smart_application"><a class="anchor" href="#_play_with_the_smart_application"></a><a class="link" href="#_play_with_the_smart_application">3.2. Play with the Smart Application</a></h3>
+<h3 id="_play_with_the_smart_application"><a class="anchor" href="#_play_with_the_smart_application"></a><a class="link" href="#_play_with_the_smart_application">4.2. Play with the Smart Application</a></h3>
 <div class="paragraph">
 <p>Let&#8217;s interact with the <em>Edge</em> environment from the Smart Application to see the system in action.</p>
 </div>
@@ -739,7 +752,7 @@ In the demo, the App uses an <em>MQTT</em> library that uses <em>Websockets</em>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_train_a_new_product"><a class="anchor" href="#_train_a_new_product"></a><a class="link" href="#_train_a_new_product">3.3. Train a new product</a></h3>
+<h3 id="_train_a_new_product"><a class="anchor" href="#_train_a_new_product"></a><a class="link" href="#_train_a_new_product">4.3. Train a new product</a></h3>
 <div class="paragraph">
 <p>The <em>Edge</em> environment has been pre-loaded with training data. This will make it easy for you to produce a second version of the model (<strong>v2</strong>) which you can try out.</p>
 </div>
@@ -853,7 +866,7 @@ A quick reminder: <strong>v1</strong> does not know about this type of tea, it o
 <p><br></p>
 </div>
 <div class="sect3">
-<h4 id="_review_the_data_acquisition_phase"><a class="anchor" href="#_review_the_data_acquisition_phase"></a><a class="link" href="#_review_the_data_acquisition_phase">3.3.1. Review the <em>Data Acquisition</em> phase</a></h4>
+<h4 id="_review_the_data_acquisition_phase"><a class="anchor" href="#_review_the_data_acquisition_phase"></a><a class="link" href="#_review_the_data_acquisition_phase">4.3.1. Review the <em>Data Acquisition</em> phase</a></h4>
 <div class="paragraph">
 <p>Prior to initiating the training process, and now that you&#8217;re familiar with the monitoring view, let&#8217;s rewind a little and remind ourselves what processes are involved in the <em>Data Acquisition</em> phase.</p>
 </div>
@@ -885,7 +898,7 @@ We are bypassing the ingestion (<em>Data Acquisition</em>) phase to speed up the
 </div>
 </div>
 <div class="sect3">
-<h4 id="_enter_the_training_phase"><a class="anchor" href="#_enter_the_training_phase"></a><a class="link" href="#_enter_the_training_phase">3.3.2. Enter the <em>Training</em> phase</a></h4>
+<h4 id="_enter_the_training_phase"><a class="anchor" href="#_enter_the_training_phase"></a><a class="link" href="#_enter_the_training_phase">4.3.2. Enter the <em>Training</em> phase</a></h4>
 <div class="paragraph">
 <p>To initiate the training process, click the button on the upper-left side of the window:</p>
 </div>
@@ -963,7 +976,7 @@ The entire execution of the pipeline may take between 2-5 minutes depending on t
 </div>
 </div>
 <div class="sect3">
-<h4 id="_the_delivery_phase"><a class="anchor" href="#_the_delivery_phase"></a><a class="link" href="#_the_delivery_phase">3.3.3. The <em>Delivery</em> phase</a></h4>
+<h4 id="_the_delivery_phase"><a class="anchor" href="#_the_delivery_phase"></a><a class="link" href="#_the_delivery_phase">4.3.3. The <em>Delivery</em> phase</a></h4>
 <div class="paragraph">
 <p>The end-to-end process is not done yet. It then enters into the <em>Delivery</em> phase. The new model has now been pushed to an S3 bucket <code>edge1-ready</code> that is being monitored by an integration point on the Edge (<em>Manager</em>)</p>
 </div>
@@ -995,7 +1008,7 @@ The entire execution of the pipeline may take between 2-5 minutes depending on t
 </div>
 </div>
 <div class="sect3">
-<h4 id="_the_inferencing_phase"><a class="anchor" href="#_the_inferencing_phase"></a><a class="link" href="#_the_inferencing_phase">3.3.4. The <em>Inferencing</em> phase</a></h4>
+<h4 id="_the_inferencing_phase"><a class="anchor" href="#_the_inferencing_phase"></a><a class="link" href="#_the_inferencing_phase">4.3.4. The <em>Inferencing</em> phase</a></h4>
 <div class="paragraph">
 <p>The platform keeps running its live services at all times. Customers (shoppers) and workers interact with the platform while, in the background, new models are continuously being trained, delivered and deployed.</p>
 </div>
@@ -1113,12 +1126,12 @@ train-model-run-ljrdk   True        Succeeded   92m         89m</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_create_your_own_product"><a class="anchor" href="#_create_your_own_product"></a><a class="link" href="#_create_your_own_product">3.4. Create your own product</a></h3>
+<h3 id="_create_your_own_product"><a class="anchor" href="#_create_your_own_product"></a><a class="link" href="#_create_your_own_product">4.4. Create your own product</a></h3>
 <div class="paragraph">
 <p>Up until now, you&#8217;ve played with pre-configured systems, and pre-loaded data, to train <strong>v2</strong>. It is time to go one level up. You will configure the system to create a new entry in the product catalogue, generate training data for the new product, train the new model <strong>v3</strong>, and run live inferences against it.</p>
 </div>
 <div class="sect3">
-<h4 id="_configure_the_price_engine"><a class="anchor" href="#_configure_the_price_engine"></a><a class="link" href="#_configure_the_price_engine">3.4.1. Configure the <em>Price Engine</em></a></h4>
+<h4 id="_configure_the_price_engine"><a class="anchor" href="#_configure_the_price_engine"></a><a class="link" href="#_configure_the_price_engine">4.4.1. Configure the <em>Price Engine</em></a></h4>
 <div class="paragraph">
 <p>First things first, head to your OpenShift console and find the following <em>ConfigMap</em>:</p>
 </div>
@@ -1232,7 +1245,7 @@ Make sure your JSON document is valid after finishing editing. Make sure commas 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_configure_the_shopper_application"><a class="anchor" href="#_configure_the_shopper_application"></a><a class="link" href="#_configure_the_shopper_application">3.4.2. Configure the <em>Shopper</em> application</a></h4>
+<h4 id="_configure_the_shopper_application"><a class="anchor" href="#_configure_the_shopper_application"></a><a class="link" href="#_configure_the_shopper_application">4.4.2. Configure the <em>Shopper</em> application</a></h4>
 <div class="paragraph">
 <p>You need to perform a similar operation. From your OpenShift console, find the following <em>ConfigMap</em>:</p>
 </div>
@@ -1346,7 +1359,7 @@ This information configures display options in the Smart App. Notice you don&#82
 </div>
 </div>
 <div class="sect3">
-<h4 id="_generate_training_data"><a class="anchor" href="#_generate_training_data"></a><a class="link" href="#_generate_training_data">3.4.3. Generate Training Data</a></h4>
+<h4 id="_generate_training_data"><a class="anchor" href="#_generate_training_data"></a><a class="link" href="#_generate_training_data">4.4.3. Generate Training Data</a></h4>
 <div class="paragraph">
 <p>In this section you will use the web based Smart App to capture images and push them to the platform. The easiest way to capture images is to use your smart phone.</p>
 </div>
@@ -1423,7 +1436,7 @@ Use the same S3 browser to visualise the data.
 </div>
 </div>
 <div class="sect3">
-<h4 id="_kick_off_the_training_process"><a class="anchor" href="#_kick_off_the_training_process"></a><a class="link" href="#_kick_off_the_training_process">3.4.4. Kick-off the training process</a></h4>
+<h4 id="_kick_off_the_training_process"><a class="anchor" href="#_kick_off_the_training_process"></a><a class="link" href="#_kick_off_the_training_process">4.4.4. Kick-off the training process</a></h4>
 <div class="paragraph">
 <p>As you did earlier, from the administrative page, trigger the training process using the UI button.</p>
 </div>

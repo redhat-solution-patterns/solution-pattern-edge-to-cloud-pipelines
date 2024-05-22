@@ -19,6 +19,11 @@ The sections below will help you walk through the essentials of installing and r
   - Create scalable architectures growing numbers of edge environments.
 
 
+== Recorded Video
+Watch the recorded video of the solution pattern, and find below instructions on how to install the demo and run it.
+
+video::D7CsGIaKvhc[youtube, width=800, height=480] 
+
 // [#demo-video]
 // === Watch a demonstration
 

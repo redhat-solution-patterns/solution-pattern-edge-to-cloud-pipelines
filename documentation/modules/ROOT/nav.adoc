@@ -19,6 +19,7 @@
 
 * xref:03-demo.adoc[{counter:module}. See the Solution in Action]
 ** xref:03-demo.adoc#_demonstration[{module}.{counter:submodule3} Demonstration]
+** xref:03-demo.adoc#_recorded_video[{module}.{counter:submodule3} Recorded Video]
 ** xref:03-demo.adoc#_install_the_demonstration[{module}.{counter:submodule3}. Install the demonstration]
 ** xref:03-demo.adoc#_walkthrough_guide[{module}.{counter:submodule3}. Walkthrough guide]
 

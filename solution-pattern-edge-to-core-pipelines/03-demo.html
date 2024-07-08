@@ -411,7 +411,34 @@
 </div>
 </li>
 <li>
-<p>Run the Playbook</p>
+<p>Run the Playbook with Docker/Podman</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If your system is SELinux enabled, you&#8217;ll need to label the project directory to allow docker/podman to access it. Run the command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo chcon -Rt svirt_sandbox_file_t $PWD</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The error you may get if SELinux blocks the process would be similar to:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>ERROR! the playbook: ./ansible/install.yaml could not be found</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="ulist">
 <ul>
 <li>

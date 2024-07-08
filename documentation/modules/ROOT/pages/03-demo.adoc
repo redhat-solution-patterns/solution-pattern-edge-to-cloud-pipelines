@@ -120,6 +120,8 @@ Replace the `--server` url with your own cluster API endpoint.
 
 1. Run the Playbook with Docker/Podman
 +
+* First, read the note below
++
 [IMPORTANT]
 --
 If your system is SELinux enabled, you'll need to label the project directory to allow docker/podman to access it. Run the command:
@@ -137,7 +139,7 @@ ERROR! the playbook: ./ansible/install.yaml could not be found
 ----
 --
 +
-* With Docker:
+* Then, to run with Docker:
 +
 [.console-input]
 [source,bash]
@@ -149,7 +151,7 @@ quay.io/agnosticd/ee-multicloud:v0.0.11  \
 ./ansible/install.yaml
 ----
 
-* With Podman:
+* Or, to run With Podman:
 +
 [.console-input]
 [source,bash]
